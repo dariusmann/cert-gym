@@ -37,7 +37,23 @@ const submit = () => {
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <div class="text-center">
+            <h1 class="text-xl">Sign in</h1>
+        </div>
+
+        <div class="flex justify-center mt-6">
+            <a :href="route('auth.google.redirect')">
+                <button type="button" class="login-with-google-btn" >
+                    with Google
+                </button>
+            </a>
+        </div>
+
+        <div class="text-center mt-6">
+            OR
+        </div>
+
+        <form @submit.prevent="submit" class="mt-2">
             <div>
                 <InputLabel for="email" value="Email" />
 
