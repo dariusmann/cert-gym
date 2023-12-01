@@ -20,10 +20,10 @@ class SparkServiceProvider extends ServiceProvider
             return $request->user();
         });
 
-//        Spark::billable(User::class)->authorize(function (User $billable, Request $request) {
-//            return $request->user() &&
-//                   $request->user()->id == $billable->id;
-//        });
+        Spark::billable(User::class)->authorize(function (User $billable, Request $request) {
+            return $request->user() &&
+                   $request->user()->id == $billable->id;
+        });
 //
 //        Spark::billable(User::class)->checkPlanEligibility(function (User $billable, Plan $plan) {
 //            // if ($billable->projects > 5 && $plan->name == 'Basic') {
