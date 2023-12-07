@@ -68,6 +68,9 @@ const showingNavigationDropdown = ref(false);
                                         <DropdownLink :href="route('logout')" method="post" as="button">
                                             Log Out
                                         </DropdownLink>
+                                        <DropdownLink :href="route('spark.portal')">
+                                            Billing
+                                        </DropdownLink>
                                     </template>
                                 </Dropdown>
                             </div>
