@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { trans } from 'laravel-vue-i18n';
 
 const form = useForm({
     name: '',
@@ -25,6 +26,25 @@ const submit = () => {
         <Head title="Register" />
 
         <form @submit.prevent="submit">
+
+            <div class="text-center">
+                <h1 class="text-xl">We welcome you to {{ trans('app.name') }}.</h1>
+            </div>
+
+            <div class="flex justify-center mt-6">
+                <a :href="route('auth.google.redirect')">
+                    <button type="button" class="login-with-google-btn" >
+                        Register with Google
+                    </button>
+                </a>
+            </div>
+
+            <div class="flex justify-center items-center mt-4">
+                <div class="h-px bg-black w-1/4"></div>
+                <div class="text-lg text-center ml-2 mr-2">OR</div>
+                <div class="h-px bg-black w-1/4"></div>
+            </div>
+
             <div>
                 <InputLabel for="name" value="Name" />
 

@@ -25,8 +25,7 @@ class GoogleAuthController extends Controller
         $user = User::updateOrCreate([
             'google_id' => $googleUser->id,
         ], [
-            'first_name' => $googleUser->user['given_name'],
-            'last_name' => $googleUser->user['family_name'],
+            'name' => $googleUser->user['given_name'] . ' ' . $googleUser->user['family_name'],
             'email' => $googleUser->email,
             'google_id' => $googleUser->id,
             'google_token' => $googleUser->token,

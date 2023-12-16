@@ -6,6 +6,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { trans } from 'laravel-vue-i18n';
 
 defineProps({
     canResetPassword: {
@@ -38,19 +39,25 @@ const submit = () => {
         </div>
 
         <div class="text-center">
-            <h1 class="text-xl">Sign in</h1>
+            <h1 class="text-xl">Log in to {{ trans('app.name') }}</h1>
+            <p class="text-xs mt-1">
+                New to {{ trans('app.name') }}? <Link :href="route('register')" class="underline">Sign up now</Link>
+            </p>
         </div>
+
 
         <div class="flex justify-center mt-6">
             <a :href="route('auth.google.redirect')">
                 <button type="button" class="login-with-google-btn" >
-                    with Google
+                    Log in with Google
                 </button>
             </a>
         </div>
 
-        <div class="text-center mt-6">
-            OR
+        <div class="flex justify-center items-center mt-4">
+            <div class="h-px bg-black w-1/4"></div>
+            <div class="text-lg text-center ml-2 mr-2">OR</div>
+            <div class="h-px bg-black w-1/4"></div>
         </div>
 
         <form @submit.prevent="submit" class="mt-2">

@@ -6,3 +6,17 @@ Follow this blog: https://blog.stackademic.com/debugging-laravel-sail-with-xdebu
 ### Frontend development 
 
 sail npm run dev
+
+
+### Laravel Forge
+
+#### App key has to be generated
+execute command in forge on prod
+
+`php artisan key:generate`
+
+#### How to configure compose auth.json (e.g. spark)
+https://forge.laravel.com/docs/servers/packages.html
+
+### Configuring a domain
+https://forge.laravel.com/docs/sites/the-basics.html#default-sites
