@@ -22,10 +22,20 @@ const subscription = computed(() => page.props.subscription)
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div v-if="!subscription.isValid">
-                            You must <a class="text-blue" href="/billing">select a subscription plan</a> before continuing.
+                            <p>
+                                You must <a class="text-orange-600" href="/billing">select a subscription plan</a> before continuing.
+                            </p>
                         </div>
                         <div v-else>
-                            This was a test campaign. Please cancel you subscription in the <a class="text-orange-600" href="/billing">billing portal</a>.
+                            <p>
+                                <span class="text-red-600">ATTENTION:</span> This was a test campaign. Please cancel you subscription in the <a class="text-orange-600" href="/billing">billing portal</a>.
+                            </p>
+                            <p>
+                                If you don't do that, you will be charged. But don't worry, if this happens, I will contact you by email and refund your money.
+                            </p>
+                            <p>
+                                My contact: darius.mann@cert-gym.com
+                            </p>
                         </div>
                     </div>
                 </div>
