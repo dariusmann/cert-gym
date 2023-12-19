@@ -142,7 +142,7 @@ return [
                     'trial_days' => 5,
                     'features' => [
                         'Over 1000 Question and Answers',
-                        'Extensiv explanation around Questions',
+                        'Extensive explanation around Questions',
                         'Tiered Difficulty Progression',
                         'Progressive Learning Engine',
                         'Intelligent Question Delivery',

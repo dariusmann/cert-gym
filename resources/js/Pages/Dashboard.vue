@@ -28,7 +28,7 @@ const subscription = computed(() => page.props.subscription)
                         </div>
                         <div v-else>
                             <p>
-                                <span class="text-red-600">ATTENTION:</span> This was a test campaign. Please cancel you subscription in the <a class="text-orange-600" href="/billing">billing portal</a>.
+                                <span class="text-red-600">ATTENTION:</span> This was a test campaign. Please cancel you subscription in the <a class="text-p-primary" href="/billing">billing portal</a>.
                             </p>
                             <p>
                                 If you don't do that, you will be charged. But don't worry, if this happens, I will contact you by email and refund your money.

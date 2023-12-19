@@ -29,6 +29,7 @@ const submit = () => {
 
             <div class="text-center">
                 <h1 class="text-xl">We welcome you to {{ trans('app.name') }}.</h1>
+                <p>Start your 5-day free trial here!</p>
             </div>
 
             <div class="flex justify-center mt-6">
