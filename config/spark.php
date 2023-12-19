@@ -141,8 +141,10 @@ return [
                     'monthly_id' => 'price_1OOOtwLqwo5ZZnZEu71F5zWD',
                     'trial_days' => 5,
                     'features' => [
+                        '3-month access',
                         'Over 1000 Question and Answers',
                         'Extensive explanation around Questions',
+                        'Performance Tracking Dashboard',
                         'Tiered Difficulty Progression',
                         'Progressive Learning Engine',
                         'Intelligent Question Delivery',
