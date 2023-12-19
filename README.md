@@ -20,3 +20,8 @@ https://forge.laravel.com/docs/servers/packages.html
 
 ### Configuring a domain
 https://forge.laravel.com/docs/sites/the-basics.html#default-sites
+
+
+### Sail share
+
+`sail share --subdomain=cert-gym`

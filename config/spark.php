@@ -43,10 +43,10 @@ return [
     |
     */
 
-    // 'brand' =>  [
-    //     'logo' => realpath(__DIR__.'/../public/svg/billing-logo.svg'),
-    //     'color' => 'bg-gray-800',
-    // ],
+     'brand' =>  [
+         //'logo' => realpath(__DIR__.'/../public/svg/billing-logo.svg'),
+         'color' => '#eb826b',
+     ],
 
     /*
     |--------------------------------------------------------------------------
@@ -105,11 +105,11 @@ return [
     */
 
     'receipt_data' => [
-        'vendor' => 'Your Product',
-        'product' => 'Your Product',
-        'street' => '111 Example St.',
-        'location' => 'Los Angeles, CA',
-        'phone' => '555-555-5555',
+        'vendor' => 'Darius Mann',
+        'product' => 'Cert Gym',
+        'street' => 'Grzybowska 3/48',
+        'location' => 'Warsaw, Poland',
+        'phone' => '+48 510 220 899',
     ],
 
     /*
@@ -132,24 +132,24 @@ return [
         'user' => [
             'model' => User::class,
 
-            'trial_days' => 5,
-
             'default_interval' => 'monthly',
 
             'plans' => [
                 [
-                    'name' => 'Standard',
-                    'short_description' => 'This is a short, human friendly description of the plan.',
-                    'monthly_id' => 'price_1OJi3jLqwo5ZZnZEzor5XGnn',
-                    'yearly_id' => 'price_1OJi3jLqwo5ZZnZEslNv3XRS',
+                    'name' => 'Cert Gym Full Access',
+                    'short_description' => 'Get full access to the #1 platform for AWS cloud practitioner practice exams - cancel any time.',
+                    'monthly_id' => 'price_1OOOtwLqwo5ZZnZEu71F5zWD',
+                    'trial_days' => 5,
                     'features' => [
-                        'Feature 1',
-                        'Feature 2',
-                        'Feature 3',
+                        'Over 1000 Question and Answers',
+                        'Extensiv explanation around Questions',
+                        'Tiered Difficulty Progression',
+                        'Progressive Learning Engine',
+                        'Intelligent Question Delivery',
+                        'Readiness Score'
                     ],
                 ],
             ],
-
         ],
     ],
 ];
