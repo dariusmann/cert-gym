@@ -137,11 +137,10 @@ return [
             'plans' => [
                 [
                     'name' => 'Cert Gym Full Access',
-                    'short_description' => 'Get full access to the #1 platform for AWS cloud practitioner practice exams - cancel any time.',
+                    'short_description' => 'Fast-Track Your AWS Cloud Practitioner Exam Prep by 3x.',
                     'monthly_id' => 'price_1OOOtwLqwo5ZZnZEu71F5zWD',
                     'trial_days' => 5,
                     'features' => [
-                        '3-month access',
                         'Over 1000 Question and Answers',
                         'Extensive explanation around Questions',
                         'Performance Tracking Dashboard',

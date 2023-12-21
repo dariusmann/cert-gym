@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import logoSrc from '../../images/checkout/logo.png';
+import logoSrc from '../../images/checkout/logo-text-dark.png';
 export default {
     data: function (){
         return {

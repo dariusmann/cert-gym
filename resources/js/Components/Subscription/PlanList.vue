@@ -4,13 +4,9 @@
             <plan :plan="plan" :seat-name="seatName" />
 
             <div class="px-6 py-4 bg-gray-100 bg-opacity-50 border-t border-gray-100 text-right">
-                <button class="bg-p-primary" @click="$emit('plan-selected', plan)" v-if="! currentPlan || (currentPlan && currentPlan.id !== plan.id)">
+                <PrimaryButton class="ms-4" @click="$emit('plan-selected', plan)">
                     Subscribe
-                </button>
-
-                <div class="flex justify-end items-center" v-if="currentPlan && currentPlan.id === plan.id">
-                    <div class="ml-1 text-sm text-gray-400">{{ 'Currently Subscribed' }}</div>
-                </div>
+                </PrimaryButton>
             </div>
         </div>
     </div>
@@ -19,10 +15,11 @@
 <script>
 
 import Plan from "@/Components/Subscription/Plan.vue";
+import PrimaryButton from "@/Components/PrimaryButton.vue";
 
 export default {
-    components: {Plan},
+    components: {PrimaryButton, Plan},
 
-    props: ['plans', 'interval', 'currentPlan', 'seatName'],
+    props: ['plans', 'seatName'],
 }
 </script>

@@ -2,9 +2,8 @@
     <div class="h-screen flex items-center justify-center bg-gray-100">
 
         <div class="w-1/3">
-            <div class="flex items-center justify-center flex-col">
-                <img class="h-16" :src="logoSrc" alt="Cert Gym Logo">
-                <h1 class="text-2xl">Cert Gym</h1>
+            <div class="flex justify-center">
+                <ApplicationLogo class="h-20"/>
             </div>
             <transition-group name="component-fade" mode="out-in">
                 <!-- Monthly Plans -->
@@ -35,9 +34,10 @@
 import PlanList from "@/Components/Subscription/PlanList.vue";
 import logoSrc from '../../../images/checkout/logo.png';
 import paymentBadgeSrc from '../../../images/checkout/stripe-badge-white.png';
+import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 
 export default {
-    components: {PlanList},
+    components: {ApplicationLogo, PlanList},
     props: [
         'balance',
         'invoices',

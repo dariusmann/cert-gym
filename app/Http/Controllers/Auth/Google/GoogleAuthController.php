@@ -34,6 +34,12 @@ class GoogleAuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/dashboard');
+        $user->subscribed();
+
+        if (!$user->subscribed()) {
+            return redirect()->route('checkout.plan');
+        }
+
+        return redirect()->route('dashboard');
     }
 }
