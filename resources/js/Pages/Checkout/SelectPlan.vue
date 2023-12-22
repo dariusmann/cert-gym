@@ -1,11 +1,19 @@
 <template>
-    <div class="h-screen flex items-center justify-center bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
 
-        <div class="w-1/3">
+        <div class="w-fit">
             <div class="flex justify-center">
                 <ApplicationLogo class="h-20"/>
             </div>
-            <transition-group name="component-fade" mode="out-in">
+            <div class="text-center mt-5">
+                <h1 class="text-2xl">
+                    Select your plan
+                </h1>
+                <p>
+                    After the trial period, the corresponding amount will be charged. You may cancel at any time before the trial period ends.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <!-- Monthly Plans -->
                 <plan-list class="mt-6" key="subscribe-monthly-plans"
                            :plans="monthlyPlans"
@@ -13,7 +21,7 @@
                            :seat-name="seatName"
                            :current-plan="plan"
                            @plan-selected="startSubscribingToPlan($event)"
-                           v-if="monthlyPlans.length > 0 && showingPlansOfInterval === 'monthly'"/>
+                           v-if="monthlyPlans.length > 0"/>
 
                 <!-- Yearly Plans -->
                 <plan-list class="mt-6" key="subscribe-yearly-plans"
@@ -22,8 +30,8 @@
                            :seat-name="seatName"
                            :current-plan="plan"
                            @plan-selected="startSubscribingToPlan($event)"
-                           v-if="yearlyPlans.length > 0 && showingPlansOfInterval === 'yearly'"/>
-            </transition-group>
+                           v-if="yearlyPlans.length > 0"/>
+            </div>
             <div class="mt-5 flex justify-center">
                 <img class="h-28" :src="paymentBadgeSrc" alt="Stripe payment badget">
             </div>
@@ -62,8 +70,6 @@ export default {
             processing: false,
             logoSrc: logoSrc,
             paymentBadgeSrc: paymentBadgeSrc,
-
-            showingPlansOfInterval: 'monthly',
 
             subscribing: null,
             addingVatNumber: false,

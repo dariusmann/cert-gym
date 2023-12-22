@@ -21,10 +21,6 @@
                 <span class="text-gray-400" v-if="plan.trial_days"> ({{ trans(':days day trial', {days: plan.trial_days })}})</span>
             </div>
 
-            <div class="mt-3 max-w-xl text-sm text-gray-600">
-                {{ trans(plan.short_description) }}
-            </div>
-
             <div class="mt-3 space-y-2">
                 <div class="flex items-center" v-for="feature in plan.features">
                     <svg viewBox="0 0 20 20" fill="currentColor" class="text-green-400 opacity-75 inline-block flex-shrink-0 w-5 h-5">
