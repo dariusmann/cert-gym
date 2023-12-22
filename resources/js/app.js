@@ -1,10 +1,11 @@
 import './bootstrap';
 
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/vue3';
+import { createInertiaApp, router} from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
-import { i18nVue } from 'laravel-vue-i18n'
+import { i18nVue } from 'laravel-vue-i18n';
+import VueGtag from "vue-gtag";
 
 import.meta.glob([
     '../images/**',
@@ -25,9 +26,18 @@ createInertiaApp({
                     return await langs[`../../lang/${lang}.json`]();
                 }
             })
+            .use(VueGtag, {
+                config: { id: "G-FGWCHXHPB1" }
+            })
             .mount(el);
     },
     progress: {
         color: '#4B5563',
     },
+});
+
+router.on('navigate', (event) => {
+    gtag('event', 'page_view', {
+        'page_location': event.detail.page.url
+    });
 });
