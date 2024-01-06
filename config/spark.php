@@ -18,6 +18,13 @@ return [
 
     'path' => 'billing',
 
+
+    /*
+     * Redirect after checkout
+     */
+    'dashboard_url' => '/dashboard',
+
+
     /*
     |--------------------------------------------------------------------------
     | Spark Middleware
@@ -126,7 +133,6 @@ return [
     | as well as a "bullet point" listing of its distinctive features.
     |
     */
-
     'billables' => [
 
         'user' => [
