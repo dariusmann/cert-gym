@@ -144,8 +144,8 @@ return [
                 [
                     'name' => 'Full Access',
                     'short_description' => 'Fast-Track Your AWS Cloud Practitioner Exam Prep by 3x.',
-                    'monthly_id' => 'price_1OOOtwLqwo5ZZnZEu71F5zWD',
-                    'yearly_id' => 'price_1OQ5wmLqwo5ZZnZEkBl06l8p',
+                    'monthly_id' => env('STRIPE_QUARTER_PLAN_ID'),
+                    'yearly_id' => env('STRIPE_YEARLY_PLAN_ID'),
                     'trial_days' => 5,
                     'features' => [
                         'Over 1000 Question and Answers',
