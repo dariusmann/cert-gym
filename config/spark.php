@@ -146,7 +146,7 @@ return [
                     'short_description' => 'Fast-Track Your AWS Cloud Practitioner Exam Prep by 3x.',
                     'monthly_id' => env('STRIPE_QUARTER_PLAN_ID'),
                     'yearly_id' => env('STRIPE_YEARLY_PLAN_ID'),
-                    'trial_days' => 5,
+                    'trial_days' => 7,
                     'features' => [
                         'Over 1000 Question and Answers',
                         'Extensive explanation around Questions',
