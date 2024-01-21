@@ -154,6 +154,7 @@ return [
                         'Tiered Difficulty Progression',
                         'Progressive Learning Engine',
                         'Intelligent Question Delivery',
+                        'Exam Simulation',
                         'Readiness Score'
                     ],
                 ]
