@@ -143,7 +143,7 @@ return [
             'plans' => [
                 [
                     'name' => 'Full Access',
-                    'short_description' => 'Fast-Track Your AWS Cloud Practitioner Exam Prep by 3x.',
+                    'short_description' => '',
                     'monthly_id' => env('STRIPE_QUARTER_PLAN_ID'),
                     'yearly_id' => env('STRIPE_YEARLY_PLAN_ID'),
                     'trial_days' => 7,
