@@ -40,4 +40,9 @@ router.on('navigate', (event) => {
     gtag('event', 'page_view', {
         'page_location': event.detail.page.url
     });
+    try {
+        rdt('track', 'ViewContent');
+    }catch (e) {
+        console.log(e)
+    }
 });
