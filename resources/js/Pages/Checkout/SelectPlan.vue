@@ -6,12 +6,25 @@
                 <ApplicationLogo class="h-20"/>
             </div>
             <div class="text-center mt-5">
-                <h1 class="text-2xl">
-                    Select your plan
+                <h1  class="text-2xl">
+                    1# Platform for  <br>
+                    <span class="underline italic">
+                        Registered Behavior Technician Practice Exams
+                    </span>
                 </h1>
-                <p>
-                    After the trial period, the corresponding amount will be charged. You may cancel at any time before the trial period ends.
-                </p>
+                <div class="text-xl font-bold mt-5">
+                    Try it out for free!
+                </div>
+
+                <div>
+                    <p>
+                        After the trial period, the corresponding amount will be charged.
+                    </p>
+                    <p>
+                        You may <span class="font-bold">cancel at any time</span> before the trial period ends.
+                    </p>
+                </div>
+
             </div>
             <div class="flex justify-center">
                 <!-- Monthly Plans -->
@@ -127,7 +140,7 @@ export default {
     },
     methods: {
         startSubscribingToPlan(plan) {
-            if (! this.$page.props.collectsVat && ! this.$page.props.collectsBillingAddress) {
+            if (!this.$page.props.collectsVat && !this.$page.props.collectsBillingAddress) {
                 this.request('POST', '/spark/subscription', {
                     plan: plan.id,
                     direct: true,
