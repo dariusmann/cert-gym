@@ -13,7 +13,7 @@
                     After the trial period, the corresponding amount will be charged. You may cancel at any time before the trial period ends.
                 </p>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="flex justify-center">
                 <!-- Monthly Plans -->
                 <plan-list class="mt-6" key="subscribe-monthly-plans"
                            :plans="monthlyPlans"
