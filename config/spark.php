@@ -138,13 +138,13 @@ return [
         'user' => [
             'model' => User::class,
 
-            'default_interval' => 'monthly',
+            'default_interval' => 'yearly',
 
             'plans' => [
                 [
                     'name' => 'Full Access',
                     'short_description' => '',
-                    'monthly_id' => env('STRIPE_QUARTER_PLAN_ID'),
+                    // 'monthly_id' => env('STRIPE_QUARTER_PLAN_ID'),
                     'yearly_id' => env('STRIPE_YEARLY_PLAN_ID'),
                     'trial_days' => 7,
                     'features' => [
