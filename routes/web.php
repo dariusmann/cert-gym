@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\Pages\RandomPageController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -30,4 +30,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+Route::middleware('auth')->group(function () {
+    Route::get('/random', RandomPageController::class)->name('practice.random.view');
+});
+
+require __DIR__ . '/auth.php';
