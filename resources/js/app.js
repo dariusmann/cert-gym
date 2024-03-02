@@ -6,6 +6,10 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { i18nVue } from 'laravel-vue-i18n';
 import VueGtag from "vue-gtag";
+import PrimeVue from 'primevue/config';
+
+import 'primevue/resources/themes/lara-light-green/theme.css';
+import 'primevue/resources/primevue.min.css';
 
 import.meta.glob([
     '../images/**',
@@ -19,6 +23,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .use(plugin)
+            .use(PrimeVue)
             .use(ZiggyVue, Ziggy)
             .use(i18nVue, {
                 resolve: async lang => {

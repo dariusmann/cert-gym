@@ -5,20 +5,19 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('question', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->text('text');
-            $table->foreignId('category_id')
-                ->constrained('category')
-                ->onDelete('cascade');
+            $table->string('name');
+            $table->string('short_code')->nullable();
+            $table->text('description')->nullable();
+            $table->foreignId('parent_id')->nullable()
+            ->references('id')->on('categories')
+            ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,7 +29,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('question');
+        Schema::dropIfExists('categories');
     }
 };
-

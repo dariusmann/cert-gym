@@ -10,25 +10,23 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('category', function (Blueprint $table) {
+        Schema::create('question_responses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('short_code')->nullable();
-            $table->text('description')->nullable();
-            $table->foreignId('parent_id')->nullable()
-            ->references('id')->on('category')
-            ->onDelete('cascade');
+            $table->foreignId('attempt_id')
+                ->constrained('question_attempts')
+                ->onDelete('cascade');
+            $table->foreignId('answer_id')
+                ->constrained('question_answers')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('category');
+        Schema::dropIfExists('question_responses');
     }
 };
