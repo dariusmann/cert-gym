@@ -1,6 +1,6 @@
 <script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import QuestionTest from "@/Components/Practice/QuestionTest.vue";
+import QuestionTest from "@/Components/Questions/QuestionTest.vue";
 
 export default {
     name: "Random",
@@ -8,16 +8,16 @@ export default {
 }
 </script>
 
-<template>
+<template >
     <AuthenticatedLayout>
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">Dashboard</h2>
         </template>
-        <div>
+        <div class="container mx-auto">
             <QuestionTest/>
         </div>
     </AuthenticatedLayout>
-</template>
+</template >
 
 <style scoped>
 

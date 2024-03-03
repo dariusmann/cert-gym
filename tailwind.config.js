@@ -28,4 +28,24 @@ export default {
     },
 
     plugins: [forms, daisyui],
+
+    daisyui: {
+        themes: [
+            {
+                light: {
+                    "color-scheme": "light",
+                    "primary": "#eb826b",
+                    "secondary": "#f4ac84",
+                    "secondary-content": "oklch(98.71% 0.0106 342.55)",
+                    "accent": "#8300E9",
+                    "neutral": "#2B3440",
+                    "neutral-content": "#D7DDE4",
+                    "base-100": "oklch(100% 0 0)",
+                    "base-200": "#F2F2F2",
+                    "base-300": "#E5E6E6",
+                    "base-content": "#1f2937",
+                },
+            },
+        ]
+    },
 };
