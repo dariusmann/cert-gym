@@ -28,7 +28,7 @@ class CategoriesCommand extends Command
     public function handle()
     {
         // Get JSON
-        $json = Storage::get('categories.json');
+        $json = Storage::get('categories/categories.json');
 
         // Decode JSON
         $data = json_decode($json, true);
@@ -44,9 +44,9 @@ class CategoriesCommand extends Command
         // Parent categories
         foreach ($data as $category) {
             $parent = Category::create([
-                'name' => $category['short_code'],
+                'name' => $category['topic'],
                 'short_code' => $category['short_code'],
-                'description' => $category['topic'],
+                'description' => null,
                 'parent_id' => $root->id,
             ]);
 

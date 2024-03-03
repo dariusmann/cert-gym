@@ -16,7 +16,7 @@ class Category extends Model
         'name',
         'short_code',
         'description',
-        'parent_id',
+        'parent_id'
     ];
 
     public function getName(): string
