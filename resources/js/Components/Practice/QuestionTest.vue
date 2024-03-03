@@ -13,7 +13,7 @@ export default {
         return {
             question: null,
             letters: ['A', 'B', 'C', 'D', 'E', 'F'],
-            selectedAnswerId: '',
+            selectedAnswer: null,
             correctAnswer: null,
             committedToAnswer: false
         }
@@ -26,7 +26,7 @@ export default {
         classes: function () {
             return {
                 answerButton: {
-                    'btn-disabled': !this.selectedAnswerId
+                    'btn-disabled': !this.selectedAnswer
                 }
             }
         }
@@ -50,12 +50,14 @@ export default {
             this.correctAnswer = correctAnswer
         },
         hasUserAnsweredCorrectly() {
-            return this.correctAnswer.id === this.selectedAnswerId
+            return this.correctAnswer.id === this.selectedAnswer.id
         },
         classesAnswers(answer) {
             return {
                 'bg-green-100': this.committedToAnswer && answer.isCorrect,
-                'bg-red-100': this.committedToAnswer && !answer.isCorrect && this.selectedAnswerId === answer.id && !this.hasUserAnsweredCorrectly()
+                'bg-red-100': this.committedToAnswer && !answer.isCorrect
+                    && this.selectedAnswer.id === answer.id
+                    && !this.hasUserAnsweredCorrectly()
             }
         }
     }
@@ -75,9 +77,9 @@ export default {
                          :key="answer.id"
                          class="flex items-center"
                          :class="classesAnswers(answer)">
-                        <input type="radio" v-model="selectedAnswerId"
+                        <input type="radio" v-model="selectedAnswer"
                                :id="'radio-answer-' + answer.id"
-                               :value="answer.id"
+                               :value="answer"
                                name="radio-question-answer"
                                class="radio radio-primary" :disabled="committedToAnswer"/>
                         <label :for="'radio-answer-' + answer.id" class="label cursor-pointer">
@@ -89,6 +91,15 @@ export default {
                     <button class="btn btn-secondary" @click="submit" :disabled="committedToAnswer && !question">
                         Answer
                     </button>
+                </div>
+                <div class="h-5"></div>
+                <hr>
+                <div class="h-5"></div>
+                <div v-if="committedToAnswer">
+                    <div class="text-lg text-bold">Explanation</div>
+                    <div>
+                        {{ selectedAnswer.explanation }}
+                    </div>
                 </div>
             </template>
         </Card>
