@@ -54,8 +54,8 @@ export default {
         },
         classesAnswers(answer) {
             return {
-                'bg-green-100': this.committedToAnswer && answer.isCorrect,
-                'bg-red-100': this.committedToAnswer && !answer.isCorrect
+                'bg-green-200': this.committedToAnswer && answer.isCorrect,
+                'bg-red-200': this.committedToAnswer && !answer.isCorrect
                     && this.selectedAnswer.id === answer.id
                     && !this.hasUserAnsweredCorrectly()
             }
@@ -75,7 +75,7 @@ export default {
                 <div>
                     <div v-for="answer in question.answers"
                          :key="answer.id"
-                         class="flex items-center"
+                         class="flex items-center rounded-md px-2 mt-2 first:mt-0 bg-gray-100"
                          :class="classesAnswers(answer)">
                         <input type="radio" v-model="selectedAnswer"
                                :id="'radio-answer-' + answer.id"
@@ -87,15 +87,15 @@ export default {
                         </label>
                     </div>
                 </div>
-                <div>
+                <div class="mt-4">
                     <button class="btn btn-secondary" @click="submit" :disabled="committedToAnswer && !question">
                         Answer
                     </button>
                 </div>
-                <div class="h-5"></div>
-                <hr>
-                <div class="h-5"></div>
                 <div v-if="committedToAnswer">
+                    <div class="h-5"></div>
+                    <hr>
+                    <div class="h-5"></div>
                     <div class="text-lg text-bold">Explanation</div>
                     <div>
                         {{ selectedAnswer.explanation }}
