@@ -13,14 +13,14 @@ class CategoriesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'insert:categories';
+    protected $signature = 'insert:Categories';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Insert categories from JSON';
+    protected $description = 'Insert Categories from JSON';
 
     /**
      * Execute the console command.
@@ -28,7 +28,7 @@ class CategoriesCommand extends Command
     public function handle()
     {
         // Get JSON
-        $json = Storage::get('categories/categories.json');
+        $json = Storage::get('Categories/Categories.json');
 
         // Decode JSON
         $data = json_decode($json, true);
@@ -41,7 +41,7 @@ class CategoriesCommand extends Command
             'parent_id' => null,
         ]);
 
-        // Parent categories
+        // Parent Categories
         foreach ($data as $category) {
             $parent = Category::create([
                 'name' => $category['topic'],
