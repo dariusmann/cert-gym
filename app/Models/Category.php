@@ -11,6 +11,14 @@ class Category extends Model
 {
     use HasFactory;
 
+    protected $fillable =
+    [
+        'name',
+        'short_code',
+        'description',
+        'parent_id'
+    ];
+
     public function getName(): string
     {
         return $this->name;
@@ -20,4 +28,6 @@ class Category extends Model
     {
         $this->name = $name;
     }
+
+
 }

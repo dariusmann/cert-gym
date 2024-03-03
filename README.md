@@ -25,3 +25,13 @@ https://forge.laravel.com/docs/sites/the-basics.html#default-sites
 ### Sail share
 
 `sail share --subdomain=cert-gym`
+
+### Command
+`php artisan make:command Command`
+
+### Command Category
+`php artisan insert:categories`
+
+### Questions Answers
+`php artisan insert:questions_answers`
+
