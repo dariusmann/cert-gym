@@ -5,21 +5,21 @@ import RadioButton from 'primevue/radiobutton';
 
 export default {
     name: "QuestionTest",
+    props: ['initQuestion'],
     components: {
         Card,
         RadioButton
     },
     data: function () {
         return {
-            question: null,
+            question: this.initQuestion,
             letters: ['A', 'B', 'C', 'D', 'E', 'F'],
             selectedAnswer: null,
             correctAnswer: null,
             committedToAnswer: false
         }
     },
-    mounted: async function () {
-        this.question = await QuestionService.readQuestion()
+    mounted: function () {
         this.setCorrectAnswer()
     },
     computed: {
@@ -34,15 +34,12 @@ export default {
     methods: {
         submit() {
             this.committedToAnswer = true;
-            this.checkAnswer()
-        },
-        checkAnswer() {
-
         },
         setCorrectAnswer() {
             let correctAnswer = null;
+
             this.question.answers.forEach(function (answer) {
-                if (answer.isCorrect) {
+                if (answer.is_correct) {
                     correctAnswer = answer
                 }
             })
@@ -54,8 +51,8 @@ export default {
         },
         classesAnswers(answer) {
             return {
-                'bg-green-200': this.committedToAnswer && answer.isCorrect,
-                'bg-red-200': this.committedToAnswer && !answer.isCorrect
+                'bg-green-200': this.committedToAnswer && answer.is_correct,
+                'bg-red-200': this.committedToAnswer && !answer.is_correct
                     && this.selectedAnswer.id === answer.id
                     && !this.hasUserAnsweredCorrectly()
             }

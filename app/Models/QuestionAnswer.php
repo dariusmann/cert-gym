@@ -6,8 +6,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use JsonSerializable;
 
-class QuestionAnswer extends Model
+class QuestionAnswer extends Model implements JsonSerializable
 {
     use HasFactory;
 
@@ -17,4 +18,19 @@ class QuestionAnswer extends Model
         'explanation',
         'question_id'
     ];
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->getId(),
+            'text' => $this->text,
+            'is_correct' => $this->is_correct,
+            'explanation' => $this->explanation
+        ];
+    }
 }

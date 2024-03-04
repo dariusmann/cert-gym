@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class QuestionAttempt extends Model
 {
     use HasFactory;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

@@ -29,7 +29,7 @@ class QuestionsCommand extends Command
     public function handle()
     {
         // Get JSON
-        $files = Storage::disk('local')->files('QuestionsAnswers');
+        $files = Storage::disk('local')->files('questions');
 
         // Decode JSON
         foreach ($files as $file) {

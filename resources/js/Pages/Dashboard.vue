@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue'
 import { usePage } from '@inertiajs/vue3'
+import RandomRunButton from "@/Components/Questions/Runs/RandomRunButton.vue";
 
 const page = usePage()
 
@@ -27,15 +28,7 @@ const subscription = computed(() => page.props.subscription)
                             </p>
                         </div>
                         <div v-else>
-                            <p>
-                                <span class="text-red-600">ATTENTION:</span> This was a test campaign. Please cancel you subscription in the <a class="text-p-primary" href="/billing">billing portal</a>.
-                            </p>
-                            <p>
-                                If you don't do that, you will be charged. But don't worry, if this happens, I will contact you by email and refund your money.
-                            </p>
-                            <p>
-                                My contact: darius.mann@cert-gym.com
-                            </p>
+                            <RandomRunButton/>
                         </div>
                     </div>
                 </div>

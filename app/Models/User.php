@@ -48,4 +48,9 @@ class User extends Authenticatable
         'password' => 'hashed',
         'trial_ends_at' => 'datetime',
     ];
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
 }

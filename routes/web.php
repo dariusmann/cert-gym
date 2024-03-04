@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Pages\Practice\RunPageController;
 use App\Http\Controllers\Pages\RandomPageController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Questions\ReadQuestionController;
+use App\Http\Controllers\Questions\RunController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -32,6 +35,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/random', RandomPageController::class)->name('practice.random.view');
+    Route::get('/page/practice/run/{runId}', RunPageController::class)->name('practice.run.view');
+    Route::get('/run/random', [RunController::class, 'readRandom'])->name('practice.run.random.create');
+    Route::get('/api/question/{questionId}', ReadQuestionController::class)->name('api.question.read');
 });
 
 require __DIR__ . '/auth.php';
