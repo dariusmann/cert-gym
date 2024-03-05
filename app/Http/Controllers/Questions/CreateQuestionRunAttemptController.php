@@ -11,10 +11,10 @@ use App\Models\QuestionRunQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 class CreateQuestionRunAttemptController extends Controller
 {
+    // TODO: check if same user who request and if attempt already exists for run question
     public function __invoke(Request $request): JsonResponse
     {
         $runQuestionId = $request->get('question_run_question_id');
