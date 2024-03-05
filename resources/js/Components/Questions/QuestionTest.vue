@@ -1,11 +1,10 @@
 <script>
-import QuestionService from "@/Services/question.service.js";
 import Card from 'primevue/card';
 import RadioButton from 'primevue/radiobutton';
 
 export default {
     name: "QuestionTest",
-    props: ['initQuestion'],
+    props: ['initQuestion', 'initCommittedToAnswer'],
     components: {
         Card,
         RadioButton
@@ -34,6 +33,9 @@ export default {
     methods: {
         submit() {
             this.committedToAnswer = true;
+            this.$emit('commitSelection', {
+                'answer': this.selectedAnswer
+            })
         },
         setCorrectAnswer() {
             let correctAnswer = null;

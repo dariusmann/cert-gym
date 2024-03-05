@@ -19,4 +19,14 @@ class QuestionRunQuestion extends Model
     {
         return $this->id;
     }
+
+    public function getQuestionId(): int
+    {
+        return $this->question_id;
+    }
+
+    public function setAttemptId(int $attemptId): void
+    {
+        $this->attempt_id = $attemptId;
+    }
 }

@@ -1,6 +1,7 @@
 <script>
 import QuestionService from "@/Services/question.service.js";
 import QuestionTest from "@/Components/Questions/QuestionTest.vue";
+import QuestionAttemptService from "@/Services/question.attempt.service.js";
 
 export default {
     name: "Run",
@@ -8,15 +9,23 @@ export default {
     props: ['questionRun'],
     data: function () {
         return {
-            currentQuestion: null
+            currentQuestion: null,
+            currentRunQuestion: null
         }
     },
     methods: {
-        async loadQuestion(questionId) {
+        async loadQuestion(questionRunQuestion) {
             this.currentQuestion = null;
-            const question = await QuestionService.readQuestion(questionId)
-            console.log(question)
-            this.currentQuestion = question;
+            this.currentRunQuestion = questionRunQuestion;
+            this.currentQuestion = await QuestionService.readQuestion(questionRunQuestion.question_id);
+        },
+        async submitAttempt(data) {
+            await QuestionAttemptService.createRunQuestionAttempt(
+                {
+                    answer_ids: [data.answer.id],
+                    question_run_question_id: this.currentRunQuestion.id
+                }
+            )
         }
     }
 }
@@ -24,11 +33,11 @@ export default {
 
 <template>
 
-    <QuestionTest v-if="currentQuestion" :init-question="currentQuestion"/>
+    <QuestionTest v-if="currentQuestion" :init-question="currentQuestion" @commitSelection="submitAttempt"/>
 
     <div class="badge badge-primary"
          v-for="(questionRunQuestion, index) in questionRun.questions"
-         @click="() => loadQuestion(questionRunQuestion.question_id)"
+         @click="() => loadQuestion(questionRunQuestion)"
     >
         {{ index + 1 }}
     </div>

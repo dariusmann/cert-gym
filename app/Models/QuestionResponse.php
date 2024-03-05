@@ -9,6 +9,11 @@ class QuestionResponse extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'attempt_id',
+        'answer_id'
+    ];
+
     public function getId(): int
     {
         return $this->id;
