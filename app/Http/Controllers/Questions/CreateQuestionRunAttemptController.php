@@ -11,10 +11,11 @@ use App\Models\QuestionRunQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class CreateQuestionRunAttemptController extends Controller
 {
-    // TODO: check if same user who request and if attempt already exists for run question
+    // TODO: check if same user who request
     public function __invoke(Request $request): JsonResponse
     {
         $runQuestionId = $request->get('question_run_question_id');
@@ -25,6 +26,10 @@ class CreateQuestionRunAttemptController extends Controller
 
         /** @var QuestionRunQuestion $questionRunQuestion */
         $questionRunQuestion = QuestionRunQuestion::find($runQuestionId);
+
+        if ($questionRunQuestion->getAttemptId() !== null) {
+            throw new ConflictHttpException('Attempt already made for this run question');
+        }
 
         /** @var QuestionAttempt $questionAttempt */
         $questionAttempt = QuestionAttempt::create([

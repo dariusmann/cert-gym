@@ -12,18 +12,49 @@ export default {
         return {
             currentQuestion: null,
             currentRunQuestion: null,
-            currentIndex: null
+            questionAnswer: null,
+            currentIndex: null,
+            allLoaded: false
         }
     },
     mounted() {
         this.loadQuestion(this.questionRun.questions[0], 0)
     },
+    computed: {
+        selectedAnswer(){
+            if(this.questionAnswer === null) {
+                return null;
+            }
+
+            if(Array.isArray(this.questionAnswer)) {
+                return this.questionAnswer[0];
+            }
+
+            throw new Error('Question answer has the wrong data type')
+        },
+        committedToAnswer(){
+            if(Array.isArray(this.questionAnswer)) {
+                return this.questionAnswer.length > 0;
+            }
+
+            return false;
+        }
+    },
     methods: {
         async loadQuestion(questionRunQuestion, index) {
+            this.allLoaded = false;
             this.currentQuestion = null;
+            this.questionAnswer = null;
+
             this.currentRunQuestion = questionRunQuestion;
             this.currentIndex = index
             this.currentQuestion = await QuestionService.readQuestion(questionRunQuestion.question_id);
+
+            if(questionRunQuestion.attempt_id) {
+                this.questionAnswer = await QuestionAttemptService.readQuestionAttempt(questionRunQuestion.attempt_id)
+            }
+
+            this.allLoaded = true;
         },
         async submitAttempt(data) {
             const runQuestion = await QuestionAttemptService.createRunQuestionAttempt(
@@ -48,13 +79,17 @@ export default {
 <template>
 
     <AuthenticatedLayout>
-        <QuestionTest v-if="currentQuestion" :init-question="currentQuestion" @commitSelection="submitAttempt"/>
+        <QuestionTest v-if="currentQuestion && allLoaded"
+                      :init-question="currentQuestion"
+                      :init-committed-to-answer="committedToAnswer"
+                      :init-selected-answer="selectedAnswer"
+                      @commitSelection="submitAttempt"/>
 
         <div :class="badgedClasses(questionRunQuestion)"
              v-for="(questionRunQuestion, index) in questionRun.questions"
              @click="() => loadQuestion(questionRunQuestion, index)"
         >
-            {{ index + 1 }}
+            {{ questionRunQuestion.question_id }}
         </div>
     </AuthenticatedLayout>
 

@@ -29,4 +29,9 @@ class QuestionRunQuestion extends Model
     {
         $this->attempt_id = $attemptId;
     }
+
+    public function getAttemptId(): ?int
+    {
+        return $this->attempt_id;
+    }
 }

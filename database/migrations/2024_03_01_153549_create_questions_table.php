@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->id();
             $table->text('text');
             $table->foreignId('category_id')
-                ->constrained('Categories')
+                ->constrained('categories')
                 ->onDelete('cascade');
             $table->timestamps();
         });

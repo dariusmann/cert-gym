@@ -4,7 +4,19 @@ import RadioButton from 'primevue/radiobutton';
 
 export default {
     name: "QuestionTest",
-    props: ['initQuestion', 'initCommittedToAnswer'],
+    props: {
+        initQuestion: {
+            type: Object
+        },
+        initCommittedToAnswer: {
+            type: Boolean,
+            default: false
+        },
+        initSelectedAnswer: {
+            type: Object,
+            default: null
+        }
+    },
     components: {
         Card,
         RadioButton
@@ -13,9 +25,9 @@ export default {
         return {
             question: this.initQuestion,
             letters: ['A', 'B', 'C', 'D', 'E', 'F'],
-            selectedAnswer: null,
+            selectedAnswer: this.initSelectedAnswer,
             correctAnswer: null,
-            committedToAnswer: false
+            committedToAnswer: this.initCommittedToAnswer
         }
     },
     mounted: function () {
@@ -28,6 +40,9 @@ export default {
                     'btn-disabled': !this.selectedAnswer
                 }
             }
+        },
+        disabledButton() {
+            return this.committedToAnswer && this.question !== null;
         }
     },
     methods: {
@@ -49,13 +64,13 @@ export default {
             this.correctAnswer = correctAnswer
         },
         hasUserAnsweredCorrectly() {
-            return this.correctAnswer.id === this.selectedAnswer.id
+            return this.correctAnswer?.id === this.selectedAnswer.id
         },
         classesAnswers(answer) {
             return {
                 'bg-green-200': this.committedToAnswer && answer.is_correct,
                 'bg-red-200': this.committedToAnswer && !answer.is_correct
-                    && this.selectedAnswer.id === answer.id
+                    && this.selectedAnswer?.id === answer.id
                     && !this.hasUserAnsweredCorrectly()
             }
         }
@@ -87,7 +102,7 @@ export default {
                     </div>
                 </div>
                 <div class="mt-4">
-                    <button class="btn btn-secondary" @click="submit" :disabled="committedToAnswer && !question">
+                    <button class="btn btn-secondary" @click="submit" :disabled="disabledButton">
                         Answer
                     </button>
                 </div>
@@ -97,7 +112,7 @@ export default {
                     <div class="h-5"></div>
                     <div class="text-lg text-bold">Explanation</div>
                     <div>
-                        {{ selectedAnswer.explanation }}
+                        {{ selectedAnswer?.explanation }}
                     </div>
                 </div>
             </template>
