@@ -69,7 +69,8 @@ export default {
         badgedClasses(questionRunQuestion) {
             return {
                 'badge badge-primary': !!questionRunQuestion.attempt_id,
-                'badge badge-secondary': !questionRunQuestion.attempt_id
+                'badge badge-secondary': !questionRunQuestion.attempt_id,
+                'badge badge-accent': questionRunQuestion.id == this.currentRunQuestion?.id
             }
         }
     }
