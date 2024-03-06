@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Application\QuestionRun;
 
+use App\Domain\Builder\RunByQuestionsBuilder;
 use App\Models\Question;
 use App\Models\QuestionRun;
 use App\Models\QuestionRunQuestion;
@@ -11,6 +12,13 @@ use App\Models\User;
 
 class ReadRandomRunHandler
 {
+    private RunByQuestionsBuilder $runByQuestionsBuilder;
+
+    public function __construct(RunByQuestionsBuilder $createRunByQuestions)
+    {
+        $this->runByQuestionsBuilder = $createRunByQuestions;
+    }
+
     public function read(User $user): QuestionRun
     {
         $questionRun = $this->findOneCurrentRandomQuestionRunByUser($user);
@@ -35,26 +43,6 @@ class ReadRandomRunHandler
         $questions = Question::all();
         $shuffledQuestions = $questions->shuffle();
 
-
-        /** @var QuestionRun $questionRun */
-        $questionRun = QuestionRun::create([
-            'user_id' => $user->getId(),
-            'type' => 'random',
-            'status' => 'created'
-        ]);
-
-        $order = 1;
-
-        foreach ($shuffledQuestions as $question) {
-            QuestionRunQuestion::create([
-                'question_run_id' => $questionRun->getId(),
-                'question_id' => $question->getId(),
-                'order' => $order
-            ]);
-
-            $order++;
-        }
-
-        return $questionRun;
+        return $this->runByQuestionsBuilder->create($shuffledQuestions, $user, 'random');
     }
 }

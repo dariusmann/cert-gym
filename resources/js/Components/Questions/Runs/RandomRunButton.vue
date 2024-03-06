@@ -15,7 +15,7 @@ export default {
 
 <template>
     <button @click="submit" class="btn btn-primary">
-        Start random run
+        Quick start
     </button>
 </template>
 

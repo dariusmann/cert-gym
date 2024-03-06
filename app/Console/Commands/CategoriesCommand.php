@@ -35,8 +35,8 @@ class CategoriesCommand extends Command
 
         // Root category
         $root = Category::create([
-            'name' => 'root',
-            'short_code' => null,
+            'name' => 'Task List',
+            'short_code' => 'tl-root',
             'description' => null,
             'parent_id' => null,
         ]);

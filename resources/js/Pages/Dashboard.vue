@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue'
-import { usePage } from '@inertiajs/vue3'
+import { usePage, Link } from '@inertiajs/vue3'
 import RandomRunButton from "@/Components/Questions/Runs/RandomRunButton.vue";
 
 const page = usePage()
@@ -29,6 +29,7 @@ const subscription = computed(() => page.props.subscription)
                         </div>
                         <div v-else>
                             <RandomRunButton/>
+                            <Link :href="route('page.run.category')">Category Run</Link>
                         </div>
                     </div>
                 </div>
