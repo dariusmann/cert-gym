@@ -105,6 +105,9 @@ export default {
                     <button class="btn btn-secondary" @click="submit" :disabled="disabledButton">
                         Answer
                     </button>
+                    <button class="btn btn-primary ml-2" @click="$emit('nextQuestion')" :disabled="!disabledButton">
+                        Next
+                    </button>
                 </div>
                 <div v-if="committedToAnswer">
                     <div class="h-5"></div>

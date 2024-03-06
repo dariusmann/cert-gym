@@ -17,23 +17,24 @@ export default {
             allLoaded: false
         }
     },
-    mounted() {
-        this.loadQuestion(this.questionRun.questions[0], 0)
+    async created() {
+        const nextUnansweredQuestionIndex = this.resolveNextNotAnsweredQuestionIndex()
+        await this.loadQuestion(this.questionRun.questions[nextUnansweredQuestionIndex], nextUnansweredQuestionIndex)
     },
     computed: {
-        selectedAnswer(){
-            if(this.questionAnswer === null) {
+        selectedAnswer() {
+            if (this.questionAnswer === null) {
                 return null;
             }
 
-            if(Array.isArray(this.questionAnswer)) {
+            if (Array.isArray(this.questionAnswer)) {
                 return this.questionAnswer[0];
             }
 
             throw new Error('Question answer has the wrong data type')
         },
-        committedToAnswer(){
-            if(Array.isArray(this.questionAnswer)) {
+        committedToAnswer() {
+            if (Array.isArray(this.questionAnswer)) {
                 return this.questionAnswer.length > 0;
             }
 
@@ -50,7 +51,7 @@ export default {
             this.currentIndex = index
             this.currentQuestion = await QuestionService.readQuestion(questionRunQuestion.question_id);
 
-            if(questionRunQuestion.attempt_id) {
+            if (questionRunQuestion.attempt_id) {
                 this.questionAnswer = await QuestionAttemptService.readQuestionAttempt(questionRunQuestion.attempt_id)
             }
 
@@ -66,11 +67,24 @@ export default {
 
             this.questionRun.questions[this.currentIndex] = runQuestion
         },
+        resolveNextNotAnsweredQuestionIndex() {
+            return this.questionRun.questions.findIndex(item => item.attempt_id === null)
+        },
         badgedClasses(questionRunQuestion) {
             return {
                 'badge badge-primary': !!questionRunQuestion.attempt_id,
                 'badge badge-secondary': !questionRunQuestion.attempt_id,
                 'badge badge-accent': questionRunQuestion.id == this.currentRunQuestion?.id
+            }
+        },
+        submitNextQuestion() {
+            const limit = this.questionRun.questions.length - 1;
+            if (this.currentIndex === limit) {
+                const nextUnansweredQuestionIndex = this.resolveNextNotAnsweredQuestionIndex()
+                this.loadQuestion(this.questionRun.questions[nextUnansweredQuestionIndex], nextUnansweredQuestionIndex)
+            } else {
+                this.currentIndex = this.currentIndex + 1;
+                this.loadQuestion(this.questionRun.questions[this.currentIndex], this.currentIndex)
             }
         }
     }
@@ -80,18 +94,23 @@ export default {
 <template>
 
     <AuthenticatedLayout>
+        <div class="h-5"></div>
         <QuestionTest v-if="currentQuestion && allLoaded"
                       :init-question="currentQuestion"
                       :init-committed-to-answer="committedToAnswer"
                       :init-selected-answer="selectedAnswer"
-                      @commitSelection="submitAttempt"/>
+                      @commitSelection="submitAttempt"
+                      @nextQuestion="submitNextQuestion"/>
 
-        <div :class="badgedClasses(questionRunQuestion)"
-             v-for="(questionRunQuestion, index) in questionRun.questions"
-             @click="() => loadQuestion(questionRunQuestion, index)"
-        >
-            {{ questionRunQuestion.question_id }}
+        <div class="mt-4 flex gap-1 flex-wrap">
+            <div :class="badgedClasses(questionRunQuestion)"
+                 v-for="(questionRunQuestion, index) in questionRun.questions"
+                 @click="() => loadQuestion(questionRunQuestion, index)"
+            >
+                {{ index + 1 }}
+            </div>
         </div>
+
     </AuthenticatedLayout>
 
 </template>
