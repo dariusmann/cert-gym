@@ -7,7 +7,7 @@ use App\Http\Controllers\Questions\Answer\ReadQuestionAttemptAnswerController;
 use App\Http\Controllers\Questions\Attempt\CreateQuestionRunAttemptController;
 use App\Http\Controllers\Questions\ReadQuestionController;
 use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
-use App\Http\Controllers\Questions\Run\RunController;
+use App\Http\Controllers\Questions\Run\CreateRandomRunController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/api/question/run/attempt', CreateQuestionRunAttemptController::class)->name('api.question.run.attempt.create');
     Route::get('/api/question/attempt/{attemptId}/answers', ReadQuestionAttemptAnswerController::class)->name('api.question.attempt.answers.read');
     Route::post('/api/question/run/category', CreateCategoryRunController::class)->name('api.question.run.category.create');
-    Route::get('/api/question/run/random', [RunController::class, 'readRandom'])->name('api.question.random.read');
+    Route::get('/api/question/run/random', [CreateRandomRunController::class, 'readRandom'])->name('api.question.random.read');
 });
 
 require __DIR__ . '/auth.php';

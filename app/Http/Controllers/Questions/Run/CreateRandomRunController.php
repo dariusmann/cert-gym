@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 
-class RunController extends Controller
+class CreateRandomRunController extends Controller
 {
     private ReadRandomRunHandler $handler;
 
