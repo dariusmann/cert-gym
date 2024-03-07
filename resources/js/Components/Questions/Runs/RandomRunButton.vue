@@ -7,7 +7,7 @@ export default {
         async submit() {
             const randomRun = await QuestionRunService.readRandomRun();
 
-            window.location = '/page/practice/run/' + randomRun.id
+            window.location = '/page/run/' + randomRun.id + '/practice'
         }
     }
 }
