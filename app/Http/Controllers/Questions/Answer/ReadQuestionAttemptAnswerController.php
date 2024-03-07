@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Questions;
+namespace App\Http\Controllers\Questions\Answer;
 
 use App\Models\QuestionAnswer;
 use App\Models\QuestionResponse;

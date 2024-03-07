@@ -3,11 +3,11 @@
 use App\Http\Controllers\Pages\Run\RunPageController;
 use App\Http\Controllers\Pages\Run\CreateCategoryRunPageController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Questions\CreateQuestionRunAttemptController;
-use App\Http\Controllers\Questions\ReadQuestionAttemptAnswerController;
+use App\Http\Controllers\Questions\Answer\ReadQuestionAttemptAnswerController;
+use App\Http\Controllers\Questions\Attempt\CreateQuestionRunAttemptController;
 use App\Http\Controllers\Questions\ReadQuestionController;
 use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
-use App\Http\Controllers\Questions\RunController;
+use App\Http\Controllers\Questions\Run\RunController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

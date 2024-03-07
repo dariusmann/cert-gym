@@ -23,7 +23,7 @@ export default {
         },
         async submit(){
             const questionRun = await QuestionRunService.createCategoryRun(this.selectedCategoryIds);
-            window.location = '/page/practice/run/' + questionRun.id
+            window.location = '/page/run/' + questionRun.id + '/practice'
         }
     }
 }
