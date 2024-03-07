@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Pages\Practice;
+namespace App\Http\Controllers\Pages\Run;
 
 use App\Models\QuestionRun;
 use Illuminate\Http\Request;

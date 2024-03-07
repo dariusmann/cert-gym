@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class CreateCategoryRunPage
+class CreateCategoryRunPageController
 {
     public function __invoke(Request $request): Response
     {
