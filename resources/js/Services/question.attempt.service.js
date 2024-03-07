@@ -21,7 +21,7 @@ const QuestionAttemptService = {
     },
     readQuestionAttempt: async function (attemptId) {
         try {
-            return await ApiService.get('/api/question/attempt/answers/' + attemptId).then(res => {
+            return await ApiService.get('/api/question/attempt/' + attemptId + '/answers').then(res => {
                 return res.data
             })
         } catch (error) {

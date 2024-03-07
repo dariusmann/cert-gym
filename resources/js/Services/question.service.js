@@ -17,19 +17,6 @@ const QuestionService = {
             throw error
         }
     },
-    createQuestionAttempt: async function (data) {
-        try {
-            return await ApiService.post('/question/attempt', data).then(res => {
-                return res.data
-            })
-        } catch (error) {
-            if (error.response.status === StatusCodes.BAD_REQUEST) {
-                throw new BadRequestException(error)
-            }
-
-            throw error
-        }
-    }
 }
 
 export default QuestionService

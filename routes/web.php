@@ -39,11 +39,14 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/page/practice/run/{runId}', RunPageController::class)->name('practice.run.view');
     Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category');
-    Route::get('/run/random', [RunController::class, 'readRandom'])->name('practice.run.random.create');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/api/question/{questionId}', ReadQuestionController::class)->name('api.question.read');
-    Route::post('/api/question/run/attempt', CreateQuestionRunAttemptController::class)->name('api.question.run.attempt.read');
-    Route::get('/api/question/attempt/answers/{attemptId}', ReadQuestionAttemptAnswerController::class)->name('api.question.attempt.answers.read');
-    Route::post('/api/question/run/category', CreateCategoryRunController::class)->name('api.question.run.category');
+    Route::post('/api/question/run/attempt', CreateQuestionRunAttemptController::class)->name('api.question.run.attempt.create');
+    Route::get('/api/question/attempt/{attemptId}/answers', ReadQuestionAttemptAnswerController::class)->name('api.question.attempt.answers.read');
+    Route::post('/api/question/run/category', CreateCategoryRunController::class)->name('api.question.run.category.create');
+    Route::get('/api/question/run/random', [RunController::class, 'readRandom'])->name('api.question.random.read');
 });
 
 require __DIR__ . '/auth.php';

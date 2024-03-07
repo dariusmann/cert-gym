@@ -6,7 +6,7 @@ import {BadRequestException} from "@/Exceptions/http.exceptions.js";
 const QuestionRunService = {
     readRandomRun: async function () {
         try {
-            return await ApiService.get('/run/random').then(res => {
+            return await ApiService.get('/api/question/run/random').then(res => {
                 return res.data
             })
         } catch (error) {
