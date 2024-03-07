@@ -28,7 +28,7 @@ class CategoriesCommand extends Command
     public function handle()
     {
         // Get JSON
-        $json = Storage::get('categories/categories.json');
+        $json = Storage::get('categories.json');
 
         // Decode JSON
         $data = json_decode($json, true);
