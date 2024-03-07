@@ -1,16 +1,25 @@
 ## Installation
 
-##### 1. Run migrations
-`php artisan migrate`
+##### Auth.json for Spark before composer install
+We're using spark in this project. It's a paid composer bundle and required authentication.
+Just locate the auth.json with credentials in you root directory. After that you can run composer.
 
-##### 2. Import questions data
+##### Install packages
+- `sail composer install`
+- `sail npm run install`
+
+##### Configure .env
+##### Run migrations
+`sail artisan migrate`
+
+##### Import questions data
 - First locate categories.json and question directory in storage folder
 - Then run this two commands in this order:
-- `php artisan app:import:categories`
-- `php artisan app:import:questions`
+- `sail artisan app:import:categories`
+- `sail artisan app:import:questions`
 
 
-##### 3. Create a test user with subscription
+##### Create a test user with subscription
 `sail artisan db:seed`
 
 - User: test@dev.com
@@ -18,7 +27,6 @@
 
 
 ### Run frontend
-
 sail npm run dev
 
 ### Stripe webhooks in development
