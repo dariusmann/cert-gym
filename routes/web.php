@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
-    Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category');
+    Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category.create');
 });
 
 Route::middleware('auth')->group(function () {

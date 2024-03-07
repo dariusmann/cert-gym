@@ -29,7 +29,7 @@ const subscription = computed(() => page.props.subscription)
                         </div>
                         <div v-else>
                             <RandomRunButton/>
-                            <Link class="btn btn-primary" :href="route('page.run.category')">Category Run</Link>
+                            <Link class="btn btn-primary" :href="route('page.run.category.create')">Category Run</Link>
                         </div>
                     </div>
                 </div>
