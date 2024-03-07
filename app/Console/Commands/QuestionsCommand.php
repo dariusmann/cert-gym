@@ -14,7 +14,7 @@ class QuestionsCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'insert:questions_answers';
+    protected $signature = 'app:import:questions';
 
     /**
      * The console command description.

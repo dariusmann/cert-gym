@@ -13,7 +13,7 @@ class CategoriesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'insert:Categories';
+    protected $signature = 'app:import:categories';
 
     /**
      * The console command description.
