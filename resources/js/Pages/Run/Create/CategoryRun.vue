@@ -14,16 +14,21 @@ export default {
         }
     },
     methods: {
-        updateSelectedCategories({ categoryId, isChecked }) {
+        updateSelectedCategories({categoryId, isChecked}) {
             if (isChecked && !this.selectedCategoryIds.includes(categoryId)) {
                 this.selectedCategoryIds.push(categoryId);
             } else if (!isChecked && this.selectedCategoryIds.includes(categoryId)) {
                 this.selectedCategoryIds = this.selectedCategoryIds.filter(id => id !== categoryId);
             }
         },
-        async submit(){
+        async submit() {
             const questionRun = await QuestionRunService.createCategoryRun(this.selectedCategoryIds);
             window.location = '/page/run/' + questionRun.id + '/practice'
+        }
+    },
+    computed: {
+        disabledButton: function () {
+            return this.selectedCategoryIds.length === 0;
         }
     }
 }
@@ -31,12 +36,22 @@ export default {
 
 <template>
     <AuthenticatedLayout>
-        <div class="h-3"></div>
+        <div class="h-5"></div>
         <Card>
-            <template #title>Category Run</template>
             <template #content>
-                <CategoryTree :categories="categories" @update:selected="updateSelectedCategories"/>
-                <button class="btn btn-primary" @click="submit">Create Run</button>
+                <div class="prose">
+                    <h1>Create a category run</h1>
+
+                    <p>Select the Task List you want to practice on.You can check the official task list
+                        <a class="link link-primary"
+                        href="https://www.bacb.com/wp-content/uploads/2020/05/RBT-2nd-Edition-Task-List_230130-a.pdf" target="_blank">here</a>.
+                    </p>
+                    <button class="btn btn-primary"
+                            :disabled="disabledButton"
+                            @click="submit">Start</button>
+                </div>
+                <div class="h-4"></div>
+                <CategoryTree :categories="categories" @update:selected="updateSelectedCategories" :level="1"/>
             </template>
         </Card>
 
