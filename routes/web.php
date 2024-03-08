@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Pages\Run\ListRunsPageController;
 use App\Http\Controllers\Pages\Run\RunPageController;
 use App\Http\Controllers\Pages\Run\CreateCategoryRunPageController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +40,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
     Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category.create');
+    Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
 });
 
 Route::middleware('auth')->group(function () {
