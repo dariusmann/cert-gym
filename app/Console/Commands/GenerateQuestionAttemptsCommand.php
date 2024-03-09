@@ -12,16 +12,15 @@ use App\Models\User;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Console\Command;
-use Illuminate\Database\Eloquent\Collection;
 
-class GenerateAttemptsCommand extends Command
+class GenerateQuestionAttemptsCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'app:dev:generate:attempts';
+    protected $signature = 'app:dev:generate:question-attempts';
 
     /**
      * The console command description.
@@ -30,10 +29,13 @@ class GenerateAttemptsCommand extends Command
      */
     protected $description = 'Import questions from JSON files in storage/questions';
 
+    /**
+     * @throws Exception
+     */
     public function handle()
     {
         /** @var User $user */
-        $user = User::find(29);
+        $user = User::where('email', 'test@dev.com')->first();
 
         $questions = Question::all();
         $questionCount = $questions->count();
@@ -42,13 +44,15 @@ class GenerateAttemptsCommand extends Command
         $count = 1;
 
         foreach ($questions as $question) {
-            $attempt = $this->createAttempt($question, $user, $date);
+
 
             $probabilityOfCorrect = $count / $questions->count();
 
             if ($this->createCorrectAttempt($questionCount, $probabilityOfCorrect)) {
+                $attempt = $this->createAttempt($question, $user, $date, true);
                 $answers = $question->getCorrectAnswers();
             } else {
+                $attempt = $this->createAttempt($question, $user, $date, false);
                 $answers = $this->resolveUnCorrectAnswer($question);
             }
 
@@ -104,12 +108,13 @@ class GenerateAttemptsCommand extends Command
      * @param User $user
      * @return QuestionAttempt
      */
-    private function createAttempt(mixed $question, User $user, Carbon $date): QuestionAttempt
+    private function createAttempt(mixed $question, User $user, Carbon $date, bool $answeredCorrectly): QuestionAttempt
     {
         /** @var QuestionAttempt $attempt */
         $attempt = QuestionAttempt::create([
             'question_id' => $question->getId(),
             'user_id' => $user->getId(),
+            'answered_correctly' => $answeredCorrectly,
             'created_at' => $date
         ]);
         return $attempt;
