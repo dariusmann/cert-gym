@@ -11,7 +11,8 @@ class QuestionAttempt extends Model
 
     protected $fillable = [
         'question_id',
-        'user_id'
+        'user_id',
+        'created_at'
     ];
 
     public function getId(): int

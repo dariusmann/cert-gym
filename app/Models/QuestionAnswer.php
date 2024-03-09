@@ -24,6 +24,11 @@ class QuestionAnswer extends Model implements JsonSerializable
         return $this->id;
     }
 
+    public function isCorrect(): bool
+    {
+        return $this->is_correct === 1;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [

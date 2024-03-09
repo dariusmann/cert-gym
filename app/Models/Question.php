@@ -27,6 +27,21 @@ class Question extends Model implements JsonSerializable
         return $this->hasMany(QuestionAnswer::class);
     }
 
+    public function getCorrectAnswers(): array
+    {
+        $answers = $this->hasMany(QuestionAnswer::class);
+
+        $correctAnswers = [];
+
+        foreach ($answers as $answer) {
+            if ($answer->isCorrect()) {
+                $correctAnswers[] = $answer;
+            }
+        }
+
+        return $correctAnswers;
+    }
+
     public function jsonSerialize(): mixed
     {
         return [
