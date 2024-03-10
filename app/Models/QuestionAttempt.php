@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -20,6 +21,11 @@ class QuestionAttempt extends Model
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getCreatedAt(): DateTime
+    {
+        return $this->created_at;
     }
 
     public function answeredCorrectly(): bool
