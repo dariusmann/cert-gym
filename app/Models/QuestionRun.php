@@ -25,4 +25,16 @@ class QuestionRun extends Model
     {
         return $this->hasMany(QuestionRunQuestion::class);
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'type' => $this->type,
+            'status' => $this->status,
+            'total_questions' => $this->getQuestionRunQuestions()->count(),
+            'answered_questions' => $this->getQuestionRunQuestions()->whereNotNull('attempt_id')->count(),
+            'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+        ];
+    }
 }
