@@ -1,41 +1,18 @@
 <script>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Card from 'primevue/card';
+import QuestionRunService from "@/Services/question.run.service.js";
 
 export default {
     name: "ListRuns",
     components: {AuthenticatedLayout, Card},
     data: function () {
         return {
-            runs: [
-                {
-                    'id': 1,
-                    'type': 'random',
-                    'stats': {
-                        'count': 77,
-                    },
-                    'status': 'created',
-                },
-                {
-                    'id': 1,
-                    'type': 'random',
-                    'stats': {
-                        'count': 124,
-                        'answered': 77
-                    },
-                    'status': 'doing',
-                },
-                {
-                    'id': 1,
-                    'type': 'categories',
-                    'stats': {
-                        'count': 333,
-                        'answered': 124
-                    },
-                    'status': 'finished',
-                }
-            ]
+            runs: []
         }
+    },
+    async created() {
+        await this.loadUserQuestionRuns();
     },
     methods: {
         continueRun(run) {
@@ -49,6 +26,10 @@ export default {
         },
         isFinished(run) {
             return run.status === 'finished'
+        },
+
+        async loadUserQuestionRuns() {
+            this.runs = await QuestionRunService.readQuestionRun();
         },
 
         resolveName(run) {
@@ -91,7 +72,7 @@ export default {
                             <div class="stat-title">Total</div>
                             <div class="stat-value">{{ run.stats.count }}</div>
                         </div>
-                        <div v-if="run.stats.answered && isInProgress(run)" class="stat place-items-center">
+                        <div class="stat place-items-center">
                             <div class="stat-title">Answered</div>
                             <div class="stat-value text-secondary">{{ run.stats.answered }}</div>
                         </div>
