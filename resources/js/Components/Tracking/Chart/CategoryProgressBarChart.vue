@@ -1,28 +1,39 @@
 <script>
 import Card from "primevue/card";
+import TrackingService from "@/Services/tracking.service.js";
+
 export default {
     name: "CategoryProgressBarChart",
     components: {Card},
+    async created() {
+        const stats = await TrackingService.readCategoriesAccuracyRateStats();
+
+
+        this.series = [{
+            name: 'Right',
+            data: stats.right_attempts
+        }, {
+            name: 'Wrong',
+            data: stats.wrong_attempts
+        }];
+
+        this.options.xaxis.categories = stats.category_labels;
+        this.dataLoaded = true;
+    },
     data: function () {
         return {
-
-            series: [{
-                name: 'Wrong',
-                data: [73, 27, 10, 93, 77, 56]
-            }, {
-                name: 'Right',
-                data: [27, 73, 90, 7, 23, 44]
-            }],
+            dataLoaded: false,
+            series: [],
             chartOptions: {
                 chart: {
                     type: 'bar',
                     height: 350,
                     stacked: true,
                     toolbar: {
-                        show: true
+                        show: false
                     },
                     zoom: {
-                        enabled: true
+                        enabled: false
                     }
                 },
                 responsive: [{
@@ -51,9 +62,7 @@ export default {
                     },
                 },
                 xaxis: {
-                    categories: ['Measurement', 'ALignment', 'Research', 'Other category',
-                        'Other category', 'Other category'
-                    ],
+                    categories: [],
                 },
                 colors: ['#26c281', '#cf000f'],
                 legend: {
