@@ -99,7 +99,8 @@ export default {
             <Card>
                 <template #content>
                     <div class="mt-4 flex gap-1 flex-wrap">
-                        <div :class="badgedClasses(questionRunQuestion)"
+                        <div class="cursor-pointer"
+                             :class="badgedClasses(questionRunQuestion)"
                              v-for="(questionRunQuestion, index) in questionRun.questions"
                              @click="() => loadQuestion(questionRunQuestion, index)"
                         >
