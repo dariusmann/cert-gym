@@ -33,18 +33,33 @@ class Question extends Model implements JsonSerializable
     }
 
     private function getCategoryHierarchy($category, $hierarchy = []): array
-{
-    if (!$category) {
-        return array_reverse($hierarchy);
+    {
+        if (!$category) {
+            return array_reverse($hierarchy);
+        }
+
+        $hierarchy[] = [
+            'id' => $category->id,
+            'name' => $category->name,
+        ];
+
+        return $this->getCategoryHierarchy($category->parent, $hierarchy);
     }
 
-    $hierarchy[] = [
-        'id' => $category->id,
-        'name' => $category->name,
-    ];
+    public function getCorrectAnswers(): array
+    {
+        $answers = $this->hasMany(QuestionAnswer::class);
 
-    return $this->getCategoryHierarchy($category->parent, $hierarchy);
-}
+        $correctAnswers = [];
+
+        foreach ($answers as $answer) {
+            if ($answer->isCorrect()) {
+                $correctAnswers[] = $answer;
+            }
+        }
+
+        return $correctAnswers;
+    }
 
     public function jsonSerialize(): mixed
     {

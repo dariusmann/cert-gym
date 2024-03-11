@@ -7,6 +7,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import { i18nVue } from 'laravel-vue-i18n';
 import VueGtag from "vue-gtag";
 import PrimeVue from 'primevue/config';
+import VueApexCharts from "vue3-apexcharts";
+import ApexCharts from 'apexcharts'
 
 import 'primevue/resources/themes/lara-light-green/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -16,6 +18,17 @@ import.meta.glob([
 ]);
 
 const appName = import.meta.env.VITE_APP_NAME || 'Cert Gym';
+
+ApexCharts.exec('any', 'updateOptions', {
+    colors: ['#FF4560'], // Example color palette
+    fill: {
+        colors: ['#F44336', '#E91E63', '#9C27B0']
+    },
+    theme: {
+        palette: 'palette3' // upto palette10
+    }
+}, true, true);
+
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -34,6 +47,7 @@ createInertiaApp({
             .use(VueGtag, {
                 config: { id: "G-FGWCHXHPB1" }
             })
+            .use(VueApexCharts)
             .mount(el);
     },
     progress: {

@@ -1,13 +1,16 @@
 <?php
 
+use App\Http\Controllers\Pages\Run\ListRunsPageController;
 use App\Http\Controllers\Pages\Run\RunPageController;
 use App\Http\Controllers\Pages\Run\CreateCategoryRunPageController;
+use App\Http\Controllers\Pages\Tracking\TrackingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Questions\Answer\ReadQuestionAttemptAnswerController;
 use App\Http\Controllers\Questions\Attempt\CreateQuestionRunAttemptController;
 use App\Http\Controllers\Questions\ReadQuestionController;
 use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
 use App\Http\Controllers\Questions\Run\CreateRandomRunController;
+use App\Http\Controllers\Tracking\ReadTrackingAccuracyController;
 use App\Http\Controllers\Questions\Run\ReadUserQuestionRunController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -40,6 +43,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
     Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category.create');
+    Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
+    Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
 });
 
 Route::middleware('auth')->group(function () {
@@ -49,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/api/question/run/category', CreateCategoryRunController::class)->name('api.question.run.category.create');
     Route::get('/api/question/run/random', [CreateRandomRunController::class, 'readRandom'])->name('api.question.random.read');
     Route::get('/api/user/question/run', ReadUserQuestionRunController::class)->name('api.user.question.run');
+
+    Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
 });
 
 require __DIR__ . '/auth.php';

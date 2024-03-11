@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class CategoriesCommand extends Command
+class ImportCategoriesCommand extends Command
 {
     /**
      * The name and signature of the console command.
