@@ -3,6 +3,7 @@
 use App\Http\Controllers\Pages\Run\ListRunsPageController;
 use App\Http\Controllers\Pages\Run\RunPageController;
 use App\Http\Controllers\Pages\Run\CreateCategoryRunPageController;
+use App\Http\Controllers\Pages\Run\RunResultPage;
 use App\Http\Controllers\Pages\Tracking\TrackingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Questions\Answer\ReadQuestionAttemptAnswerController;
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category.create');
     Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
+    Route::get('/page/run/result/{runId}', RunResultPage::class)->name('page.run.result');
 });
 
 Route::middleware('auth')->group(function () {

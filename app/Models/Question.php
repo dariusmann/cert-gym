@@ -61,7 +61,7 @@ class Question extends Model implements JsonSerializable
         return $correctAnswers;
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
@@ -70,5 +70,10 @@ class Question extends Model implements JsonSerializable
             'category_path' => $this->getCategoryHierarchy($this->category),
             'answers' => $this->answers()->get(),
         ];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }
