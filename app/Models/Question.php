@@ -27,6 +27,25 @@ class Question extends Model implements JsonSerializable
         return $this->hasMany(QuestionAnswer::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    private function getCategoryHierarchy($category, $hierarchy = []): array
+    {
+        if (!$category) {
+            return array_reverse($hierarchy);
+        }
+
+        $hierarchy[] = [
+            'id' => $category->id,
+            'name' => $category->name,
+        ];
+
+        return $this->getCategoryHierarchy($category->parent, $hierarchy);
+    }
+
     public function getCorrectAnswers(): array
     {
         $answers = $this->hasMany(QuestionAnswer::class);
@@ -48,6 +67,7 @@ class Question extends Model implements JsonSerializable
             'id' => $this->getId(),
             'text' => $this->text,
             'category_id' => $this->category_id,
+            'category_path' => $this->getCategoryHierarchy($this->category),
             'answers' => $this->answers()->get(),
         ];
     }

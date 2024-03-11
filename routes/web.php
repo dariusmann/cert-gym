@@ -11,6 +11,7 @@ use App\Http\Controllers\Questions\ReadQuestionController;
 use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
 use App\Http\Controllers\Questions\Run\CreateRandomRunController;
 use App\Http\Controllers\Tracking\ReadTrackingAccuracyController;
+use App\Http\Controllers\Questions\Run\ReadUserQuestionRunController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -52,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/question/attempt/{attemptId}/answers', ReadQuestionAttemptAnswerController::class)->name('api.question.attempt.answers.read');
     Route::post('/api/question/run/category', CreateCategoryRunController::class)->name('api.question.run.category.create');
     Route::get('/api/question/run/random', [CreateRandomRunController::class, 'readRandom'])->name('api.question.random.read');
+    Route::get('/api/user/question/run', ReadUserQuestionRunController::class)->name('api.user.question.run');
 
     Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
 });

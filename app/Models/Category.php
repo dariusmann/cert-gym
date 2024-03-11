@@ -34,5 +34,15 @@ class Category extends Model
         $this->name = $name;
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+    
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+    
 
 }

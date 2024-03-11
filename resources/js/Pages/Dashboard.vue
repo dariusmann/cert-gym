@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import { computed } from 'vue'
 import { usePage, Link } from '@inertiajs/vue3'
 import RandomRunButton from "@/Components/Questions/Runs/RandomRunButton.vue";
-
+import QuestionRunButton from "@/Components/Questions/Runs/QuestionRunButton.vue";
 const page = usePage()
 
 const subscription = computed(() => page.props.subscription)
@@ -30,6 +30,7 @@ const subscription = computed(() => page.props.subscription)
                         <div v-else>
                             <RandomRunButton/>
                             <Link class="btn btn-primary" :href="route('page.run.category.create')">Category Run</Link>
+                            <QuestionRunButton/>
                         </div>
                     </div>
                 </div>
