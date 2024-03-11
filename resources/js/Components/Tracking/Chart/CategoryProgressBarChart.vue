@@ -10,11 +10,8 @@ export default {
 
 
         this.series = [{
-            name: 'Right',
-            data: stats.right_attempts
-        }, {
-            name: 'Wrong',
-            data: stats.wrong_attempts
+            name: 'Accuracy Rate',
+            data: stats.accuracy_rate
         }];
 
         this.options.xaxis.categories = stats.category_labels;
@@ -24,7 +21,7 @@ export default {
         return {
             dataLoaded: false,
             series: [],
-            chartOptions: {
+            options: {
                 chart: {
                     type: 'bar',
                     height: 350,
@@ -64,7 +61,13 @@ export default {
                 xaxis: {
                     categories: [],
                 },
-                colors: ['#26c281', '#cf000f'],
+                yaxis: {
+                    title: {
+                        text: 'Accuracy %',
+                    },
+                    max: 100,
+                },
+                colors: ['#eb826b'],
                 legend: {
                     position: 'right',
                     offsetY: 40
@@ -73,8 +76,6 @@ export default {
                     opacity: 1
                 }
             },
-
-
         }
     }
 }
@@ -85,11 +86,13 @@ export default {
         <template #content>
             <div class="flex justify-center text-center">
                 <div class="prose">
-                    <h2>Accuracy Rate by Category</h2>
-                    <p>Accuracy rate shows the percentage of questions you've answered correctly.</p>
+                    <h2>Accuracy Rate by Task List</h2>
+                    <p>Accuracy rate shows the percentage of questions <br> you've answered correctly by Task List.</p>
                 </div>
             </div>
-            <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+            <div v-if="dataLoaded" class="flex justify-center">
+                <apexchart type="bar" width="800" height="400" :options="options" :series="series"></apexchart>
+            </div>
         </template>
     </Card>
 </template>

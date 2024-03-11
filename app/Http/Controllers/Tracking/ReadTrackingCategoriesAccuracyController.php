@@ -32,23 +32,23 @@ class ReadTrackingCategoriesAccuracyController extends Controller
 
         $taskListCategories = $this->getTaskListCategories();
 
-        $wrongAttempts = [];
-        $rightAttempts = [];
+        $accuracyRate = [];
 
         foreach ($taskListCategories as $taskListCategory) {
             $subCategoriesIds = $this->getSubTaskListCategories($taskListCategory);
 
-            $wrongAttempts[] = $this->countAttemptByAnsweredCorrectAndCategoryIds->count(
+            $wrongAttempts = $this->countAttemptByAnsweredCorrectAndCategoryIds->count(
                 false, $subCategoriesIds, $user->getId()
             );
-            $rightAttempts[] = $this->countAttemptByAnsweredCorrectAndCategoryIds->count(
+            $rightAttempts = $this->countAttemptByAnsweredCorrectAndCategoryIds->count(
                 true, $subCategoriesIds, $user->getId()
             );
+
+            $accuracyRate[] = round($rightAttempts / ($rightAttempts + $wrongAttempts) * 100);
         }
 
         return new JsonResponse([
-            'wrong_attempts' => $wrongAttempts,
-            'right_attempts' => $rightAttempts,
+            'accuracy_rate' => $accuracyRate,
             'category_labels' => $this->resolveCategoriesLabels($taskListCategories)
         ]);
     }
