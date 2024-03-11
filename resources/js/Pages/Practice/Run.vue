@@ -3,10 +3,11 @@ import QuestionService from "@/Services/question.service.js";
 import QuestionTest from "@/Components/Questions/QuestionTest.vue";
 import QuestionAttemptService from "@/Services/question.attempt.service.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Card from 'primevue/card';
 
 export default {
     name: "Run",
-    components: {AuthenticatedLayout, QuestionTest},
+    components: {AuthenticatedLayout, QuestionTest, Card},
     props: ['questionRun'],
     data: function () {
         return {
@@ -92,25 +93,30 @@ export default {
 </script>
 
 <template>
-
     <AuthenticatedLayout>
         <div class="h-5"></div>
-        <QuestionTest v-if="currentQuestion && allLoaded"
-                      :init-question="currentQuestion"
-                      :init-committed-to-answer="committedToAnswer"
-                      :init-selected-answer="selectedAnswer"
-                      @commitSelection="submitAttempt"
-                      @nextQuestion="submitNextQuestion"/>
-
-        <div class="mt-4 flex gap-1 flex-wrap">
-            <div :class="badgedClasses(questionRunQuestion)"
-                 v-for="(questionRunQuestion, index) in questionRun.questions"
-                 @click="() => loadQuestion(questionRunQuestion, index)"
-            >
-                {{ index + 1 }}
+        <div class="grid gap-4 grid-cols-4">
+            <Card>
+                <template #content>
+                    <div class="mt-4 flex gap-1 flex-wrap">
+                        <div :class="badgedClasses(questionRunQuestion)"
+                             v-for="(questionRunQuestion, index) in questionRun.questions"
+                             @click="() => loadQuestion(questionRunQuestion, index)"
+                        >
+                            {{ index + 1 }}
+                        </div>
+                    </div>
+                </template>
+            </Card>
+            <div class="col-span-3">
+                <QuestionTest v-if="currentQuestion && allLoaded"
+                              :init-question="currentQuestion"
+                              :init-committed-to-answer="committedToAnswer"
+                              :init-selected-answer="selectedAnswer"
+                              @commitSelection="submitAttempt"
+                              @nextQuestion="submitNextQuestion"/>
             </div>
         </div>
-
     </AuthenticatedLayout>
 
 </template>

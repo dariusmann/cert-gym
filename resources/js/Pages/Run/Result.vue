@@ -51,7 +51,7 @@ export default {
         <div class="container">
             <div class="grid grid-cols-4 gap-4">
                 <div>
-                    <Card>
+                    <Card class="h-full">
                         <template #content>
                             <div>
                                 <div v-for="(runQuestion, index) in runQuestions"

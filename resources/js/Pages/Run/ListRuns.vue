@@ -27,17 +27,18 @@ export default {
         isFinished(run) {
             return run.status === 'finished'
         },
-
         async loadUserQuestionRuns() {
             this.runs = await QuestionRunService.readQuestionRun();
         },
-
         resolveName(run) {
             if (run.type === 'categories') {
                 return "Category run"
             }
 
             return "Run"
+        },
+        analyseRun(run) {
+            window.location = '/page/run/result/' + run.id
         }
     }
 }
@@ -85,7 +86,9 @@ export default {
                             Continue
                         </button>
                         <button class="btn btn-secondary btn-sm"
-                                v-if="isFinished(run)">
+                                v-if="isFinished(run)"
+                                @click="analyseRun(run)"
+                        >
                             Analyze
                         </button>
                     </div>
