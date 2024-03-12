@@ -53,10 +53,10 @@ class CreateExamRunController  extends Controller
         // Loop through each main category
         foreach ($mainCategories as $mainCategory) {
             // Get all subcategories of the main category
-            $subcategories = Category::where('parent_id', $mainCategory->id)->pluck('id')->toArray();
+            $subcategories = Category::where('parent_id', $mainCategory->id)->pluck('id','short_code')->toArray();
 
             // Define the count of random questions for the current main category
-            $count = $this->getRandomQuestionCount($mainCategory->id);
+            $count = $this->getRandomQuestionCount($mainCategory->short_code);
 
             // Get random questions from each subcategory
             $questions = Question::whereIn('category_id', $subcategories)->inRandomOrder()->limit($count)->get();
@@ -68,19 +68,19 @@ class CreateExamRunController  extends Controller
         return $randomQuestions;
     }
 
-    private function getRandomQuestionCount($categoryId)
+    private function getRandomQuestionCount($short_code)
     {
         // Define the counts of random questions for each main category
         $countMapping = [
-            2 => 12, // 12 random questions from subcategories of the first category
-            9 => 6,  // 6 random questions from subcategories of the second category
-            13 => 24, // 24 random questions from subcategories of the third category
-            26 => 12, // 12 random questions from subcategories of the fourth category
-            33 => 10, // 10 random questions from subcategories of the fifth category
-            39 => 11  // 11 random questions from subcategories of the sixth category
+            'A' => 12, // 12 random questions from subcategories of the first category
+            'B' => 6,  // 6 random questions from subcategories of the second category
+            'C' => 24, // 24 random questions from subcategories of the third category
+            'D' => 12, // 12 random questions from subcategories of the fourth category
+            'E' => 10, // 10 random questions from subcategories of the fifth category
+            'F' => 11  // 11 random questions from subcategories of the sixth category
         ];
 
         // Return the count based on the category ID, default to 0 if not found
-        return $countMapping[$categoryId] ?? 0;
+        return $countMapping[$short_code] ?? 0;
     }
 }
