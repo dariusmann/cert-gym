@@ -68,7 +68,7 @@ class Question extends Model implements JsonSerializable
             'text' => $this->text,
             'category_id' => $this->category_id,
             'category_path' => $this->getCategoryHierarchy($this->category),
-            'answers' => $this->answers()->get(),
+            'answers' => $this->answers()->get()->toArray(),
         ];
     }
 

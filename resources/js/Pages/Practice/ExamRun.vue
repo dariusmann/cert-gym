@@ -6,6 +6,7 @@ import QuestionExam from "@/Components/Questions/QuestionExam.vue";
 import QuestionRunService from "@/Services/question.run.service.js";
 import ExamCountdown from "@/Pages/Practice/ExamCountdown.vue";
 import moment from 'moment';
+import QuestionAttemptService from "@/Services/question.attempt.service.js";
 
 export default {
     name: "ExamRun",
@@ -19,13 +20,16 @@ export default {
             examEndTime: null
         }
     },
+    created() {
+        console.log(this.examRun)
+    },
     async mounted() {
         const runExam = await QuestionRunService.readQuestionRunExam(this.examRun.id)
         this.examEndTime = moment.utc(runExam.started_at).add(1, 'hours').add(30, 'minutes')
     },
     computed: {
         currentQuestion() {
-            return this.examRun.questions[this.currentIndex];
+            return this.examRun.run_questions[this.currentIndex].question;
         },
         currentSelectedAnswer() {
             return this.attempts[this.currentIndex];
@@ -52,6 +56,13 @@ export default {
         async commitSelection(data) {
             this.flaggedQuestionIndex[this.currentIndex] = 0;
             this.attempts[this.currentIndex] = data.answer
+            const runQuestion = await QuestionAttemptService.createRunQuestionAttempt(
+                {
+                    answer_ids: [data.answer.id],
+                    question_run_question_id: this.currentRunQuestion.id
+                }
+            )
+            console.log()
             this.currentIndex = this.currentIndex + 1;
         },
         flagQuestion() {
@@ -70,7 +81,7 @@ export default {
             }
         },
         navigateNext() {
-            if (this.examRun.questions.length - 1 > this.currentIndex) {
+            if (this.examRun.run_questions.length - 1 > this.currentIndex) {
                 this.currentIndex = this.currentIndex + 1;
             }
         },
@@ -101,7 +112,7 @@ export default {
                     <Card class="h-full">
                         <template #content>
                             <div class="grid grid-cols-8 gap-1">
-                                <div v-for="(question, index) in examRun.questions"
+                                <div v-for="(question, index) in examRun.run_questions"
                                      class="badge cursor-pointer"
                                      :class="classesBadge(index)"
                                      @click="changeQuestion(index)"

@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Pages\Run;
 
 use App\Models\Question;
 use App\Models\QuestionRun;
+use App\Models\QuestionRunQuestion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -17,16 +18,19 @@ class RunExamPageController
         /** @var QuestionRun $questionRun */
         $questionRun = QuestionRun::find($runId);
 
-        $questionRunQuestions = $questionRun->getQuestionRunQuestions();
+        $questionRunQuestions = $questionRun->getQuestionRunQuestions()->orderBy('order')->get();
 
-        $questionIds = $questionRunQuestions->orderBy('order')->pluck('question_id')->toArray();
+        $resultRunQuestions = [];
 
-        $questions = Question::find($questionIds);
+        /** @var QuestionRunQuestion $runQuestion */
+        foreach ($questionRunQuestions as $runQuestion) {
+            $resultRunQuestions[] = $runQuestion->toArray();
+        }
 
         return Inertia::render('Practice/ExamRun', [
             'examRun' => [
                 'id' => $questionRun->getId(),
-                'questions' => $questions
+                'run_questions' => $resultRunQuestions
             ]
         ]);
     }

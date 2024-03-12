@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use JsonSerializable;
 
-class QuestionRunQuestion extends Model
+class QuestionRunQuestion extends Model implements JsonSerializable
 {
     use HasFactory;
 
@@ -32,8 +33,36 @@ class QuestionRunQuestion extends Model
         $this->attempt_id = $attemptId;
     }
 
+    public function attempt(): ?QuestionAttempt
+    {
+        if ($this->getAttemptId() !== null) {
+            return QuestionAttempt::find($this->getAttemptId());
+        }
+
+        return null;
+    }
+
+    public function question(): Question
+    {
+        return Question::find($this->getQuestionId());
+    }
+
     public function getAttemptId(): ?int
     {
         return $this->attempt_id;
+    }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->getId(),
+            'question' => $this->question()->toArray(),
+            'attempt' => $this->attempt()?->toArray()
+        ];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return $this->toArray();
     }
 }
