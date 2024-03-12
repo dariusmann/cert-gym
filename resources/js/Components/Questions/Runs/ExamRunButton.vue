@@ -14,7 +14,7 @@ export default {
 
 <template>
     <button @click="submit" class="btn btn-primary">
-        Examsimulation Run
+        Exam Run
     </button>
 </template>
 
