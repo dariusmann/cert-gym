@@ -17,6 +17,34 @@ const TrackingService = {
             throw error
         }
     },
+
+    readOverviewStats: async function () {
+        try {
+            return await ApiService.get('/api/tracking/overview').then(res => {
+                return res.data
+            })
+        } catch (error) {
+            if (error.response.status === StatusCodes.BAD_REQUEST) {
+                throw new BadRequestException(error)
+            }
+
+            throw error
+        }
+    },
+
+    readReadinessScore: async function () {
+        try {
+            return await ApiService.get('/api/tracking/readinessscore').then(res => {
+                return res.data
+            })
+        } catch (error) {
+            if (error.response.status === StatusCodes.BAD_REQUEST) {
+                throw new BadRequestException(error)
+            }
+
+            throw error
+        }
+    },
 }
 
 export default TrackingService

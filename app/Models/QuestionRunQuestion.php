@@ -34,4 +34,9 @@ class QuestionRunQuestion extends Model
     {
         return $this->attempt_id;
     }
+
+    public function getQuestionRunId(): int
+    {
+        return $this->question_run_id;
+    }
 }

@@ -12,6 +12,8 @@ use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
 use App\Http\Controllers\Questions\Run\CreateRandomRunController;
 use App\Http\Controllers\Questions\Run\CreateExamRunController;
 use App\Http\Controllers\Tracking\ReadTrackingAccuracyController;
+use App\Http\Controllers\Tracking\ReadTrackingOverviewController;
+use App\Http\Controllers\Tracking\ReadReadinessScoreController;
 use App\Http\Controllers\Questions\Run\ReadUserQuestionRunController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -58,6 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/user/question/run', ReadUserQuestionRunController::class)->name('api.user.question.run');
 
     Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
+    Route::get('/api/tracking/overview', ReadTrackingOverviewController::class)->name('api.tracking.overview.read');
+    Route::get('/api/tracking/readinessscore', ReadReadinessScoreController::class)->name('api.tracking.readinessscore.read');
 });
 
 require __DIR__ . '/auth.php';

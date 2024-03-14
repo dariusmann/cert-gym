@@ -1,8 +1,18 @@
 <script>
 import Card from "primevue/card";
+import TrackingService from "@/Services/tracking.service.js";
 export default {
     name: "Overview",
-    components: {Card}
+    components: {Card},
+    data: function () {
+        return {
+            overviewData:''
+        }
+    },
+    async mounted() {
+        const data = await TrackingService.readOverviewStats();
+        this.overviewData = data;
+    }
 }
 </script>
 
@@ -20,15 +30,15 @@ export default {
 
                     <div class="stat">
                         <div class="stat-title">Total Answered Questions</div>
-                        <div class="stat-value text-center">433</div>
+                        <div class="stat-value text-center">{{ overviewData.total }}</div>
                     </div>
                     <div class="stat">
                         <div class="stat-title">Right Answered Questions</div>
-                        <div class="stat-value text-center text-green-600">277</div>
+                        <div class="stat-value text-center text-green-600">{{ overviewData.correct_answered }}</div>
                     </div>
                     <div class="stat">
                         <div class="stat-title">Accuracy Rate</div>
-                        <div class="stat-value text-center text-primary">76%</div>
+                        <div class="stat-value text-center text-primary">{{ overviewData.accuracy_rate }}%</div>
                     </div>
 
                 </div>

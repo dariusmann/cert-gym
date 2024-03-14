@@ -10,6 +10,7 @@ use App\Models\Question;
 use App\Models\QuestionAnswer;
 use App\Models\QuestionAttempt;
 use App\Models\QuestionResponse;
+use App\Models\QuestionRun;
 use App\Models\QuestionRunQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,23 +23,21 @@ class CreateQuestionRunAttemptController extends Controller
 
     public function __construct(
         AnsweredCorrectlyResolver $answeredCorrectlyResolver
-    )
-    {
+    ) {
         $this->answeredCorrectlyResolver = $answeredCorrectlyResolver;
     }
 
     // TODO: check if same user who request
     public function __invoke(Request $request): JsonResponse
     {
-        $runQuestionId = $request->get('question_run_question_id');
+        $questionRunQuestionId = $request->get('question_run_question_id');
         $answersIds = $request->get('answer_ids');
 
         /** @var User $user */
         $user = $request->user();
 
         /** @var QuestionRunQuestion $questionRunQuestion */
-        $questionRunQuestion = QuestionRunQuestion::find($runQuestionId);
-
+        $questionRunQuestion = QuestionRunQuestion::find($questionRunQuestionId);
         if ($questionRunQuestion->getAttemptId() !== null) {
             throw new ConflictHttpException('Attempt already made for this run question');
         }
@@ -64,6 +63,18 @@ class CreateQuestionRunAttemptController extends Controller
         $questionRunQuestion->setAttemptId($questionAttempt->getId());
         $questionRunQuestion->save();
 
+
+        $this->UpdateQuestionRunStatus($questionRunQuestion->getQuestionRunId());
+
         return new JsonResponse($questionRunQuestion);
+    }
+
+    private function UpdateQuestionRunStatus($questionRunId)
+    {
+        $status = QuestionRunQuestion::where('question_run_id', $questionRunId)
+            ->whereNull('attempt_id')
+            ->exists() ? 'in_progress' : 'finished';
+
+        QuestionRun::where('id', $questionRunId)->update(['status' => $status]);
     }
 }
