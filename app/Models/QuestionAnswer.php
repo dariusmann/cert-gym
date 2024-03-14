@@ -29,7 +29,7 @@ class QuestionAnswer extends Model implements JsonSerializable
         return $this->is_correct === 1;
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
@@ -37,5 +37,10 @@ class QuestionAnswer extends Model implements JsonSerializable
             'is_correct' => $this->is_correct,
             'explanation' => $this->explanation
         ];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }

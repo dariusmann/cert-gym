@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Pages\Run\ListRunsPageController;
+use App\Http\Controllers\Pages\Run\RunExamPageController;
 use App\Http\Controllers\Pages\Run\RunPageController;
 use App\Http\Controllers\Pages\Run\CreateCategoryRunPageController;
+use App\Http\Controllers\Pages\Run\RunResultPage;
 use App\Http\Controllers\Pages\Tracking\TrackingPageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Questions\Answer\ReadQuestionAttemptAnswerController;
@@ -11,10 +13,12 @@ use App\Http\Controllers\Questions\ReadQuestionController;
 use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
 use App\Http\Controllers\Questions\Run\CreateRandomRunController;
 use App\Http\Controllers\Questions\Run\CreateExamRunController;
+use App\Http\Controllers\Questions\Run\ReadQuestionRunExamController;
 use App\Http\Controllers\Tracking\ReadTrackingAccuracyController;
 use App\Http\Controllers\Tracking\ReadTrackingOverviewController;
 use App\Http\Controllers\Tracking\ReadReadinessScoreController;
 use App\Http\Controllers\Questions\Run\ReadUserQuestionRunController;
+use App\Http\Controllers\Tracking\ReadTrackingCategoriesAccuracyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -45,8 +49,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
+    Route::get('/page/run/{runId}/exam/practice', RunExamPageController::class)->name('page.run.exam.practice');
     Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category.create');
     Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
+    Route::get('/page/run/result/{runId}', RunResultPage::class)->name('page.run.result');
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
 });
 
@@ -58,8 +64,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/question/run/random', [CreateRandomRunController::class, 'readRandom'])->name('api.question.random.read');
     Route::post('/api/question/run/exam', CreateExamRunController::class)->name('api.question.run.exam.create');
     Route::get('/api/user/question/run', ReadUserQuestionRunController::class)->name('api.user.question.run');
+    Route::get('/api/question/run/exam/{runId}', ReadQuestionRunExamController::class)->name('api.question.run.exam');
 
     Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
+    Route::get('/api/tracking/categories/accuracy', ReadTrackingCategoriesAccuracyController::class)->name('api.tracking.categories.accuracy.read');
     Route::get('/api/tracking/overview', ReadTrackingOverviewController::class)->name('api.tracking.overview.read');
     Route::get('/api/tracking/readinessscore', ReadReadinessScoreController::class)->name('api.tracking.readinessscore.read');
 });

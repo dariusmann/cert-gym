@@ -32,9 +32,11 @@ class QuestionRun extends Model
             'id' => $this->getId(),
             'type' => $this->type,
             'status' => $this->status,
-            'total_questions' => $this->getQuestionRunQuestions()->count(),
-            'answered_questions' => $this->getQuestionRunQuestions()->whereNotNull('attempt_id')->count(),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
+            'stats' => [
+                'count' => $this->getQuestionRunQuestions()->count(),
+                'answered' => $this->getQuestionRunQuestions()->whereNotNull('attempt_id')->count(),
+            ]
         ];
     }
 }

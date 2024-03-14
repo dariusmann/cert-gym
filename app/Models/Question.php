@@ -61,14 +61,19 @@ class Question extends Model implements JsonSerializable
         return $correctAnswers;
     }
 
-    public function jsonSerialize(): mixed
+    public function toArray(): array
     {
         return [
             'id' => $this->getId(),
             'text' => $this->text,
             'category_id' => $this->category_id,
             'category_path' => $this->getCategoryHierarchy($this->category),
-            'answers' => $this->answers()->get(),
+            'answers' => $this->answers()->get()->toArray(),
         ];
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->toArray();
     }
 }

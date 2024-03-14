@@ -1,28 +1,36 @@
 <script>
 import Card from "primevue/card";
+import TrackingService from "@/Services/tracking.service.js";
+
 export default {
     name: "CategoryProgressBarChart",
     components: {Card},
+    async created() {
+        const stats = await TrackingService.readCategoriesAccuracyRateStats();
+
+
+        this.series = [{
+            name: 'Accuracy Rate',
+            data: stats.accuracy_rate
+        }];
+
+        this.options.xaxis.categories = stats.category_labels;
+        this.dataLoaded = true;
+    },
     data: function () {
         return {
-
-            series: [{
-                name: 'Wrong',
-                data: [73, 27, 10, 93, 77, 56]
-            }, {
-                name: 'Right',
-                data: [27, 73, 90, 7, 23, 44]
-            }],
-            chartOptions: {
+            dataLoaded: false,
+            series: [],
+            options: {
                 chart: {
                     type: 'bar',
                     height: 350,
                     stacked: true,
                     toolbar: {
-                        show: true
+                        show: false
                     },
                     zoom: {
-                        enabled: true
+                        enabled: false
                     }
                 },
                 responsive: [{
@@ -51,11 +59,15 @@ export default {
                     },
                 },
                 xaxis: {
-                    categories: ['Measurement', 'ALignment', 'Research', 'Other category',
-                        'Other category', 'Other category'
-                    ],
+                    categories: [],
                 },
-                colors: ['#26c281', '#cf000f'],
+                yaxis: {
+                    title: {
+                        text: 'Accuracy %',
+                    },
+                    max: 100,
+                },
+                colors: ['#eb826b'],
                 legend: {
                     position: 'right',
                     offsetY: 40
@@ -64,8 +76,6 @@ export default {
                     opacity: 1
                 }
             },
-
-
         }
     }
 }
@@ -76,11 +86,13 @@ export default {
         <template #content>
             <div class="flex justify-center text-center">
                 <div class="prose">
-                    <h2>Accuracy Rate by Category</h2>
-                    <p>Accuracy rate shows the percentage of questions you've answered correctly.</p>
+                    <h2>Accuracy Rate by Task List</h2>
+                    <p>Accuracy rate shows the percentage of questions <br> you've answered correctly by Task List.</p>
                 </div>
             </div>
-            <apexchart type="bar" height="350" :options="chartOptions" :series="series"></apexchart>
+            <div v-if="dataLoaded" class="flex justify-center">
+                <apexchart type="bar" width="800" height="400" :options="options" :series="series"></apexchart>
+            </div>
         </template>
     </Card>
 </template>
