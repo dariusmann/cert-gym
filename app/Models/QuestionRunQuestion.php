@@ -52,6 +52,11 @@ class QuestionRunQuestion extends Model implements JsonSerializable
         return $this->attempt_id;
     }
 
+    public function getQuestionRunId(): int
+    {
+        return $this->question_run_id;
+    }
+
     public function toArray(): array
     {
         return [

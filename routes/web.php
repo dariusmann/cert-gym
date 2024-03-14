@@ -15,6 +15,8 @@ use App\Http\Controllers\Questions\Run\CreateRandomRunController;
 use App\Http\Controllers\Questions\Run\CreateExamRunController;
 use App\Http\Controllers\Questions\Run\ReadQuestionRunExamController;
 use App\Http\Controllers\Tracking\ReadTrackingAccuracyController;
+use App\Http\Controllers\Tracking\ReadTrackingOverviewController;
+use App\Http\Controllers\Tracking\ReadReadinessScoreController;
 use App\Http\Controllers\Questions\Run\ReadUserQuestionRunController;
 use App\Http\Controllers\Tracking\ReadTrackingCategoriesAccuracyController;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +68,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
     Route::get('/api/tracking/categories/accuracy', ReadTrackingCategoriesAccuracyController::class)->name('api.tracking.categories.accuracy.read');
+    Route::get('/api/tracking/overview', ReadTrackingOverviewController::class)->name('api.tracking.overview.read');
+    Route::get('/api/tracking/readinessscore', ReadReadinessScoreController::class)->name('api.tracking.readinessscore.read');
 });
 
 require __DIR__ . '/auth.php';
