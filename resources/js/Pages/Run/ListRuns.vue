@@ -16,13 +16,17 @@ export default {
     },
     methods: {
         continueRun(run) {
+            if (run.type === 'exam') {
+                window.location = '/page/run/' + run.id + '/exam/practice'
+                return;
+            }
             window.location = '/page/run/' + run.id + '/practice'
         },
         notStarted(run) {
             return run.status === 'created'
         },
         isInProgress(run) {
-            return run.status === 'doing'
+            return run.status === 'in_progress'
         },
         isFinished(run) {
             return run.status === 'finished'
@@ -33,6 +37,10 @@ export default {
         resolveName(run) {
             if (run.type === 'categories') {
                 return "Category run"
+            }
+
+            if (run.type === 'exam') {
+                return "Exam"
             }
 
             return "Run"

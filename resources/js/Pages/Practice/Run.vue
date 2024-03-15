@@ -60,8 +60,6 @@ export default {
                 }
             )
 
-            console.log(runQuestion)
-
             this.questionRun.questions[this.currentIndex] = runQuestion
         },
         resolveNextNotAnsweredQuestionIndex() {

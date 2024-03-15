@@ -26,6 +26,11 @@ class QuestionRun extends Model
         return $this->hasMany(QuestionRunQuestion::class);
     }
 
+    public function setFinished()
+    {
+        $this->status = 'finished';
+    }
+
     public function jsonSerialize(): array
     {
         return [

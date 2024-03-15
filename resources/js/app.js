@@ -9,6 +9,7 @@ import VueGtag from "vue-gtag";
 import PrimeVue from 'primevue/config';
 import VueApexCharts from "vue3-apexcharts";
 import ApexCharts from 'apexcharts'
+import ConfirmationService from 'primevue/confirmationservice';
 
 import 'primevue/resources/themes/lara-light-green/theme.css';
 import 'primevue/resources/primevue.min.css';
@@ -38,6 +39,7 @@ createInertiaApp({
             .use(plugin)
             .use(PrimeVue)
             .use(ZiggyVue, Ziggy)
+            .use(ConfirmationService)
             .use(i18nVue, {
                 resolve: async lang => {
                     const langs = import.meta.glob('../../lang/*.json');

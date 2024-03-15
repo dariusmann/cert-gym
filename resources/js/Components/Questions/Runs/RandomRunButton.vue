@@ -1,8 +1,10 @@
 <script>
 import QuestionRunService from "@/Services/question.run.service.js";
+import Card from 'primevue/card';
 
 export default {
     name: "RandomRunButton",
+    components: {Card},
     methods: {
         async submit() {
             const randomRun = await QuestionRunService.readRandomRun();
@@ -14,9 +16,21 @@ export default {
 </script>
 
 <template>
-    <button @click="submit" class="btn btn-primary">
-        Quick start
-    </button>
+    <Card>
+        <template #content>
+            <div class="text-center">
+                <div>
+                    <p>
+                        Practice with random questions
+                    </p>
+                </div>
+
+                <button @click="submit" class="mt-4 btn btn-primary">
+                    Quick start
+                </button>
+            </div>
+        </template>
+    </Card>
 </template>
 
 <style scoped>

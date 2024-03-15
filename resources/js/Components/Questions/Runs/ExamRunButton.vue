@@ -1,8 +1,10 @@
 <script>
 import QuestionRunService from "@/Services/question.run.service.js";
+import Card from 'primevue/card';
 
 export default {
     name: "ExamRunButton",
+    components: {Card},
     methods: {
         async submit() {
             const examQuestionRun = await QuestionRunService.createExamRun();
@@ -13,9 +15,19 @@ export default {
 </script>
 
 <template>
-    <button @click="submit" class="btn btn-primary">
-        Exam Run
-    </button>
+    <Card>
+        <template #content>
+            <div class="text-center">
+                <div>
+                    <p>Test you skills on our exam simulation</p>
+                </div>
+                <button @click="submit" class="mt-4 btn btn-primary">
+                    Exam Run
+                </button>
+            </div>
+        </template>
+    </Card>
+
 </template>
 
 <style scoped>

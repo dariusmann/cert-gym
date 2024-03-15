@@ -17,16 +17,19 @@ return new class extends Migration {
                 ->constrained('question_runs')
                 ->onDelete('cascade');
 
-            $table->foreignId('question_id')
-                ->constrained('questions')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('question_id')->nullable();
+
+            $table->foreign('question_id')
+                ->references('id')
+                ->on('questions')
+                ->onDelete('set null');
 
             $table->unsignedBigInteger('attempt_id')->nullable();
 
             $table->foreign('attempt_id')
                 ->references('id')
                 ->on('question_attempts')
-                ->onDelete('cascade');
+                ->onDelete('set null');
 
             $table->integer('order')->nullable();
             $table->timestamps();
