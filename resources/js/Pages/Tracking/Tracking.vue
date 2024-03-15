@@ -15,6 +15,7 @@ export default {
 <template>
     <AuthenticatedLayout>
         <div class="h-5"></div>
+
         <div class="grid grid-cols-3 gap-4">
             <div class="col-span-2">
                 <Overview/>
@@ -24,10 +25,12 @@ export default {
             </div>
         </div>
 
-        <div class="h-5">
-        </div>
+        <div class="h-5"></div>
 
         <AccuracyRateLineChart/>
+
+        <div class="h-5"></div>
+
         <CategoryProgressBarChart/>
     </AuthenticatedLayout>
 </template>

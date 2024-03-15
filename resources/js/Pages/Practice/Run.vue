@@ -3,10 +3,11 @@ import QuestionService from "@/Services/question.service.js";
 import QuestionTest from "@/Components/Questions/QuestionTest.vue";
 import QuestionAttemptService from "@/Services/question.attempt.service.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import Card from 'primevue/card';
 
 export default {
     name: "Run",
-    components: {AuthenticatedLayout, QuestionTest},
+    components: {AuthenticatedLayout, QuestionTest, Card},
     props: ['questionRun'],
     data: function () {
         return {
@@ -18,8 +19,7 @@ export default {
         }
     },
     async created() {
-        const nextUnansweredQuestionIndex = this.resolveNextNotAnsweredQuestionIndex()
-        await this.loadQuestion(this.questionRun.questions[nextUnansweredQuestionIndex], nextUnansweredQuestionIndex)
+        this.currentIndex = this.resolveNextNotAnsweredQuestionIndex()
     },
     computed: {
         selectedAnswer() {
@@ -39,52 +39,47 @@ export default {
             }
 
             return false;
+        },
+        xCurrentQuestion() {
+            return this.questionRun.questions[this.currentIndex].question
+        },
+        xCurrentRunQuestion(){
+            return this.questionRun.questions[this.currentIndex]
         }
+
     },
     methods: {
-        async loadQuestion(questionRunQuestion, index) {
-            this.allLoaded = false;
-            this.currentQuestion = null;
-            this.questionAnswer = null;
-
-            this.currentRunQuestion = questionRunQuestion;
-            this.currentIndex = index
-            this.currentQuestion = await QuestionService.readQuestion(questionRunQuestion.question_id);
-
-            if (questionRunQuestion.attempt_id) {
-                this.questionAnswer = await QuestionAttemptService.readQuestionAttempt(questionRunQuestion.attempt_id)
-            }
-
-            this.allLoaded = true;
+        changeQuestion(index) {
+            this.currentIndex = index;
         },
         async submitAttempt(data) {
             const runQuestion = await QuestionAttemptService.createRunQuestionAttempt(
                 {
                     answer_ids: [data.answer.id],
-                    question_run_question_id: this.currentRunQuestion.id
+                    question_run_question_id: this.xCurrentRunQuestion.id
                 }
             )
+
+            console.log(runQuestion)
 
             this.questionRun.questions[this.currentIndex] = runQuestion
         },
         resolveNextNotAnsweredQuestionIndex() {
-            return this.questionRun.questions.findIndex(item => item.attempt_id === null)
+            return this.questionRun.questions.findIndex(item => item.attempt === null)
         },
         badgedClasses(questionRunQuestion) {
             return {
-                'badge badge-primary': !!questionRunQuestion.attempt_id,
-                'badge badge-secondary': !questionRunQuestion.attempt_id,
-                'badge badge-accent': questionRunQuestion.id == this.currentRunQuestion?.id
+                'badge badge-primary': !!questionRunQuestion.attempt,
+                'badge badge-secondary': !questionRunQuestion.attempt,
+                'badge badge-accent': questionRunQuestion.question.id === this.xCurrentQuestion?.id
             }
         },
         submitNextQuestion() {
             const limit = this.questionRun.questions.length - 1;
             if (this.currentIndex === limit) {
-                const nextUnansweredQuestionIndex = this.resolveNextNotAnsweredQuestionIndex()
-                this.loadQuestion(this.questionRun.questions[nextUnansweredQuestionIndex], nextUnansweredQuestionIndex)
+                this.currentIndex = this.resolveNextNotAnsweredQuestionIndex();
             } else {
                 this.currentIndex = this.currentIndex + 1;
-                this.loadQuestion(this.questionRun.questions[this.currentIndex], this.currentIndex)
             }
         }
     }
@@ -92,25 +87,32 @@ export default {
 </script>
 
 <template>
-
     <AuthenticatedLayout>
         <div class="h-5"></div>
-        <QuestionTest v-if="currentQuestion && allLoaded"
-                      :init-question="currentQuestion"
-                      :init-committed-to-answer="committedToAnswer"
-                      :init-selected-answer="selectedAnswer"
-                      @commitSelection="submitAttempt"
-                      @nextQuestion="submitNextQuestion"/>
-
-        <div class="mt-4 flex gap-1 flex-wrap">
-            <div :class="badgedClasses(questionRunQuestion)"
-                 v-for="(questionRunQuestion, index) in questionRun.questions"
-                 @click="() => loadQuestion(questionRunQuestion, index)"
-            >
-                {{ index + 1 }}
+        <div class="grid gap-4 grid-cols-4">
+            <div class="col-span-3">
+                <QuestionTest v-if="xCurrentQuestion"
+                              :init-question="xCurrentQuestion"
+                              :key="xCurrentQuestion?.id || 'default'"
+                              :init-committed-to-answer="committedToAnswer"
+                              :init-selected-answer="selectedAnswer"
+                              @commitSelection="submitAttempt"
+                              @nextQuestion="submitNextQuestion"/>
             </div>
+            <Card class="h-full">
+                <template #content>
+                    <div class="grid gap-2 grid-cols-8">
+                        <div class="cursor-pointer"
+                             :class="badgedClasses(questionRunQuestion)"
+                             v-for="(questionRunQuestion, index) in questionRun.questions"
+                             @click="changeQuestion(index)"
+                        >
+                            {{ index + 1 }}
+                        </div>
+                    </div>
+                </template>
+            </Card>
         </div>
-
     </AuthenticatedLayout>
 
 </template>

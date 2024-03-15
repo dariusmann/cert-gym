@@ -23,6 +23,7 @@
         "apexcharts": "^3.47.0",
         "http-status-codes": "^2.3.0",
         "laravel-vue-i18n": "^2.7.1",
+        "moment": "^2.30.1",
         "primevue": "^3.49.1",
         "sass": "^1.69.5",
         "vue-gtag": "^2.0.1",

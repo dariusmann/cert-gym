@@ -6,7 +6,7 @@ export default {
     methods: {
         async submit() {
             const examQuestionRun = await QuestionRunService.createExamRun();
-            console.log('ExamQuestionRun: ',examQuestionRun)
+            window.location = '/page/run/' + examQuestionRun.id + '/exam/practice'
         }
     }
 }

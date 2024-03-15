@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Pages\Run;
 
+use App\Models\Question;
 use App\Models\QuestionRun;
 use App\Models\QuestionRunQuestion;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RunPageController
+class RunExamPageController
 {
     public function __invoke(Request $request, int $runId): Response
     {
@@ -26,10 +27,10 @@ class RunPageController
             $resultRunQuestions[] = $runQuestion->toArray();
         }
 
-        return Inertia::render('Practice/Run', [
-            'questionRun' => [
+        return Inertia::render('Practice/ExamRun', [
+            'examRun' => [
                 'id' => $questionRun->getId(),
-                'questions' => $resultRunQuestions
+                'run_questions' => $resultRunQuestions
             ]
         ]);
     }

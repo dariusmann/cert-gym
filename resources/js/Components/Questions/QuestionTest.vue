@@ -80,47 +80,45 @@ export default {
 
 <template>
 
-    <div v-if="question">
-        <Card>
-            <template #title>
+    <Card v-if="question" class="h-full">
+        <template #content>
+            <div class="text-lg">
                 {{ question.text }}
-            </template>
-            <template #content>
+            </div>
+            <div class="mt-4">
+                <div v-for="answer in question.answers"
+                     :key="answer.id"
+                     class="flex items-center rounded-md px-2 mt-2 first:mt-0 bg-gray-100"
+                     :class="classesAnswers(answer)">
+                    <input type="radio" v-model="selectedAnswer"
+                           :id="'radio-answer-' + answer.id"
+                           :value="answer"
+                           name="radio-question-answer"
+                           class="radio radio-primary" :disabled="committedToAnswer"/>
+                    <label :for="'radio-answer-' + answer.id" class="label cursor-pointer">
+                        {{ answer.text }}
+                    </label>
+                </div>
+            </div>
+            <div class="mt-4">
+                <button class="btn btn-secondary" @click="submit" :disabled="disabledButton">
+                    Answer
+                </button>
+                <button class="btn btn-primary ml-2" @click="$emit('nextQuestion')" :disabled="!disabledButton">
+                    Next
+                </button>
+            </div>
+            <div v-if="committedToAnswer">
+                <div class="h-5"></div>
+                <hr>
+                <div class="h-5"></div>
+                <div class="text-lg text-bold">Explanation</div>
                 <div>
-                    <div v-for="answer in question.answers"
-                         :key="answer.id"
-                         class="flex items-center rounded-md px-2 mt-2 first:mt-0 bg-gray-100"
-                         :class="classesAnswers(answer)">
-                        <input type="radio" v-model="selectedAnswer"
-                               :id="'radio-answer-' + answer.id"
-                               :value="answer"
-                               name="radio-question-answer"
-                               class="radio radio-primary" :disabled="committedToAnswer"/>
-                        <label :for="'radio-answer-' + answer.id" class="label cursor-pointer">
-                            {{ answer.text }}
-                        </label>
-                    </div>
+                    {{ selectedAnswer?.explanation }}
                 </div>
-                <div class="mt-4">
-                    <button class="btn btn-secondary" @click="submit" :disabled="disabledButton">
-                        Answer
-                    </button>
-                    <button class="btn btn-primary ml-2" @click="$emit('nextQuestion')" :disabled="!disabledButton">
-                        Next
-                    </button>
-                </div>
-                <div v-if="committedToAnswer">
-                    <div class="h-5"></div>
-                    <hr>
-                    <div class="h-5"></div>
-                    <div class="text-lg text-bold">Explanation</div>
-                    <div>
-                        {{ selectedAnswer?.explanation }}
-                    </div>
-                </div>
-            </template>
-        </Card>
-    </div>
+            </div>
+        </template>
+    </Card>
 
 </template>
 
