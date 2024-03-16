@@ -63,7 +63,8 @@ export default {
                 <div role="alert" class="alert alert-info text-white">
                     <i class="fa-solid fa-circle-info"></i>
                     <span>You did not start any runs yet. Go back to
-                        <a :href="route('dashboard')" class="link">Dashboard</a> and start a <b>Task List Run</b> or <b>Exam Run</b> and there will al be listed here.</span>
+                        <a :href="route('dashboard')" class="link">Dashboard</a> and start a <b>Task List Run</b>
+                        or <b>Exam Run</b> and there will al be listed here.</span>
                 </div>
             </div>
             <div v-else class="grid grid-cols-4 gap-4">
