@@ -45,11 +45,10 @@ class GenerateQuestionAttemptsCommand extends Command
 
         foreach ($questions as $question) {
 
-
             $probabilityOfCorrect = $count / $questions->count();
 
             if ($this->createCorrectAttempt($questionCount, $probabilityOfCorrect)) {
-                $attempt = $this->createAttempt($question, $user, $date, true);
+                $attempt = $this->createAttempt($question, $user, $date,  true);
                 $answers = $question->getCorrectAnswers();
             } else {
                 $attempt = $this->createAttempt($question, $user, $date, false);
@@ -78,7 +77,7 @@ class GenerateQuestionAttemptsCommand extends Command
             }
         }
 
-        throw new Exception('No un correct question found');
+        throw new Exception('No correct question found');
     }
 
     private function createCorrectAttempt(int $total, float $probability): bool

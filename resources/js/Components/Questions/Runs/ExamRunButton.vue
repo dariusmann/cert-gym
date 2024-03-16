@@ -20,8 +20,8 @@ export default {
             <div class="text-center flex flex-col justify-between h-full">
                 <div>
                     <i class="text-4xl fa-solid fa-vial"></i>
-                    <div class="text-2xl mt-2">Exam</div>
-                    <p class="mt-2">Test you skills on our exam simulation: 75 questions in 1h 30m.</p>
+                    <div class="text-2xl mt-2">Exam Run</div>
+                    <p class="mt-2">Test you skills on our exam simulation: <br> 75 questions in 1h 30m.</p>
                 </div>
                 <button @click="submit" class="mt-4 btn btn-primary">
                     Start Exam
