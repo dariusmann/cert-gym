@@ -27,9 +27,15 @@ export default {
             </div>
             <div class="flex justify-center">
                 <div class="stats">
-                    <div class="stat">
-                        <div class="stat-title">Acurancy rate of last 100 questions</div>
-                        <div class="stat-value text-center">{{ ReadinessScore }}%</div>
+                    <div class="stat text-center">
+                        <div class="stat-title">Calculated by your recent performance <br> across the whole Task List </div>
+                        <div class="stat-value">{{ ReadinessScore }}%</div>
+                        <div class="stat-desc">Base on the BACB exam criteria.</div>
+                        <div class="stat-desc">
+                            <a href="" class="link">
+                                Learn more
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>

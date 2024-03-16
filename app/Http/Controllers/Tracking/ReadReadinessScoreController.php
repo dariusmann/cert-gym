@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Question;
 use App\Models\QuestionAttempt;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -49,60 +50,42 @@ class ReadReadinessScoreController extends Controller
         ]);
     }
 
-    private function getQuestionCountAgainstEachMainCategory($short_code)
+    private function getQuestionCountAgainstEachMainCategory($short_code): int
     {
         // Define the counts of questions for each main category
         $countMapping = [
-            'A' => 12,
-            'B' => 6,
-            'C' => 24,
-            'D' => 12,
-            'E' => 10,
-            'F' => 11
+            'A' => 24,
+            'B' => 12,
+            'C' => 48,
+            'D' => 24,
+            'E' => 20,
+            'F' => 22
         ];
 
         return $countMapping[$short_code] ?? 0;
     }
 
-    /**
-     * @return mixed
-     */
-    private function resolveMainCategories()
+    private function resolveMainCategories(): Collection
     {
         $rootTaskListCategory = Category::where('short_code', 'tl-root')->first();
-        $mainCategories = Category::where('parent_id', $rootTaskListCategory->getId())->get();
-        return $mainCategories;
+        return Category::where('parent_id', $rootTaskListCategory->getId())->get();
     }
 
-    /**
-     * @param mixed $mainCategory
-     * @return mixed
-     */
-    private function getSubCategories(mixed $mainCategory)
+    private function getSubCategories(mixed $mainCategory): Collection
     {
-        $subcategories = Category::where('parent_id', $mainCategory->id)->pluck('id');
-        return $subcategories;
+        return Category::where('parent_id', $mainCategory->id)->pluck('id');
     }
 
-    /**
-     * @param mixed $subcategories
-     * @param mixed $mainCategory
-     * @param User $user
-     * @return mixed
-     */
-    private function getRecentQuestionAttempts(mixed $subcategories, mixed $mainCategory, User $user)
+    private function getRecentQuestionAttempts(mixed $subcategories, mixed $mainCategory, User $user): Collection
     {
         $questionIds = Question::whereIn('category_id', $subcategories)->pluck('id');
 
         $count = $this->getQuestionCountAgainstEachMainCategory($mainCategory->short_code);
 
-        $recentQuestionAttempts = QuestionAttempt::whereIn('question_id', $questionIds)
+        return QuestionAttempt::whereIn('question_id', $questionIds)
             ->where('user_id', $user->getId())
             ->orderByDesc('created_at')
             ->take($count)
             ->get();
-        return $recentQuestionAttempts;
     }
-
-
 }

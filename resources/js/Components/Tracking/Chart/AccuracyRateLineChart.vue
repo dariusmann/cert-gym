@@ -55,7 +55,8 @@ export default {
             <div class="flex justify-center text-center">
                 <div class="prose">
                     <h2>Accuracy Rate Progression</h2>
-                    <p>Accuracy rate shows the percentage of questions you've answered correctly.</p>
+                    <p>Shows your overall progress in right answered question in form of the accuracy rate.</p>
+                    <p>The accuracy rate is the percentage of question you answer right.</p>
                 </div>
             </div>
             <div class="flex justify-center">

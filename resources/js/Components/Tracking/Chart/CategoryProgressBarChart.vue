@@ -87,7 +87,7 @@ export default {
             <div class="flex justify-center text-center">
                 <div class="prose">
                     <h2>Accuracy Rate by Task List</h2>
-                    <p>Accuracy rate shows the percentage of questions <br> you've answered correctly by Task List.</p>
+                    <p>Identify you weak areas. The lower the bar, the more you need to improve in this category.</p>
                 </div>
             </div>
             <div v-if="dataLoaded" class="flex justify-center">

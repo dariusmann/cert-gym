@@ -17,7 +17,7 @@ export default {
 </script>
 
 <template>
-    <Card>
+    <Card class="h-full">
         <template #content>
             <div class="flex justify-center text-center">
                 <div class="prose">
