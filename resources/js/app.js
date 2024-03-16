@@ -8,26 +8,17 @@ import { i18nVue } from 'laravel-vue-i18n';
 import VueGtag from "vue-gtag";
 import PrimeVue from 'primevue/config';
 import VueApexCharts from "vue3-apexcharts";
-import ApexCharts from 'apexcharts'
+import ConfirmationService from 'primevue/confirmationservice';
 
 import 'primevue/resources/themes/lara-light-green/theme.css';
 import 'primevue/resources/primevue.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import.meta.glob([
     '../images/**',
 ]);
 
 const appName = import.meta.env.VITE_APP_NAME || 'Cert Gym';
-
-ApexCharts.exec('any', 'updateOptions', {
-    colors: ['#FF4560'], // Example color palette
-    fill: {
-        colors: ['#F44336', '#E91E63', '#9C27B0']
-    },
-    theme: {
-        palette: 'palette3' // upto palette10
-    }
-}, true, true);
 
 
 createInertiaApp({
@@ -38,6 +29,7 @@ createInertiaApp({
             .use(plugin)
             .use(PrimeVue)
             .use(ZiggyVue, Ziggy)
+            .use(ConfirmationService)
             .use(i18nVue, {
                 resolve: async lang => {
                     const langs = import.meta.glob('../../lang/*.json');

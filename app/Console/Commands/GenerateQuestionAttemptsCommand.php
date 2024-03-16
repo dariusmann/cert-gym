@@ -38,13 +38,13 @@ class GenerateQuestionAttemptsCommand extends Command
         $user = User::where('email', 'test@dev.com')->first();
 
         $questions = Question::all();
+        $questions = $questions->shuffle();
         $questionCount = $questions->count();
         $date = Carbon::now();
 
         $count = 1;
 
         foreach ($questions as $question) {
-
 
             $probabilityOfCorrect = $count / $questions->count();
 
@@ -78,7 +78,7 @@ class GenerateQuestionAttemptsCommand extends Command
             }
         }
 
-        throw new Exception('No un correct question found');
+        throw new Exception('No correct question found');
     }
 
     private function createCorrectAttempt(int $total, float $probability): bool

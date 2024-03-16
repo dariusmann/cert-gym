@@ -21,7 +21,7 @@ class RunByQuestionsBuilder
         $questionRun = QuestionRun::create([
             'user_id' => $user->getId(),
             'type' => $type,
-            'status' => 'created'
+            'status' => 'not_started'
         ]);
 
         $order = 1;

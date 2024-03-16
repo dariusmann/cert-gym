@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('question_run_exams', function (Blueprint $table) {
+        Schema::create('question_run_exam_flags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('question_run_id')
-                ->constrained('question_runs')
+
+            $table->foreignId('question_run_question_id')
+                ->constrained('question_run_questions')
                 ->onDelete('cascade');
-            $table->dateTime('started_at');
-            $table->boolean('completed')->default(false);
+
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('question_run_exams');
+        Schema::dropIfExists('question_run_exam_flags');
     }
 };

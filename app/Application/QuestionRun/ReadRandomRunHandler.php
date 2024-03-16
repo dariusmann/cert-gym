@@ -40,7 +40,7 @@ class ReadRandomRunHandler
 
     private function createQuestionRun(User $user): QuestionRun
     {
-        $questions = Question::all();
+        $questions = Question::take(3)->get();
         $shuffledQuestions = $questions->shuffle();
 
         return $this->runByQuestionsBuilder->create($shuffledQuestions, $user, 'random');

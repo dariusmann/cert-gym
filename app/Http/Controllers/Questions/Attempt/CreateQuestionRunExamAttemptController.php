@@ -11,19 +11,21 @@ use App\Models\QuestionAnswer;
 use App\Models\QuestionAttempt;
 use App\Models\QuestionResponse;
 use App\Models\QuestionRun;
+use App\Models\QuestionRunExamFlag;
 use App\Models\QuestionRunQuestion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
-class CreateQuestionRunAttemptController extends Controller
+class CreateQuestionRunExamAttemptController extends Controller
 {
     private AnsweredCorrectlyResolver $answeredCorrectlyResolver;
 
     public function __construct(
         AnsweredCorrectlyResolver $answeredCorrectlyResolver
-    ) {
+    )
+    {
         $this->answeredCorrectlyResolver = $answeredCorrectlyResolver;
     }
 
@@ -38,9 +40,33 @@ class CreateQuestionRunAttemptController extends Controller
 
         /** @var QuestionRunQuestion $questionRunQuestion */
         $questionRunQuestion = QuestionRunQuestion::find($questionRunQuestionId);
+
         if ($questionRunQuestion->getAttemptId() !== null) {
-            throw new ConflictHttpException('Attempt already made for this run question');
+            QuestionResponse::where('attempt_id', $questionRunQuestion->getAttemptId())->delete();
+            QuestionAttempt::destroy($questionRunQuestion->getAttemptId());
         }
+
+        $questionRunQuestion = $this->createAttempt($questionRunQuestion, $answersIds, $user);
+
+        $this->updateQuestionRunStatus($questionRunQuestion->getQuestionRunId());
+
+        return new JsonResponse($questionRunQuestion->toArray());
+    }
+
+    private function updateQuestionRunStatus($questionRunId)
+    {
+        $status = QuestionRunQuestion::where('question_run_id', $questionRunId)
+            ->whereNull('attempt_id')
+            ->exists() ? 'in_progress' : 'completed';
+
+        QuestionRun::where('id', $questionRunId)->update(['status' => $status]);
+    }
+
+    private function createAttempt(
+        QuestionRunQuestion $questionRunQuestion, array $answersIds, User $user
+    ): QuestionRunQuestion
+    {
+        QuestionRunExamFlag::where('question_run_question_id', $questionRunQuestion->getId())->delete();
 
         $answeredCorrectly = $this->answeredCorrectlyResolver->resolve(
             $questionRunQuestion->getQuestionId(), $answersIds
@@ -63,17 +89,6 @@ class CreateQuestionRunAttemptController extends Controller
         $questionRunQuestion->setAttemptId($questionAttempt->getId());
         $questionRunQuestion->save();
 
-        $this->UpdateQuestionRunStatus($questionRunQuestion->getQuestionRunId());
-
-        return new JsonResponse($questionRunQuestion->toArray());
-    }
-
-    private function UpdateQuestionRunStatus($questionRunId)
-    {
-        $status = QuestionRunQuestion::where('question_run_id', $questionRunId)
-            ->whereNull('attempt_id')
-            ->exists() ? 'in_progress' : 'completed';
-
-        QuestionRun::where('id', $questionRunId)->update(['status' => $status]);
+        return $questionRunQuestion;
     }
 }

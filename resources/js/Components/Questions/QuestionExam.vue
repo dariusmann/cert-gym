@@ -16,6 +16,9 @@ export default {
             type: Boolean,
             default: false
         },
+        questionNumber: {
+            type: Number,
+        }
     },
     components: {
         Card,
@@ -60,7 +63,7 @@ export default {
         <Card>
             <template #content>
                 <div class="text-lg">
-                    {{ question.text }}
+                   <span class="text-p-primary text-2xl text-bold">{{ questionNumber + '. '}}</span>{{ question.text }}
                 </div>
                 <div class="mt-4">
                     <div v-for="answer in question.answers"

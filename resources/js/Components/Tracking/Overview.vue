@@ -27,20 +27,19 @@ export default {
 
             <div class="flex justify-center">
                 <div class="stats">
-
                     <div class="stat">
                         <div class="stat-title">Total Answered Questions</div>
                         <div class="stat-value text-center">{{ overviewData.total }}</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-title">Right Answered Questions</div>
+                        <div class="stat-title">Total Right Answered Questions</div>
                         <div class="stat-value text-center text-green-600">{{ overviewData.correct_answered }}</div>
                     </div>
                     <div class="stat">
                         <div class="stat-title">Accuracy Rate</div>
                         <div class="stat-value text-center text-primary">{{ overviewData.accuracy_rate }}%</div>
+                        <div class="stat-desc">(of last 100 questions)</div>
                     </div>
-
                 </div>
             </div>
 

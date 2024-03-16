@@ -16,6 +16,11 @@ class QuestionRunExam extends Model implements \JsonSerializable
         'started_at',
     ];
 
+    public function setFinished(): void
+    {
+        $this->completed = true;
+    }
+
     public function jsonSerialize(): array
     {
         return [

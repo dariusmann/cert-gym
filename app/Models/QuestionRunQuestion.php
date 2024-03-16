@@ -47,6 +47,11 @@ class QuestionRunQuestion extends Model implements JsonSerializable
         return Question::find($this->getQuestionId());
     }
 
+    public function flag(): ?QuestionRunExamFlag
+    {
+        return QuestionRunExamFlag::where('question_run_question_id', $this->getId())->first();
+    }
+
     public function getAttemptId(): ?int
     {
         return $this->attempt_id;
@@ -62,7 +67,8 @@ class QuestionRunQuestion extends Model implements JsonSerializable
         return [
             'id' => $this->getId(),
             'question' => $this->question()->toArray(),
-            'attempt' => $this->attempt()?->toArray()
+            'attempt' => $this->attempt()?->toArray(),
+            'flag' => $this->flag()?->toArray()
         ];
     }
 

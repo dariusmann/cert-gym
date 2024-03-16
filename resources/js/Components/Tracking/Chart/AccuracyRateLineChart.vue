@@ -22,6 +22,7 @@ export default {
                         text: 'Accuracy %',
                     },
                     max: 100,
+                    min: 0
                 },
                 colors: ['#eb826b'],
                 stroke: {

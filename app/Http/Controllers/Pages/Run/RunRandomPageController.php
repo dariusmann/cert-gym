@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Pages\Run;
 
-use App\Models\Question;
-use App\Models\QuestionAnswer;
-use App\Models\QuestionAttempt;
-use App\Models\QuestionResponse;
 use App\Models\QuestionRun;
 use App\Models\QuestionRunQuestion;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class RunResultPage
+class RunRandomPageController
 {
     public function __invoke(Request $request, int $runId): Response
     {
-        $questionRunQuestions = QuestionRunQuestion::where('question_run_id', $runId)->get();
+        /** @var QuestionRun $questionRun */
+        $questionRun = QuestionRun::find($runId);
+
+        $questionRunQuestions = $questionRun->getQuestionRunQuestions()->orderBy('order')->get();
 
         $resultRunQuestions = [];
 
@@ -28,9 +26,9 @@ class RunResultPage
             $resultRunQuestions[] = $runQuestion->toArray();
         }
 
-        return Inertia::render('Run/Result', [
+        return Inertia::render('Practice/RandomRun', [
             'run' => [
-                'id' => $runId,
+                'id' => $questionRun->getId(),
                 'run_questions' => $resultRunQuestions
             ]
         ]);

@@ -15,6 +15,10 @@ export default {
         initSelectedAnswer: {
             type: Object,
             default: null
+        },
+        questionNumber: {
+            type: Number,
+            nullable: true
         }
     },
     components: {
@@ -83,7 +87,7 @@ export default {
     <Card v-if="question" class="h-full">
         <template #content>
             <div class="text-lg">
-                {{ question.text }}
+                <span v-if="questionNumber" class="text-p-primary text-2xl text-bold">{{ questionNumber + '. '}}</span>{{ question.text }}
             </div>
             <div class="mt-4">
                 <div v-for="answer in question.answers"
@@ -101,10 +105,10 @@ export default {
                 </div>
             </div>
             <div class="mt-4">
-                <button class="btn btn-secondary" @click="submit" :disabled="disabledButton">
+                <button class="btn btn-secondary btn-sm" @click="submit" :disabled="disabledButton">
                     Answer
                 </button>
-                <button class="btn btn-primary ml-2" @click="$emit('nextQuestion')" :disabled="!disabledButton">
+                <button class="btn btn-primary btn-sm ml-2" @click="$emit('nextQuestion')" :disabled="!disabledButton">
                     Next
                 </button>
             </div>

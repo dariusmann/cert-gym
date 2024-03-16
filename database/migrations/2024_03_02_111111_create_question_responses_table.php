@@ -15,9 +15,14 @@ return new class extends Migration {
             $table->foreignId('attempt_id')
                 ->constrained('question_attempts')
                 ->onDelete('cascade');
-            $table->foreignId('answer_id')
-                ->constrained('question_answers')
-                ->onDelete('cascade');
+
+            $table->unsignedBigInteger('answer_id')->nullable();
+
+            $table->foreign('answer_id')
+                ->references('id')
+                ->on('question_answers')
+                ->onDelete('set null');
+
             $table->timestamps();
         });
     }
