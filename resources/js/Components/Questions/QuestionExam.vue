@@ -29,7 +29,6 @@ export default {
             question: this.initQuestion,
             letters: ['A', 'B', 'C', 'D', 'E', 'F'],
             selectedAnswer: this.initSelectedAnswer,
-            committed: this.initCommitted,
         }
     },
     computed: {
@@ -47,11 +46,8 @@ export default {
                 'answer': this.selectedAnswer
             })
         },
-        classesAnswers(answer) {
-            return {}
-        },
         changeAnswer(){
-            this.committed = false;
+            this.$emit('changeAnswer');
         }
     }
 }
@@ -68,14 +64,13 @@ export default {
                 <div class="mt-4">
                     <div v-for="answer in question.answers"
                          :key="answer.id"
-                         class="flex items-center rounded-md px-2 mt-2 first:mt-0 bg-gray-100"
-                         :class="classesAnswers(answer)">
+                         class="flex items-center rounded-md px-2 mt-2 first:mt-0 bg-gray-100">
                         <input type="radio" v-model="selectedAnswer"
                                :id="'radio-answer-' + answer.id"
                                :value="answer"
                                name="radio-question-answer"
                                class="radio radio-primary"
-                               :disabled="committed"
+                               :disabled="initCommitted"
                         />
                         <label :for="'radio-answer-' + answer.id" class="label cursor-pointer">
                             {{ answer.text }}
@@ -83,13 +78,13 @@ export default {
                     </div>
                 </div>
                 <div class="mt-4">
-                    <button v-if="!committed" class="btn btn-secondary btn-sm" @click="submit" :disabled="!selectedAnswer">
+                    <button v-if="!initCommitted" class="btn btn-secondary btn-sm" @click="submit" :disabled="!selectedAnswer">
                         Answer
                     </button>
-                    <button v-if="committed" class="btn btn-secondary btn-sm" @click="changeAnswer">
+                    <button v-if="initCommitted" class="btn btn-secondary btn-sm" @click="changeAnswer">
                         Change Answer
                     </button>
-                    <button  class="btn btn-primary ml-2 btn-sm" @click="$emit('flagQuestion')" :disabled="!!committed">
+                    <button  class="btn btn-primary ml-2 btn-sm" @click="$emit('flagQuestion')" :disabled="!!initCommitted">
                         Flag
                     </button>
                 </div>

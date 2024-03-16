@@ -26,9 +26,6 @@ export default {
         this.examEndTime = moment.utc(runExam.started_at).add(1, 'hours').add(30, 'minutes')
     },
     computed: {
-        currentQuestion() {
-            return this.examRun.run_questions[this.currentIndex].question;
-        },
         currentRunQuestion() {
             return this.examRun.run_questions[this.currentIndex];
         },
@@ -42,6 +39,9 @@ export default {
     methods: {
         changeQuestion(index) {
             this.currentIndex = index;
+        },
+        changeAnswer() {
+            this.examRun.run_questions[this.currentIndex].attempt = null;
         },
         classesBadge(index) {
             return {
@@ -128,7 +128,9 @@ export default {
                                   :init-committed="isCurrentIndexQuestionAttempted"
                                   :question-number="currentIndex + 1"
                                   @commitSelection="commitSelection"
-                                  @flagQuestion="flagQuestion"/>
+                                  @flagQuestion="flagQuestion"
+                                  @changeAnswer="changeAnswer"
+                    />
                 </div>
                 <div>
                     <Card class="h-full">
