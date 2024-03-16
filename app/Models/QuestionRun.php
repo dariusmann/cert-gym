@@ -28,7 +28,7 @@ class QuestionRun extends Model
 
     public function setFinished()
     {
-        $this->status = 'finished';
+        $this->status = 'completed';
     }
 
     public function jsonSerialize(): array

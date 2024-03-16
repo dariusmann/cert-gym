@@ -9,7 +9,7 @@ export default {
         async submit() {
             const randomRun = await QuestionRunService.readRandomRun();
 
-            window.location = '/page/run/' + randomRun.id + '/practice'
+            window.location = '/page/run/' + randomRun.id + '/random/practice'
         }
     }
 }

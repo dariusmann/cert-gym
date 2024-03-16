@@ -18,7 +18,7 @@ class QuestionRunExam extends Model implements \JsonSerializable
 
     public function setFinished(): void
     {
-        $this->finished = true;
+        $this->completed = true;
     }
 
     public function jsonSerialize(): array

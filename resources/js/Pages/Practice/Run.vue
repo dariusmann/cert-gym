@@ -96,6 +96,7 @@ export default {
                               :key="xCurrentQuestion?.id || 'default'"
                               :init-committed-to-answer="committedToAnswer"
                               :init-selected-answer="currentSelectedAnswer"
+                              :question-number="this.currentIndex + 1"
                               @commitSelection="submitAttempt"
                               @nextQuestion="submitNextQuestion"/>
             </div>

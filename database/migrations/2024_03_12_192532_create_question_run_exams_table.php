@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained('question_runs')
                 ->onDelete('cascade');
             $table->dateTime('started_at');
-            $table->boolean('finished')->default(false);
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }

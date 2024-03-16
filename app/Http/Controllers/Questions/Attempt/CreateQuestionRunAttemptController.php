@@ -72,7 +72,7 @@ class CreateQuestionRunAttemptController extends Controller
     {
         $status = QuestionRunQuestion::where('question_run_id', $questionRunId)
             ->whereNull('attempt_id')
-            ->exists() ? 'in_progress' : 'finished';
+            ->exists() ? 'in_progress' : 'completed';
 
         QuestionRun::where('id', $questionRunId)->update(['status' => $status]);
     }

@@ -23,13 +23,13 @@ export default {
             window.location = '/page/run/' + run.id + '/practice'
         },
         notStarted(run) {
-            return run.status === 'created'
+            return run.status === 'not_started'
         },
         isInProgress(run) {
             return run.status === 'in_progress'
         },
         isFinished(run) {
-            return run.status === 'finished'
+            return run.status === 'completed'
         },
         async loadUserQuestionRuns() {
             this.runs = await QuestionRunService.readQuestionRun();
@@ -71,7 +71,7 @@ export default {
                                 In progress
                             </div>
                             <div class="badge badge-success text-white" v-if="isFinished(run)">
-                                Finished
+                                Completed
                             </div>
                         </div>
 
