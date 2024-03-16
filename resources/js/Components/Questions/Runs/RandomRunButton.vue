@@ -18,10 +18,12 @@ export default {
 <template>
     <Card>
         <template #content>
-            <div class="text-center">
+            <div class="text-center flex flex-col justify-between">
                 <div>
-                    <p>
-                        Practice with random questions
+                    <i class="text-4xl fa-solid fa-star"></i>
+                    <div class="text-2xl mt-2">Practice</div>
+                    <p class="mt-2">
+                        Practice with random questions from our data base. Perfect to train!
                     </p>
                 </div>
 

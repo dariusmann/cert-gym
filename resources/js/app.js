@@ -13,6 +13,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 
 import 'primevue/resources/themes/lara-light-green/theme.css';
 import 'primevue/resources/primevue.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 import.meta.glob([
     '../images/**',

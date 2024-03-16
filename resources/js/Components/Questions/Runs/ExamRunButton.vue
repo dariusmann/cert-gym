@@ -15,14 +15,16 @@ export default {
 </script>
 
 <template>
-    <Card>
+    <Card class="h-full">
         <template #content>
-            <div class="text-center">
+            <div class="text-center flex flex-col justify-between h-full">
                 <div>
-                    <p>Test you skills on our exam simulation</p>
+                    <i class="text-4xl fa-solid fa-vial"></i>
+                    <div class="text-2xl mt-2">Exam</div>
+                    <p class="mt-2">Test you skills on our exam simulation: 75 questions in 1h 30m.</p>
                 </div>
                 <button @click="submit" class="mt-4 btn btn-primary">
-                    Exam Run
+                    Start Exam
                 </button>
             </div>
         </template>
@@ -31,5 +33,7 @@ export default {
 </template>
 
 <style scoped>
-
+.p-card-content {
+    height: 100%;
+}
 </style>

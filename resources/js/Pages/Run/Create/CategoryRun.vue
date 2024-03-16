@@ -29,6 +29,9 @@ export default {
     computed: {
         disabledButton: function () {
             return this.selectedCategoryIds.length === 0;
+        },
+        buttonText: function () {
+            return this.disabledButton ? "Select Categories" : "Start Run";
         }
     }
 }
@@ -40,15 +43,21 @@ export default {
         <Card>
             <template #content>
                 <div class="prose">
-                    <h1>Create a category run</h1>
+                    <div class="flex">
+                        <h1>Create a Task List run</h1>
+                        <button class="btn btn-primary ml-4"
+                                :disabled="disabledButton"
+                                @click="submit">
+                            {{ buttonText}}
+                        </button>
+                    </div>
 
                     <p>Select the Task List you want to practice on.You can check the official task list
                         <a class="link link-primary"
-                        href="https://www.bacb.com/wp-content/uploads/2020/05/RBT-2nd-Edition-Task-List_230130-a.pdf" target="_blank">here</a>.
+                           href="https://www.bacb.com/wp-content/uploads/2020/05/RBT-2nd-Edition-Task-List_230130-a.pdf"
+                           target="_blank">here</a>.
                     </p>
-                    <button class="btn btn-primary"
-                            :disabled="disabledButton"
-                            @click="submit">Start</button>
+
                 </div>
                 <div class="h-4"></div>
                 <CategoryTree :categories="categories" @update:selected="updateSelectedCategories" :level="1"/>
