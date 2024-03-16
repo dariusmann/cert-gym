@@ -38,6 +38,7 @@ class GenerateQuestionAttemptsCommand extends Command
         $user = User::where('email', 'test@dev.com')->first();
 
         $questions = Question::all();
+        $questions = $questions->shuffle();
         $questionCount = $questions->count();
         $date = Carbon::now();
 
@@ -48,7 +49,7 @@ class GenerateQuestionAttemptsCommand extends Command
             $probabilityOfCorrect = $count / $questions->count();
 
             if ($this->createCorrectAttempt($questionCount, $probabilityOfCorrect)) {
-                $attempt = $this->createAttempt($question, $user, $date,  true);
+                $attempt = $this->createAttempt($question, $user, $date, true);
                 $answers = $question->getCorrectAnswers();
             } else {
                 $attempt = $this->createAttempt($question, $user, $date, false);

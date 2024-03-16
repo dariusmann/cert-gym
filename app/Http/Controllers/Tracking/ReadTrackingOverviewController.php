@@ -39,16 +39,11 @@ class ReadTrackingOverviewController extends Controller
         // Calculate accuracy rate
         $accuracyRate = $total > 0 ? ($recentCorrectAnswered / $recentAttempts->count()) * 100 : 0;
 
-       
+
         return new JsonResponse([
             'total' => $total,
             'correct_answered' => $correctAnswered,
             'accuracy_rate' => round($accuracyRate)
         ]);
-
     }
-
-   
-
-   
 }
