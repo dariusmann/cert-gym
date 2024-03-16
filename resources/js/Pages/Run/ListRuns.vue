@@ -55,8 +55,8 @@ export default {
 <template>
     <AuthenticatedLayout>
         <div class="h-5"></div>
-        <div class="flex flex-wrap gap-4">
-            <Card v-for="run in runs" class="w-1/4">
+        <div class="grid grid-cols-4 gap-4">
+            <Card v-for="run in runs">
                 <template #content>
                     <div class="flex justify-between">
                         <div class="text-lg text-bold">
