@@ -11,6 +11,9 @@ export default {
         initSelectedAnswer: {
             type: Object,
             default: null
+        },
+        questionNumber: {
+            type: Number,
         }
     },
     components: {
@@ -60,11 +63,11 @@ export default {
 
     <div v-if="question">
         <Card>
-            <template #title>
-                {{ question.text }}
-            </template>
             <template #content>
-                <div>
+                <div class="text-lg">
+                    <span class="text-p-primary text-2xl text-bold">{{ questionNumber + '. '}}</span>{{ question.text }}
+                </div>
+                <div class="mt-4">
                     <div v-for="answer in question.answers"
                          :key="answer.id"
                          class="flex items-center rounded-md px-2 mt-2 first:mt-0 bg-gray-100"

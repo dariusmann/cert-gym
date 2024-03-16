@@ -21,28 +21,18 @@ class RunResultPage
     {
         $questionRunQuestions = QuestionRunQuestion::where('question_run_id', $runId)->get();
 
-        $result = [];
+        $resultRunQuestions = [];
 
         /** @var QuestionRunQuestion $runQuestion */
         foreach ($questionRunQuestions as $runQuestion) {
-            $result[] = [
-                'id' => $runQuestion->getId(),
-                'runQuestion' => $runQuestion,
-                'attempt' => QuestionAttempt::find($runQuestion->getAttemptId()),
-                'question' => Question::find($runQuestion->getQuestionId())->toArray(),
-                'answers' => $runQuestion->getAttemptId() !== null ? $this->resolveAnswers($runQuestion->getAttemptId()) : []
-            ];
+            $resultRunQuestions[] = $runQuestion->toArray();
         }
 
         return Inertia::render('Run/Result', [
-            'runQuestions' => $result,
+            'run' => [
+                'id' => $runId,
+                'run_questions' => $resultRunQuestions
+            ]
         ]);
-    }
-
-    private function resolveAnswers(int $attemptId): Collection
-    {
-        $answerIds = QuestionResponse::where('attempt_id', $attemptId)->pluck('answer_id')->all();
-
-        return QuestionAnswer::whereIn('id', $answerIds)->get();
     }
 }

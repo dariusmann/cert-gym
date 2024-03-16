@@ -42,7 +42,8 @@ class QuestionAttempt extends Model
     public function toArray(): array
     {
         return [
-            'responses' => $this->responses()->get()
+            'responses' => $this->responses()->get(),
+            'answered_correctly' => $this->answeredCorrectly()
         ];
     }
 }

@@ -24,9 +24,6 @@ export default {
         Card,
         RadioButton
     },
-    updated() {
-        console.log(this.question)
-    },
     data: function () {
         return {
             question: this.initQuestion,
