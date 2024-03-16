@@ -35,6 +35,9 @@ export default {
         isCurrentIndexQuestionAttempted() {
             return !!this.examRun.run_questions[this.currentIndex].attempt;
         },
+        isCurrentIndexQuestionFlagged() {
+            return !!this.examRun.run_questions[this.currentIndex].flag;
+        },
     },
     methods: {
         changeQuestion(index) {
@@ -127,6 +130,7 @@ export default {
                                   :init-selected-answer="currentSelectedAnswer"
                                   :init-committed="isCurrentIndexQuestionAttempted"
                                   :question-number="currentIndex + 1"
+                                  :is-flagged="isCurrentIndexQuestionFlagged"
                                   @commitSelection="commitSelection"
                                   @flagQuestion="flagQuestion"
                                   @changeAnswer="changeAnswer"

@@ -18,6 +18,10 @@ export default {
         },
         questionNumber: {
             type: Number,
+        },
+        isFlagged: {
+            type: Boolean,
+            default: false
         }
     },
     components: {
@@ -58,9 +62,16 @@ export default {
     <div v-if="question">
         <Card>
             <template #content>
-                <div class="text-lg">
-                   <span class="text-p-primary text-2xl text-bold">{{ questionNumber + '. '}}</span>{{ question.text }}
+                <div class="flex gap-4">
+                    <div class="text-lg">
+                        <span class="text-p-primary text-2xl text-bold">{{ questionNumber + '. '}}</span>{{ question.text }}
+                    </div>
+                    <div>
+                        <i v-if="isFlagged" class="fa-solid fa-flag"></i>
+                        <i v-if="initCommitted" class="fa-solid fa-lock"></i>
+                    </div>
                 </div>
+
                 <div class="mt-4">
                     <div v-for="answer in question.answers"
                          :key="answer.id"
