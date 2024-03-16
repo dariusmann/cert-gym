@@ -1,5 +1,4 @@
 <script>
-import QuestionService from "@/Services/question.service.js";
 import QuestionTest from "@/Components/Questions/QuestionTest.vue";
 import QuestionAttemptService from "@/Services/question.attempt.service.js";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
@@ -11,42 +10,32 @@ export default {
     props: ['questionRun'],
     data: function () {
         return {
-            currentQuestion: null,
-            currentRunQuestion: null,
-            questionAnswer: null,
-            currentIndex: null,
-            allLoaded: false
+            currentIndex: 0,
         }
     },
     async created() {
         this.currentIndex = this.resolveNextNotAnsweredQuestionIndex()
     },
     computed: {
-        selectedAnswer() {
-            if (this.questionAnswer === null) {
-                return null;
-            }
-
-            if (Array.isArray(this.questionAnswer)) {
-                return this.questionAnswer[0];
-            }
-
-            throw new Error('Question answer has the wrong data type')
+        currentSelectedAnswer() {
+            return this.questionRun.questions[this.currentIndex].attempt?.responses[0]?.answer ?? null
         },
         committedToAnswer() {
-            if (Array.isArray(this.questionAnswer)) {
-                return this.questionAnswer.length > 0;
-            }
-
-            return false;
+            return this.currentSelectedAnswer !== null
         },
         xCurrentQuestion() {
             return this.questionRun.questions[this.currentIndex].question
         },
-        xCurrentRunQuestion(){
+        xCurrentRunQuestion() {
             return this.questionRun.questions[this.currentIndex]
+        },
+        hasNotAnsweredQuestions() {
+            const nextIndex = this.resolveNextNotAnsweredQuestionIndex()
+            if (nextIndex === -1) {
+                return false;
+            }
+            return true;
         }
-
     },
     methods: {
         changeQuestion(index) {
@@ -79,6 +68,19 @@ export default {
             } else {
                 this.currentIndex = this.currentIndex + 1;
             }
+        },
+        navigateBack() {
+            if (this.currentIndex > 0) {
+                this.currentIndex = this.currentIndex - 1;
+            }
+        },
+        navigateNext() {
+            if (this.questionRun.questions.length - 1 > this.currentIndex) {
+                this.currentIndex = this.currentIndex + 1;
+            }
+        },
+        viewResults() {
+            window.location = '/page/run/result/' + this.questionRun.id
         }
     }
 }
@@ -93,13 +95,13 @@ export default {
                               :init-question="xCurrentQuestion"
                               :key="xCurrentQuestion?.id || 'default'"
                               :init-committed-to-answer="committedToAnswer"
-                              :init-selected-answer="selectedAnswer"
+                              :init-selected-answer="currentSelectedAnswer"
                               @commitSelection="submitAttempt"
                               @nextQuestion="submitNextQuestion"/>
             </div>
             <Card class="h-full">
                 <template #content>
-                    <div class="grid gap-2 grid-cols-8">
+                    <div class="grid gap-2 grid-cols-7">
                         <div class="cursor-pointer"
                              :class="badgedClasses(questionRunQuestion)"
                              v-for="(questionRunQuestion, index) in questionRun.questions"
@@ -107,6 +109,20 @@ export default {
                         >
                             {{ index + 1 }}
                         </div>
+                    </div>
+                    <div v-if="!hasNotAnsweredQuestions">
+                        <div class="h-4"></div>
+                        <div class="text-center">
+                            <button class="btn btn-accent btn-sm px-16" @click="viewResults">
+                                View Results
+                            </button>
+                        </div>
+                    </div>
+                    <div class="h-4"></div>
+                    <div class="flex justify-center items-center">
+                        <div class="link link-primary" @click="navigateBack">Back</div>
+                        <div class="w-6"></div>
+                        <div class="link link-primary" @click="navigateNext">Next</div>
                     </div>
                 </template>
             </Card>
