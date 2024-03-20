@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use JsonSerializable;
 
 class Question extends Model implements JsonSerializable
@@ -15,6 +16,7 @@ class Question extends Model implements JsonSerializable
     protected $fillable = [
         'text',
         'category_id',
+        'learning_objective_id'
     ];
 
     public function getId(): int
@@ -30,6 +32,11 @@ class Question extends Model implements JsonSerializable
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(QuestionTag::class, 'question_question_tag', 'question_id', 'tag_id');
     }
 
     private function getCategoryHierarchy($category, $hierarchy = []): array

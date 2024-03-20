@@ -14,9 +14,8 @@ Just locate the auth.json with credentials in you root directory. After that you
 
 ##### Import questions data
 - First locate categories.json and question directory in storage folder
-- Then run this two commands in this order:
-- `sail artisan app:import:categories`
-- `sail artisan app:import:questions`
+- Then run this commands:
+- `sail artisan app:import-all`
 
 
 ##### Create a test user with subscription
