@@ -148,10 +148,9 @@ return [
                     'yearly_id' => env('STRIPE_YEARLY_PLAN_ID'),
                     'trial_days' => 7,
                     'features' => [
-                        'Over 1000 Question and Answers',
+                        'Over 600 Question and Answers',
                         'Extensive explanation around Questions',
                         'Performance Tracking Dashboard',
-                        'Tiered Difficulty Progression',
                         'Progressive Learning Engine',
                         'Intelligent Question Delivery',
                         'Exam Simulation',
