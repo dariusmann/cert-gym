@@ -24,7 +24,8 @@ Just locate the auth.json with credentials in you root directory. After that you
 - User: test@dev.com
 - Password: login123
 
-
+### Configure .env for frontend
+set `VUE_BACKEND_API_URL`
 ### Run frontend
 sail npm run dev
 
