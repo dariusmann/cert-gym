@@ -45,13 +45,11 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified', 'subscribedCheckout'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::middleware('auth')->group(function () {
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
     Route::get('/page/run/{runId}/exam/practice', RunExamPageController::class)->name('page.run.exam.practice');
     Route::get('/page/run/{runId}/random/practice', RunRandomPageController::class)->name('page.run.random.practice');
@@ -59,9 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
     Route::get('/page/run/result/{runId}', RunResultPage::class)->name('page.run.result');
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
-});
 
-Route::middleware('auth')->group(function () {
     Route::get('/api/question/{questionId}', ReadQuestionController::class)->name('api.question.read');
     Route::post('/api/question/run/attempt', CreateQuestionRunAttemptController::class)->name('api.question.run.attempt.create');
     Route::post('/api/question/run/exam/attempt', CreateQuestionRunExamAttemptController::class)->name('api.question.run.exam.create');
