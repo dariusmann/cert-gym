@@ -117,8 +117,11 @@ export default {
                 <hr>
                 <div class="h-5"></div>
                 <div class="text-lg text-bold">Explanation</div>
-                <div>
-                    {{ selectedAnswer?.explanation }}
+                <div v-if="selectedAnswer && !hasUserAnsweredCorrectly()">
+                    {{ selectedAnswer.explanation }}
+                </div>
+                <div v-else>
+                    {{ correctAnswer?.explanation }}
                 </div>
             </div>
         </template>
