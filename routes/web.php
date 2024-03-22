@@ -58,6 +58,9 @@ Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function ()
     Route::get('/page/run/result/{runId}', RunResultPage::class)->name('page.run.result');
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
 
+    Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
+    Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
+
     Route::get('/api/question/{questionId}', ReadQuestionController::class)->name('api.question.read');
     Route::post('/api/question/run/attempt', CreateQuestionRunAttemptController::class)->name('api.question.run.attempt.create');
     Route::post('/api/question/run/exam/attempt', CreateQuestionRunExamAttemptController::class)->name('api.question.run.exam.create');
