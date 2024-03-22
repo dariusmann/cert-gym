@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Questions\Run;
 use App\Domain\Builder\RunByQuestionsBuilder;
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\QuestionRunCategory;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,10 +29,14 @@ class CreateCategoryRunController extends Controller
         $user = $request->user();
 
         $questions = Question::whereIn('category_id', $categoryIds)->get();
-
         $shuffledQuestions = $questions->shuffle();
 
         $questionRun = $this->runByQuestionsBuilder->create($shuffledQuestions, $user, 'categories');
+
+        QuestionRunCategory::create([
+            'question_run_id' => $questionRun->getId(),
+            'categories' => implode(',', $categoryIds),
+        ]);
 
         return new JsonResponse([
             'id' => $questionRun->getId()
