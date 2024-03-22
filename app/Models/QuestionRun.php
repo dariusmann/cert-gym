@@ -44,4 +44,9 @@ class QuestionRun extends Model
             ]
         ];
     }
+
+    public function questionRunCategories(): HasMany
+    {
+        return $this->hasMany(QuestionRunCategory::class);
+    }
 }

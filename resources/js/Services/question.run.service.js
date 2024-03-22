@@ -32,7 +32,6 @@ const QuestionRunService = {
             throw error
         }
     },
-
     createExamRun: async function (categoriesIds) {
         try {
             return await ApiService.post('/api/question/run/exam', {}).then(res => {
@@ -85,6 +84,18 @@ const QuestionRunService = {
             }
 
             throw error
+        }
+    },
+    getExamStatus: async function () {
+        try {
+            return await ApiService.get('/api/exam/status').then(res => {
+                return res.data;
+            });
+        } catch (error) {
+            if (error.response.status === StatusCodes.BAD_REQUEST) {
+                throw new BadRequestException(error);
+            }
+            throw error;
         }
     },
 }

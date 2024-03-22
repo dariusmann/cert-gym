@@ -14,6 +14,7 @@ class QuestionRunExam extends Model implements \JsonSerializable
     protected $fillable = [
         'question_run_id',
         'started_at',
+        'completed'
     ];
 
     public function setFinished(): void
@@ -26,7 +27,8 @@ class QuestionRunExam extends Model implements \JsonSerializable
         return [
             'id' => $this->id,
             'question_run_id' => $this->question_run_id,
-            'started_at' => $this->started_at
+            'started_at' => $this->started_at,
+            'completed' => $this->completed
         ];
     }
 }

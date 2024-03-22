@@ -12,6 +12,7 @@ use App\Http\Controllers\Questions\Answer\ReadQuestionAttemptAnswerController;
 use App\Http\Controllers\Questions\Attempt\CreateQuestionRunAttemptController;
 use App\Http\Controllers\Questions\Attempt\CreateQuestionRunExamAttemptController;
 use App\Http\Controllers\Questions\Exam\CommitRunExamController;
+use App\Http\Controllers\Questions\Exam\ExamStatusController;
 use App\Http\Controllers\Questions\Flag\CreateRunQuestionExamFlagController;
 use App\Http\Controllers\Questions\ReadQuestionController;
 use App\Http\Controllers\Questions\Run\CreateCategoryRunController;
@@ -51,7 +52,9 @@ Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function ()
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
-    Route::get('/page/run/{runId}/exam/practice', RunExamPageController::class)->name('page.run.exam.practice');
+    Route::get('/page/run/{runId}/exam/practice', RunExamPageController::class)
+        ->whereNumber('runId')
+        ->name('page.run.exam.practice');
     Route::get('/page/run/{runId}/random/practice', RunRandomPageController::class)->name('page.run.random.practice');
     Route::get('/page/run/category', CreateCategoryRunPageController::class)->name('page.run.category.create');
     Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
@@ -73,11 +76,11 @@ Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function ()
     Route::post('/api/question/run/exam', CreateExamRunController::class)->name('api.question.run.exam.create');
     Route::get('/api/user/question/run', ReadUserQuestionRunController::class)->name('api.user.question.run');
     Route::get('/api/question/run/exam/{runId}', ReadQuestionRunExamController::class)->name('api.question.run.exam');
-
     Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
     Route::get('/api/tracking/categories/accuracy', ReadTrackingCategoriesAccuracyController::class)->name('api.tracking.categories.accuracy.read');
     Route::get('/api/tracking/overview', ReadTrackingOverviewController::class)->name('api.tracking.overview.read');
     Route::get('/api/tracking/readinessscore', ReadReadinessScoreController::class)->name('api.tracking.readinessscore.read');
+    Route::get('/api/exam/status', ExamStatusController::class)->name('api.exam.status');
 });
 
 require __DIR__ . '/auth.php';
