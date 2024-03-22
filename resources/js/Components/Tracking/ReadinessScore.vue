@@ -32,7 +32,7 @@ export default {
                         <div class="stat-value">{{ ReadinessScore }}%</div>
                         <div class="stat-desc">Base on the BACB exam criteria.</div>
                         <div class="stat-desc">
-                            <a href="" class="link">
+                            <a :href="route('page.docs')" class="link">
                                 Learn more
                             </a>
                         </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Docs\PageDocsController;
 use App\Http\Controllers\Pages\Run\ListRunsPageController;
 use App\Http\Controllers\Pages\Run\RunExamPageController;
 use App\Http\Controllers\Pages\Run\RunPageController;
@@ -60,6 +61,8 @@ Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function ()
     Route::get('/page/run/list', ListRunsPageController::class)->name('page.question.run.list');
     Route::get('/page/run/result/{runId}', RunResultPage::class)->name('page.run.result');
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
+
+    Route::get('/docs', PageDocsController::class)->name('page.docs');
 
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
     Route::get('/page/tracking', TrackingPageController::class)->name('page.tracking');
