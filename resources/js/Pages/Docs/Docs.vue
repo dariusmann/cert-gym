@@ -168,7 +168,10 @@ export default {
     </AuthenticatedLayout>
 </template>
 
-<style lang="scss" scoped>
+<style scoped>
 
+:deep(.p-tabview-nav-container) {
+    border-bottom: 1px solid #eb826b;
+}
 
 </style>

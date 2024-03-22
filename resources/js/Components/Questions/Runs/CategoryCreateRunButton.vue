@@ -11,7 +11,7 @@ export default {
 <template>
     <Card class="h-full">
         <template #content>
-            <div class="text-center flex flex-col justify-between">
+            <div class="text-center flex flex-col justify-between h-full">
                 <div>
                     <i class="text-4xl fa-solid fa-list"></i>
                     <div class="text-2xl mt-2">Task List Run</div>

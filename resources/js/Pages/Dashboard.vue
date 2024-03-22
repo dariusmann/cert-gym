@@ -77,3 +77,15 @@ const subscription = computed(() => page.props.subscription)
         </div>
     </AuthenticatedLayout>
 </template>
+
+<style scoped>
+
+:deep(.p-card-body ) {
+    height: 100%;
+}
+
+:deep(.p-card-content) {
+    height: 100%;
+}
+
+</style>
