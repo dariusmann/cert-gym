@@ -43,7 +43,7 @@ class CreateSubscription implements CreatesSubscriptions
         }
 
         return $builder->checkout(array_merge(array_filter([
-            'success_url' => route('checkout.complete').'?checkout=subscription_started',
+            'success_url' => route('dashboard').'?checkout=subscription_started',
             'cancel_url' => route('spark.portal').'?checkout=cancelled',
             'consent_collection' => array_filter([
                 'terms_of_service' => Features::enforcesAcceptingTerms() ? 'required' : null,

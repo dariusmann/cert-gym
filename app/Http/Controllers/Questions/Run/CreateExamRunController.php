@@ -72,12 +72,12 @@ class CreateExamRunController  extends Controller
     {
         // Define the counts of random questions for each main category
         $countMapping = [
-            'A' => 1, // 12 random questions from subcategories of the first category
-            'B' => 1,  // 6 random questions from subcategories of the second category
-            'C' => 1, // 24 random questions from subcategories of the third category
-            'D' => 1, // 12 random questions from subcategories of the fourth category
-            'E' => 1, // 10 random questions from subcategories of the fifth category
-            'F' => 1  // 11 random questions from subcategories of the sixth category
+            'A' => 14, // 14 random questions from subcategories of the first category
+            'B' => 7,
+            'C' => 26,
+            'D' => 13,
+            'E' => 12,
+            'F' => 13
         ];
 
         // Return the count based on the category ID, default to 0 if not found

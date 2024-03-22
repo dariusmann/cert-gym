@@ -49,7 +49,7 @@ export default {
                 <div>
                     <i class="text-4xl fa-solid fa-vial"></i>
                     <div class="text-2xl mt-2">Exam Run</div>
-                    <p class="mt-2">Test your skills on our exam simulation: <br> 75 questions in 1h 30m.</p>
+                    <p class="mt-2">Test your skills on our exam simulation: <br> 85 questions in 1h 30m.</p>
                 </div>
                 <Button label="Start Exam" @click="submit" class="mt-4 btn btn-primary" />
             </div>

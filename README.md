@@ -14,9 +14,8 @@ Just locate the auth.json with credentials in you root directory. After that you
 
 ##### Import questions data
 - First locate categories.json and question directory in storage folder
-- Then run this two commands in this order:
-- `sail artisan app:import:categories`
-- `sail artisan app:import:questions`
+- Then run this commands:
+- `sail artisan app:import-all`
 
 
 ##### Create a test user with subscription
@@ -25,7 +24,8 @@ Just locate the auth.json with credentials in you root directory. After that you
 - User: test@dev.com
 - Password: login123
 
-
+### Configure .env for frontend
+set `VUE_BACKEND_API_URL`
 ### Run frontend
 sail npm run dev
 

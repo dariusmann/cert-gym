@@ -44,7 +44,11 @@ class ReadTrackingCategoriesAccuracyController extends Controller
                 true, $subCategoriesIds, $user->getId()
             );
 
-            $accuracyRate[] = round($rightAttempts / ($rightAttempts + $wrongAttempts) * 100);
+            if ($rightAttempts === 0) {
+                $accuracyRate[] = 0;
+            } else {
+                $accuracyRate[] = round($rightAttempts / ($rightAttempts + $wrongAttempts) * 100);
+            }
         }
 
         return new JsonResponse([

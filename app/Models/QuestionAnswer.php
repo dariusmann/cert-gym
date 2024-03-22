@@ -16,6 +16,7 @@ class QuestionAnswer extends Model implements JsonSerializable
         'text',
         'is_correct',
         'explanation',
+        'long_explanation',
         'question_id'
     ];
 
