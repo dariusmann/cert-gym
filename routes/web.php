@@ -24,7 +24,7 @@ use App\Http\Controllers\Questions\Run\ReadQuestionRunExamController;
 use App\Http\Controllers\Tracking\ReadTrackingAccuracyController;
 use App\Http\Controllers\Tracking\ReadTrackingOverviewController;
 use App\Http\Controllers\Tracking\ReadReadinessScoreController;
-use App\Http\Controllers\Questions\Run\ReadUserQuestionRunController;
+use App\Http\Controllers\Questions\Run\ReadUserQuestionRunsController;
 use App\Http\Controllers\Tracking\ReadTrackingCategoriesAccuracyController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -78,7 +78,7 @@ Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function ()
     Route::post('/api/question/run/category', CreateCategoryRunController::class)->name('api.question.run.category.create');
     Route::get('/api/question/run/random', [CreateRandomRunController::class, 'readRandom'])->name('api.question.random.read');
     Route::post('/api/question/run/exam', CreateExamRunController::class)->name('api.question.run.exam.create');
-    Route::get('/api/user/question/run', ReadUserQuestionRunController::class)->name('api.user.question.run');
+    Route::get('/api/user/question/run', ReadUserQuestionRunsController::class)->name('api.user.question.run');
     Route::get('/api/question/run/exam/{runId}', ReadQuestionRunExamController::class)->name('api.question.run.exam');
     Route::get('/api/tracking/accuracy', ReadTrackingAccuracyController::class)->name('api.tracking.accuracy.read');
     Route::get('/api/tracking/categories/accuracy', ReadTrackingCategoriesAccuracyController::class)->name('api.tracking.categories.accuracy.read');
