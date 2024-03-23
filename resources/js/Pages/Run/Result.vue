@@ -18,9 +18,10 @@ export default {
         },
         classesBadge(index) {
             return {
-                'bg-green-200': this.isIndexAttemptCorrect(index),
-                'bg-red-200': !this.isIndexAttemptCorrect(index),
-                'badge-secondary': false
+                'bg-green-200': this.isIndexAttemptCorrect(index) && this.currentIndex !== index,
+                'bg-red-200': !this.isIndexAttemptCorrect(index) && this.currentIndex !== index,
+                'badge-secondary': false,
+                'badge-accent': this.currentIndex === index,
             }
         },
         navigateBack() {
@@ -41,6 +42,16 @@ export default {
     computed: {
         currentSelectedAnswer() {
             return this.run.run_questions[this.currentIndex].attempt?.responses[0]?.answer ?? null;
+        },
+        correctAnswersCount() {
+            return this.run.run_questions.filter(question => question.attempt?.answered_correctly === true).length;
+        },
+        incorrectAnswersCount() {
+            return this.run.run_questions.filter(question => question.attempt?.answered_correctly === false).length;
+        },
+        examPassed() {
+            const percentageCorrect = (this.correctAnswersCount / this.run.run_questions.length) * 100;
+            return percentageCorrect >= 0;
         },
     }
 }
@@ -73,10 +84,21 @@ export default {
                                 </div>
                             </div>
                             <div class="h-4"></div>
-                            <div class="flex justify-center items-center">
+                            <div class="flex justify-start items-center">
                                 <div class="link link-primary" @click="navigateBack">Back</div>
                                 <div class="w-6"></div>
                                 <div class="link link-primary" @click="navigateNext">Next</div>
+                            </div>
+                            <div class="results mt-5">
+                                <div class="result correct">
+                                    Correct answers: {{ correctAnswersCount }}
+                                </div>
+                                <div class="result incorrect">
+                                    Incorrect answers: {{ incorrectAnswersCount }}
+                                </div>
+                                <div class="result status">
+                                    Exam status: <span :class="examPassed ? 'passed' : 'failed'">{{ examPassed ? 'Passed' : 'Failed' }}</span>
+                                </div>
                             </div>
                         </template>
                     </Card>
@@ -88,5 +110,33 @@ export default {
 </template>
 
 <style scoped>
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
 
+.result {
+    font-size: 1.2em;
+}
+
+.correct {
+    color: green;
+}
+
+.incorrect {
+    color: red;
+}
+
+.status {
+    font-weight: bold;
+}
+
+.passed {
+    color: green;
+}
+
+.failed {
+    color: red;
+}
 </style>

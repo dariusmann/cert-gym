@@ -33,13 +33,9 @@ class QuestionRunQuestion extends Model implements JsonSerializable
         $this->attempt_id = $attemptId;
     }
 
-    public function attempt(): ?QuestionAttempt
+    public function attempt()
     {
-        if ($this->getAttemptId() !== null) {
-            return QuestionAttempt::find($this->getAttemptId());
-        }
-
-        return null;
+        return $this->hasOne(QuestionAttempt::class, 'id', 'attempt_id');
     }
 
     public function question(): Question
@@ -67,9 +63,19 @@ class QuestionRunQuestion extends Model implements JsonSerializable
         return [
             'id' => $this->getId(),
             'question' => $this->question()->toArray(),
-            'attempt' => $this->attempt()?->toArray(),
+            'attempt' => $this->attempt?->toArray(),
             'flag' => $this->flag()?->toArray()
         ];
+    }
+
+    public function isAnswerCorrect()
+    {
+        return $this->attempt && $this->attempt->answer && $this->attempt->answer->is_correct;
+    }
+
+    public function isAnswerIncorrect()
+    {
+        return $this->attempt && $this->attempt->answer && !$this->attempt->answer->is_correct;
     }
 
     public function jsonSerialize(): array

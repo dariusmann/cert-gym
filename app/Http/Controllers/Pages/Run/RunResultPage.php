@@ -21,17 +21,21 @@ class RunResultPage
     {
         $questionRunQuestions = QuestionRunQuestion::where('question_run_id', $runId)->get();
 
-        $resultRunQuestions = [];
+        $correctAnswersCount = $questionRunQuestions->filter->isAnswerCorrect()->count();
+        $incorrectAnswersCount = $questionRunQuestions->filter->isAnswerIncorrect()->count();
 
-        /** @var QuestionRunQuestion $runQuestion */
-        foreach ($questionRunQuestions as $runQuestion) {
-            $resultRunQuestions[] = $runQuestion->toArray();
-        }
+        // Calculate if the user passed the run for the server side
+        $passThreshold = 0.6;
+        $totalQuestions = $questionRunQuestions->count();
+        $passed = $correctAnswersCount / $totalQuestions >= $passThreshold;
 
         return Inertia::render('Run/Result', [
             'run' => [
                 'id' => $runId,
-                'run_questions' => $resultRunQuestions
+                'run_questions' => $questionRunQuestions->toArray(),
+                'correct_answers_count' => $correctAnswersCount,
+                'incorrect_answers_count' => $incorrectAnswersCount,
+                'passed' => $passed,
             ]
         ]);
     }

@@ -39,6 +39,11 @@ class QuestionAttempt extends Model
         return $this->hasMany(QuestionResponse::class, 'attempt_id');
     }
 
+    public function attempt()
+    {
+        return $this->hasOne(QuestionAttempt::class, 'id', 'attempt_id');
+    }
+
     public function toArray(): array
     {
         return [
