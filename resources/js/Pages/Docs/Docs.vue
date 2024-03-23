@@ -13,7 +13,7 @@ export default {
     <AuthenticatedLayout>
         <div class="h-5"></div>
         <TabView class="shadow-2xl border-roun">
-            <TabPanel header="Readiness Score">
+            <TabPanel header="What is the Readiness Score?">
                 <div class="prose">
                     <h1>Understanding Your Readiness Score</h1>
                     <p>In our learning platform, we are dedicated to providing you with comprehensive tools to track
@@ -88,7 +88,7 @@ export default {
                         preparation is focused and efficient.</p>
                 </div>
             </TabPanel>
-            <TabPanel header="Accuracy Rate">
+            <TabPanel header="What is the Accuracy Rate?">
                 <div class="prose">
 
                     <h1>Understanding Your Accuracy Rate Score</h1>
@@ -161,6 +161,63 @@ export default {
                         this score to
                         guide your study efforts effectively, ensuring you are always moving forward in your
                         preparation.</p>
+                </div>
+            </TabPanel>
+            <TabPanel header="What are Runs?">
+                <div class="prose">
+
+                    <h1>Understanding Runs in Our Learning Platform</h1>
+                    <p>Our learning platform incorporates a versatile feature known as "runs" to enhance your study
+                        experience. This guide is designed to explain what runs are, how they function within the app,
+                        and the various types of runs available, including how you can manage and benefit from them
+                        during your preparation.</p>
+
+                    <h2>What is a Run?</h2>
+                    <p>A run, in the simplest terms, is a collection or bundle of questions that you can work through as
+                        a unit. Think of it as a study set or a mini-exam tailored to specific learning objectives. Each
+                        run serves as a container for questions, which can be grouped by various criteria to support
+                        different study strategies.</p>
+
+                    <h2>Types of Runs</h2>
+                    <ul>
+                        <li><strong>Exam Simulation Runs</strong>: These are specially prepared runs that mimic the
+                            format and structure of the actual RBT exam. They contain questions that closely resemble
+                            those you may encounter during the examination, providing a realistic practice experience.
+                        </li>
+                        <li><strong>Category Runs</strong>: Category runs focus on specific task list categories. These
+                            runs allow you to concentrate your practice on particular areas where you may need more
+                            review or wish to strengthen your understanding.
+                        </li>
+                    </ul>
+
+                    <h2>Managing Your Runs</h2>
+                    <p>Within the app, we have a dedicated view called the "Run List." This area lists all the runs you
+                        have started or created, offering quick access to resume any run or to analyze your results from
+                        completed runs. This feature ensures that you can easily keep track of your progress across
+                        different runs and review your performance to identify areas for improvement.</p>
+
+                    <h2>Benefits of Using Runs</h2>
+                    <ul>
+                        <li><strong>Focused Study</strong>: By working through runs, you can tailor your study sessions
+                            to specific areas of the task list or simulate the exam experience, allowing for more
+                            targeted and efficient preparation.
+                        </li>
+                        <li><strong>Flexibility</strong>: The ability to create category runs gives you the flexibility
+                            to customize your practice sessions to focus on areas that match your current study needs.
+                        </li>
+                        <li><strong>Progress Tracking</strong>: With the Run List view, you can effortlessly monitor
+                            your progress, resume incomplete runs, and analyze your performance in completed runs,
+                            providing valuable insights into your overall preparation and readiness.
+                        </li>
+                    </ul>
+
+                    <h2>Conclusion</h2>
+                    <p>Runs are a foundational component of our learning platform, designed to offer a flexible,
+                        focused, and efficient way to prepare for the RBT exam. Whether you are taking on an exam
+                        simulation run to familiarize yourself with the exam format or creating category runs to drill
+                        down into specific areas of the task list, this feature supports your study goals. Utilize the
+                        Run List to manage your runs effectively, keeping your preparation on track and moving towards
+                        success on your RBT examination.</p>
                 </div>
             </TabPanel>
         </TabView>
