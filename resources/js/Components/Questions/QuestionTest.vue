@@ -132,6 +132,13 @@ export default {
                 <div v-else>
                     {{ correctAnswer?.explanation }}
                 </div>
+                <div class="h-5"></div>
+                <hr>
+                <div class="h-5"></div>
+                <div class="text-lg text-bold">Lesson</div>
+                <div>
+                    {{ question.lesson?.text }}
+                </div>
             </div>
         </template>
     </Card>
