@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
-class PageReadinessScoreController
+class PageDocsController
 {
     public function __invoke(Request $request): Response
     {
-        return Inertia::render('Docs/ReadinessScore');
+        return Inertia::render('Docs/Docs');
     }
 }
