@@ -76,7 +76,13 @@ class Question extends Model implements JsonSerializable
             'category_id' => $this->category_id,
             'category_path' => $this->getCategoryHierarchy($this->category),
             'answers' => $this->answers()->get()->toArray(),
+            'lesson' => $this->lesson?->toArray(),
         ];
+    }
+
+    public function lesson()
+    {
+        return $this->hasOne(QuestionLesson::class, 'question_id', 'id');
     }
 
     public function jsonSerialize(): mixed
