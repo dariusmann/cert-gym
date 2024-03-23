@@ -2,11 +2,12 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import Card from 'primevue/card';
 import QuestionResult from "@/Components/Questions/QuestionResult.vue";
+import ResultOverview from "@/Components/Run/ResultOverview.vue";
 
 export default {
     name: "Result",
     props: ['run'],
-    components: {QuestionResult, AuthenticatedLayout, Card},
+    components: {ResultOverview, QuestionResult, AuthenticatedLayout, Card},
     data: function () {
         return {
             currentIndex: 0,
@@ -18,9 +19,9 @@ export default {
         },
         classesBadge(index) {
             return {
+                'x': this.isIndexNotAttempted(index) && this.currentIndex !== index,
                 'bg-green-200': this.isIndexAttemptCorrect(index) && this.currentIndex !== index,
-                'bg-red-200': !this.isIndexAttemptCorrect(index) && this.currentIndex !== index,
-                'badge-secondary': false,
+                'bg-red-200': !this.isIndexNotAttempted(index) && !this.isIndexAttemptCorrect(index) && this.currentIndex !== index,
                 'badge-accent': this.currentIndex === index,
             }
         },
@@ -29,8 +30,11 @@ export default {
                 this.currentIndex = this.currentIndex - 1;
             }
         },
-        isIndexAttemptCorrect(index){
+        isIndexAttemptCorrect(index) {
             return this.run.run_questions[index]?.attempt?.answered_correctly === true;
+        },
+        isIndexNotAttempted(index) {
+            return this.run.run_questions[index]?.attempt === null;
         },
         navigateNext() {
             if (this.run.run_questions.length - 1 > this.currentIndex) {
@@ -43,16 +47,6 @@ export default {
         currentSelectedAnswer() {
             return this.run.run_questions[this.currentIndex].attempt?.responses[0]?.answer ?? null;
         },
-        correctAnswersCount() {
-            return this.run.run_questions.filter(question => question.attempt?.answered_correctly === true).length;
-        },
-        incorrectAnswersCount() {
-            return this.run.run_questions.filter(question => question.attempt?.answered_correctly === false).length;
-        },
-        examPassed() {
-            const percentageCorrect = (this.correctAnswersCount / this.run.run_questions.length) * 100;
-            return percentageCorrect >= 0;
-        },
     }
 }
 </script>
@@ -61,7 +55,9 @@ export default {
     <AuthenticatedLayout>
         <div class="h-5"></div>
 
-        <div class="container">
+        <ResultOverview :run="run"/>
+
+        <div class="container mt-5">
             <div class="grid grid-cols-4 gap-4">
                 <div class="col-span-3">
                     <QuestionResult
@@ -74,7 +70,7 @@ export default {
                 <div>
                     <Card class="h-full">
                         <template #content>
-                            <div>
+                            <div class="grid grid-cols-7 gap-1">
                                 <div v-for="(runQuestion, index) in run.run_questions"
                                      class="badge cursor-pointer"
                                      :class="classesBadge(index)"
@@ -84,21 +80,10 @@ export default {
                                 </div>
                             </div>
                             <div class="h-4"></div>
-                            <div class="flex justify-start items-center">
+                            <div class="flex justify-center items-center">
                                 <div class="link link-primary" @click="navigateBack">Back</div>
                                 <div class="w-6"></div>
                                 <div class="link link-primary" @click="navigateNext">Next</div>
-                            </div>
-                            <div class="results mt-5">
-                                <div class="result correct">
-                                    Correct answers: {{ correctAnswersCount }}
-                                </div>
-                                <div class="result incorrect">
-                                    Incorrect answers: {{ incorrectAnswersCount }}
-                                </div>
-                                <div class="result status">
-                                    Exam status: <span :class="examPassed ? 'passed' : 'failed'">{{ examPassed ? 'Passed' : 'Failed' }}</span>
-                                </div>
                             </div>
                         </template>
                     </Card>
@@ -110,33 +95,4 @@ export default {
 </template>
 
 <style scoped>
-.results {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.result {
-    font-size: 1.2em;
-}
-
-.correct {
-    color: green;
-}
-
-.incorrect {
-    color: red;
-}
-
-.status {
-    font-weight: bold;
-}
-
-.passed {
-    color: green;
-}
-
-.failed {
-    color: red;
-}
 </style>

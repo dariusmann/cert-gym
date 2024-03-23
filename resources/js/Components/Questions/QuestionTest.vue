@@ -45,8 +45,11 @@ export default {
                 }
             }
         },
-        disabledButton() {
-            return this.committedToAnswer && this.question !== null;
+        disabledAnswerButton() {
+            return this.committedToAnswer || this.selectedAnswer === null;
+        },
+        disabledNextButton() {
+            return !this.committedToAnswer;
         }
     },
     methods: {
@@ -87,7 +90,9 @@ export default {
     <Card v-if="question" class="h-full">
         <template #content>
             <div class="text-lg">
-                <span v-if="questionNumber" class="text-p-primary text-2xl text-bold">{{ questionNumber + '. '}}</span>{{ question.text }}
+                <span v-if="questionNumber" class="text-p-primary text-2xl text-bold">{{ questionNumber + '. ' }}</span>{{
+                    question.text
+                }}
             </div>
             <div class="mt-4">
                 <div v-for="answer in question.answers"
@@ -105,10 +110,14 @@ export default {
                 </div>
             </div>
             <div class="mt-4">
-                <button class="btn btn-secondary btn-sm" @click="submit" :disabled="disabledButton">
+                <button class="btn btn-secondary btn-sm"
+                        @click="submit"
+                        :disabled="disabledAnswerButton">
                     Answer
                 </button>
-                <button class="btn btn-primary btn-sm ml-2" @click="$emit('nextQuestion')" :disabled="!disabledButton">
+                <button class="btn btn-primary btn-sm ml-2"
+                        @click="$emit('nextQuestion')"
+                        :disabled="disabledNextButton">
                     Next
                 </button>
             </div>

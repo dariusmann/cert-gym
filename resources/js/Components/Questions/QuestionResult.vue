@@ -89,10 +89,10 @@ export default {
                     <div class="h-5"></div>
                     <div class="text-lg text-bold">Explanation</div>
                     <div v-if="selectedAnswer && !hasUserAnsweredCorrectly()">
-                        {{ selectedAnswer.explanation }}
+                        {{ selectedAnswer.long_explanation }}
                     </div>
                     <div v-else>
-                        {{ correctAnswer?.explanation }}
+                        {{ correctAnswer?.long_explanation }}
                     </div>
                 </div>
             </template>

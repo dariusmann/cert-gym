@@ -21,6 +21,11 @@ class QuestionRun extends Model
         return $this->id;
     }
 
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
     public function getQuestionRunQuestions(): HasMany
     {
         return $this->hasMany(QuestionRunQuestion::class);
