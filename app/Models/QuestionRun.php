@@ -10,6 +10,8 @@ class QuestionRun extends Model
 {
     use HasFactory;
 
+    public const TYPE_EXAM = 'exam';
+
     protected $fillable = [
         'user_id',
         'type',
@@ -24,6 +26,11 @@ class QuestionRun extends Model
     public function getType(): string
     {
         return $this->type;
+    }
+
+    public function isExam(): bool
+    {
+        return $this->getType() === self::TYPE_EXAM;
     }
 
     public function getQuestionRunQuestions(): HasMany
