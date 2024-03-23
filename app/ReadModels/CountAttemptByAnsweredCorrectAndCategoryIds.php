@@ -11,10 +11,9 @@ class CountAttemptByAnsweredCorrectAndCategoryIds
     public function count(bool $answeredCorrectly, array $categoryIds, int $userId): int
     {
         return DB::table('question_attempts')
-            ->join('questions', 'question_attempts.question_id', 'questions.id')
-            ->join('categories', 'categories.id', 'questions.id')
+            ->leftJoin('questions', 'questions.id', '=', 'question_attempts.question_id')
             ->where('question_attempts.user_id', $userId)
-            ->whereIn('categories.id', $categoryIds)
+            ->whereIn('questions.category_id', $categoryIds)
             ->where('question_attempts.answered_correctly', '=', $answeredCorrectly)
             ->count();
     }
