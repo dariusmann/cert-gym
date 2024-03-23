@@ -36,7 +36,8 @@ class QuestionAnswer extends Model implements JsonSerializable
             'id' => $this->getId(),
             'text' => $this->text,
             'is_correct' => $this->is_correct,
-            'explanation' => $this->explanation
+            'explanation' => $this->explanation,
+            'long_explanation' => $this->long_explanation,
         ];
     }
 
