@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Pages\Run;
 
 use App\Domain\Checker\CheckQuestionRunExamCompleted;
+use App\Domain\Updater\QuestionRunExamCompletedUpdater;
 use App\Models\QuestionRun;
 use App\Models\QuestionRunExam;
 use App\Models\QuestionRunQuestion;
@@ -16,12 +17,15 @@ use Inertia\Response;
 class RunExamPageController
 {
     private CheckQuestionRunExamCompleted $checkQuestionRunExamCompleted;
+    private QuestionRunExamCompletedUpdater $questionRunExamCompletedUpdater;
 
     public function __construct(
-        CheckQuestionRunExamCompleted $checkQuestionRunExamCompleted
+        CheckQuestionRunExamCompleted $checkQuestionRunExamCompleted,
+        QuestionRunExamCompletedUpdater $questionRunExamCompletedUpdater
     )
     {
         $this->checkQuestionRunExamCompleted = $checkQuestionRunExamCompleted;
+        $this->questionRunExamCompletedUpdater = $questionRunExamCompletedUpdater;
     }
 
     public function __invoke(Request $request, int $runId): RedirectResponse|Response
@@ -33,8 +37,7 @@ class RunExamPageController
         $questionRunExam = QuestionRunExam::where('question_run_id', $questionRun->getId())->first();
 
         if ($questionRunExam !== null && $this->checkQuestionRunExamCompleted->check($questionRunExam)) {
-            $questionRunExam->setCompleted();
-            $questionRunExam->save();
+            $this->questionRunExamCompletedUpdater->update($questionRunExam);
 
             return new RedirectResponse(route('page.run.result', ['runId' => $runId]));
         }
