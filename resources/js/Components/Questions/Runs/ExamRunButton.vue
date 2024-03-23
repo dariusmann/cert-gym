@@ -7,34 +7,25 @@ import Button from 'primevue/button';
 export default {
     name: "ExamRunButton",
     components: {Card, Dialog, Button},
+    props: ['runningExamRun'],
     data() {
         return {
-            showDialog: false,
             examQuestionRun: null,
-            visible: false,
-            noExamToContinue: false
+            modalStartExamShow: false,
+            modalContinueExamShow: false
         }
     },
     methods: {
-        async submit() {
-            const examStatus = await QuestionRunService.getExamStatus();
-            if (examStatus && Object.keys(examStatus).length) {
-                this.examQuestionRun = examStatus;
-                this.showDialog = true;
-                this.visible = true;
-            } else {
-                this.noExamToContinue = true;
-                this.showDialog = true;
-                this.visible = true;
-            }
+        async showStartExamModal() {
+            this.modalStartExamShow = true;
+        },
+        async showContinueExamModal() {
+            this.modalContinueExamShow = true;
         },
         continueExam() {
-            window.location = '/page/run/' + this.examQuestionRun.id + '/exam/practice'
+            window.location = '/page/run/' + this.runningExamRun.id + '/exam/practice'
         },
         async startNewExam() {
-            if (this.examQuestionRun) {
-                await QuestionRunService.commitRunExam(this.examQuestionRun.id);
-            }
             const examQuestionRun = await QuestionRunService.createExamRun();
             window.location = '/page/run/' + examQuestionRun.id + '/exam/practice';
         }
@@ -51,22 +42,34 @@ export default {
                     <div class="text-2xl mt-2">Exam Run</div>
                     <p class="mt-2">Test your skills on our exam simulation: <br> 85 questions in 1h 30m.</p>
                 </div>
-                <Button label="Start Exam" @click="submit" class="mt-4 btn btn-primary" />
+                <Button v-if="!runningExamRun" label="Start Exam" @click="showStartExamModal" class="mt-4 btn btn-primary"/>
+                <Button v-if="runningExamRun" label="Continue Exam" @click="showContinueExamModal" class="mt-4 btn btn-primary"/>
             </div>
         </template>
     </Card>
 
-    <Dialog v-model:visible="visible" modal :style="{ width: '25rem' }">
+    <Dialog v-model:visible="modalContinueExamShow" modal :style="{ width: '25rem' }">
         <template #header>
-            <h2 v-if="noExamToContinue" >New Exam</h2>
-            <h2 v-else>Continue Exam</h2>
+            <div class="text-2xl">You're back?</div>
         </template>
-        <p v-if="noExamToContinue">This is a 75-question exam, and you have 1.5 hours to complete it. Start a new exam to test your skills.</p>
-        <p v-else>Would you like to continue with your existing exam or start a new one?</p>
+        <p>You still have an exam running. Continue it now!</p>
         <template #footer>
             <div class="p-d-flex">
-                <Button v-if="!noExamToContinue" :disabled="!examQuestionRun" label="Continue Exam" @click="continueExam" class="btn btn-primary mr-2" />
-                <Button label="Start New Exam" @click="startNewExam" class="btn btn-secondary" />
+                <Button label="Continue Exam"
+                        @click="continueExam"
+                        class="btn btn-primary ml-2"/>
+            </div>
+        </template>
+    </Dialog>
+
+    <Dialog v-model:visible="modalStartExamShow" modal :style="{ width: '25rem' }">
+        <template #header>
+            <div class="text-2xl">Listen up!</div>
+        </template>
+        <p>This is a <b>85-question exam</b>, and you <br>have <b>1h 30m</b> to complete it. Are you Ready?</p>
+        <template #footer>
+            <div class="p-d-flex">
+                <Button label="Yes, I'm ready!" @click="startNewExam" class="btn btn-secondary"/>
             </div>
         </template>
     </Dialog>

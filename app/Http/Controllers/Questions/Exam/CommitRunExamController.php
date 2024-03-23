@@ -17,7 +17,7 @@ class CommitRunExamController
 
         /** @var QuestionRunExam $runExam */
         $runExam = QuestionRunExam::where('question_run_id', $runId)->first();
-        $runExam->setFinished();;
+        $runExam->setCompleted();;
         $runExam->save();
 
         /** @var QuestionRun $questionRun */

@@ -10,6 +10,7 @@ import CategoryCreateRunButton from "@/Components/Questions/Runs/CategoryCreateR
 const page = usePage()
 
 const subscription = computed(() => page.props.subscription)
+const runningExamRun = computed(() => page.props.runningExamRun)
 </script>
 
 <template>
@@ -34,7 +35,7 @@ const subscription = computed(() => page.props.subscription)
                                 <CategoryCreateRunButton/>
                             </div>
                             <div>
-                                <ExamRunButton/>
+                                <ExamRunButton :running-exam-run="runningExamRun"/>
                             </div>
                         </div>
                         <div class="prose text-center mx-auto mt-12">

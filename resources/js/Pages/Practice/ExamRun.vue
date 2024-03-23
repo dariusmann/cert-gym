@@ -139,7 +139,7 @@ export default {
                 <div>
                     <Card class="h-full">
                         <template #content>
-                            <div class="grid grid-cols-8 gap-1">
+                            <div class="grid grid-cols-7 gap-1">
                                 <div v-for="(question, index) in examRun.run_questions"
                                      class="badge cursor-pointer"
                                      :class="classesBadge(index)"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Docs\PageDocsController;
+use App\Http\Controllers\Pages\DashboardController;
 use App\Http\Controllers\Pages\Run\ListRunsPageController;
 use App\Http\Controllers\Pages\Run\RunExamPageController;
 use App\Http\Controllers\Pages\Run\RunPageController;
@@ -43,14 +44,14 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified', 'subscribedCheckout'])->name('dashboard');
+
 
 Route::middleware(['auth', 'verified', 'subscribedCheckout'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     Route::get('/page/run/{runId}/practice', RunPageController::class)->name('page.run.practice');
     Route::get('/page/run/{runId}/exam/practice', RunExamPageController::class)

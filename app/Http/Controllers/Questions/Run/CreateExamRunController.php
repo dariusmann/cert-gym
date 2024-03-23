@@ -24,10 +24,8 @@ class CreateExamRunController  extends Controller
 
     public function __invoke(Request $request): JsonResponse
     {
-
         /** @var User $user */
         $user = $request->user();
-
 
         $questions = $this->getRandomQuestions();
         $shuffledQuestions = $questions->shuffle();
@@ -43,8 +41,6 @@ class CreateExamRunController  extends Controller
 
     public function getRandomQuestions()
     {
-
-
         $rootTaskListCategory = Category::where('short_code', 'tl-root')->first();
         $mainCategories = Category::where('parent_id', $rootTaskListCategory->getId())->get();
 
