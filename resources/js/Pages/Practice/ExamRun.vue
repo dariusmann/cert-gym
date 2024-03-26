@@ -9,16 +9,18 @@ import QuestionRunService from "@/Services/question.run.service.js";
 import ExamCountdown from "@/Pages/Practice/ExamCountdown.vue";
 import moment from 'moment';
 import QuestionAttemptService from "@/Services/question.attempt.service.js";
+import Dialog from "primevue/dialog";
 
 export default {
     name: "ExamRun",
-    components: {ExamCountdown, QuestionExam, AuthenticatedLayout, QuestionResult, Card, Toast, ConfirmDialog},
+    components: {ExamCountdown, QuestionExam, AuthenticatedLayout, QuestionResult, Card, Toast, ConfirmDialog, Dialog},
     props: ['examRun'],
     data: function () {
         return {
             flaggedQuestionIndex: [],
             currentIndex: 0,
-            examEndTime: null
+            examEndTime: null,
+            modalSubmitExamShow: false,
         }
     },
     async mounted() {
@@ -38,6 +40,12 @@ export default {
         isCurrentIndexQuestionFlagged() {
             return !!this.examRun.run_questions[this.currentIndex].flag;
         },
+        flaggedCount() {
+            return this.examRun.run_questions.filter(question => question.flag).length;
+        },
+        unansweredCount() {
+            return this.examRun.run_questions.filter(question => !question.attempt).length;
+        }
     },
     methods: {
         changeQuestion(index) {
@@ -95,20 +103,7 @@ export default {
             window.location = '/page/run/result/' + this.examRun.id
         },
         async submitExam() {
-            this.$confirm.require({
-                message: 'Are you sure you want to want to submit the exam?',
-                header: 'Submit Exam',
-                icon: 'pi pi-exclamation-triangle',
-                rejectClass: 'btn btn-error',
-                acceptClass: 'btn btn-primary',
-                rejectLabel: 'Cancel',
-                acceptLabel: 'Submit',
-                accept: () => {
-                    this.finishExam()
-                },
-                reject: () => {
-                }
-            });
+            this.modalSubmitExamShow = true;
         },
     }
 }
@@ -116,7 +111,6 @@ export default {
 
 <template>
     <Toast/>
-    <ConfirmDialog></ConfirmDialog>
     <AuthenticatedLayout>
         <div class="h-5"></div>
         <div class="flex justify-end text-2xl">
@@ -137,6 +131,23 @@ export default {
                     />
                 </div>
                 <div>
+                    <Dialog v-model:visible="modalSubmitExamShow" modal :style="{ width: '40rem' }">
+                        <template #header>
+                            <div class="text-4xl"><b>Ready to submit exam?</b></div>
+                        </template>
+                        <hr class="mb-5">
+                        <p>Are you ready to submit your exam?</p>
+                        <p class="my-5">You have <b>{{ flaggedCount }}</b> flagged questions.</p>
+                        <p>You have <b>{{ unansweredCount }}</b> unanswered questions.</p>
+                        <template #footer>
+                            <div class="p-d-flex">
+                                <Button @click="modalSubmitExamShow = false"
+                                        class="btn btn-secondary ml-2">Continue exam</Button>
+                            </div>
+                                <Button @click="finishExam"
+                                        class="btn btn-primary ml-2">Submit exam</Button>
+                        </template>
+                    </Dialog>
                     <Card class="h-full">
                         <template #content>
                             <div class="grid grid-cols-7 gap-1">
