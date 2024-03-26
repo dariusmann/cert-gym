@@ -18,7 +18,7 @@ const runningExamRun = computed(() => page.props.runningExamRun)
 
     <AuthenticatedLayout>
         <div class="py-12">
-            <div class="container">
+            <div class="container px-4">
                 <div class="">
                     <div v-if="!subscription.isValid">
                         <p>
@@ -27,7 +27,7 @@ const runningExamRun = computed(() => page.props.runningExamRun)
                         </p>
                     </div>
                     <div v-else>
-                        <div class="grid grid-cols-3 gap-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                             <div>
                                 <RandomRunButton/>
                             </div>
