@@ -19,6 +19,9 @@ export default {
             const percentageCorrect = (this.correctAnswersCount / this.run.run_questions.length) * 100;
             return percentageCorrect >= 70;
         },
+        accuracyRate() {
+            return Math.round((this.correctAnswersCount / this.run.run_questions.length) * 100);
+        }
     }
 }
 </script>
@@ -26,21 +29,27 @@ export default {
 <template>
     <div class="grid-cols-2 sm:grid-cols-2 md:grid-cols-3 stats stats-vertical lg:stats-horizontal shadow">
 
-        <div class="stat">
+        <div class="stat text-center">
             <div class="stat-title">Correct Answers</div>
             <div class="stat-value text-green-400">{{ correctAnswersCount }}</div>
         </div>
 
-        <div class="stat">
+        <div class="stat text-center">
             <div class="stat-title">Incorrect Answers</div>
             <div class="stat-value text-red-400">{{ incorrectAnswersCount }}</div>
         </div>
-        <div class="stat">
+
+        <div class="stat text-center">
             <div class="stat-title">Not Answered</div>
             <div class="stat-value">{{ notAnsweredCount }}</div>
         </div>
 
-        <div class="stat" v-if="run.type === 'exam'">
+        <div class="stat text-center">
+            <div class="stat-title">Accuracy Rate</div>
+            <div class="stat-value">{{ accuracyRate }}%</div>
+        </div>
+
+        <div class="stat text-center" v-if="run.type === 'exam'">
             <div class="stat-title">Result</div>
             <div class="stat-value" :class="examPassed ? 'text-green-600' : 'text-red-600'">
                 {{ examPassed ? 'Passed' : 'Failed' }}
