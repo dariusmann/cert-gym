@@ -65,7 +65,7 @@ export default {
     <AuthenticatedLayout>
         <div class="h-5"></div>
         <div class="flex justify-center">
-            <div class="w-1/2">
+            <div class="sm:w-full md:w-1/2">
                 <QuestionTest v-if="xCurrentQuestion"
                               :init-question="xCurrentQuestion"
                               :key="xCurrentQuestion?.id || 'default'"
@@ -76,9 +76,7 @@ export default {
             </div>
         </div>
     </AuthenticatedLayout>
-
 </template>
-
 <style scoped>
 
 </style>

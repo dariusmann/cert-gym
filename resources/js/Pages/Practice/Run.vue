@@ -89,8 +89,8 @@ export default {
 <template>
     <AuthenticatedLayout>
         <div class="h-5"></div>
-        <div class="grid gap-4 grid-cols-4">
-            <div class="col-span-3">
+        <div class="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+            <div class="col-span-1 sm:col-span-2 lg:col-span-3">
                 <QuestionTest v-if="xCurrentQuestion"
                               :init-question="xCurrentQuestion"
                               :key="xCurrentQuestion?.id || 'default'"
@@ -102,7 +102,7 @@ export default {
             </div>
             <Card class="h-full">
                 <template #content>
-                    <div class="grid gap-2 grid-cols-7">
+                    <div class="grid gap-1 grid-cols-7">
                         <div class="cursor-pointer"
                              :class="badgedClasses(questionRunQuestion)"
                              v-for="(questionRunQuestion, index) in questionRun.questions"
@@ -129,7 +129,6 @@ export default {
             </Card>
         </div>
     </AuthenticatedLayout>
-
 </template>
 
 <style scoped>

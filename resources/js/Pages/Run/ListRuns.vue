@@ -67,7 +67,7 @@ export default {
                         or <b>Exam Run</b> and there will al be listed here.</span>
                 </div>
             </div>
-            <div v-else class="grid grid-cols-4 gap-4">
+            <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
                 <Card v-for="run in runs">
                     <template #content>
                         <div class="flex justify-between">
