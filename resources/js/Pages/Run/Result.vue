@@ -58,8 +58,8 @@ export default {
         <ResultOverview :run="run"/>
 
         <div class="container mt-5">
-            <div class="grid grid-cols-4 gap-4">
-                <div class="col-span-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="col-span-1 sm:col-span-2 lg:col-span-3">
                     <QuestionResult
                         :key="run.run_questions[currentIndex].question.id"
                         :init-question="run.run_questions[currentIndex].question"
@@ -67,7 +67,7 @@ export default {
                         :question-number="currentIndex + 1"
                     />
                 </div>
-                <div>
+                <div class="col-span-1">
                     <Card class="h-full">
                         <template #content>
                             <div class="grid grid-cols-7 gap-1">

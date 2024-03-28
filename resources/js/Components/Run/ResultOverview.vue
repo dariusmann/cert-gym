@@ -24,7 +24,7 @@ export default {
 </script>
 
 <template>
-    <div class="stats stats-vertical lg:stats-horizontal shadow">
+    <div class="grid-cols-2 sm:grid-cols-2 md:grid-cols-3 stats stats-vertical lg:stats-horizontal shadow">
 
         <div class="stat">
             <div class="stat-title">Correct Answers</div>
@@ -52,6 +52,7 @@ export default {
 
     </div>
 </template>
+
 
 <style scoped>
 

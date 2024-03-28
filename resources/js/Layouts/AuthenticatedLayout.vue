@@ -160,7 +160,7 @@ const showingNavigationDropdown = ref(false);
             </header>
 
             <!-- Page Content -->
-            <main class="container mx-auto">
+            <main class="container px-4">
                 <slot />
             </main>
         </div>
