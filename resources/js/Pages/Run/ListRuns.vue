@@ -67,15 +67,28 @@ export default {
                         or <b>Exam Run</b> and there will al be listed here.</span>
                 </div>
             </div>
-            <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
-                <Card v-for="run in runs">
-                    <template #content>
-                        <div class="flex justify-between">
+            <div v-else class="grid grid-cols-1 gap-4">
+                <div v-for="run in runs" class="card w-full bg-base-100 shadow-xl">
+                    <div class="grid grid-cols-5 px-2 lg:px-10">
+                        <div class="flex items-center">
                             <div class="text-lg text-bold">
                                 {{ resolveName(run) }}
                             </div>
-                            <hr>
-                            <div>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <div class="stat place-items-center">
+                                <div class="stat-title">Total</div>
+                                <div class="stat-value">{{ run.stats.count }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <div class="stat place-items-center">
+                                <div class="stat-title">Answered</div>
+                                <div class="stat-value text-secondary">{{ run.stats.answered }}</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-center">
+                            <div class="ml-2">
                                 <div class="badge badge-accent" v-if="notStarted(run)">
                                     Not started
                                 </div>
@@ -86,19 +99,8 @@ export default {
                                     Completed
                                 </div>
                             </div>
-
                         </div>
-                        <div class="flex">
-                            <div class="stat place-items-center">
-                                <div class="stat-title">Total</div>
-                                <div class="stat-value">{{ run.stats.count }}</div>
-                            </div>
-                            <div class="stat place-items-center">
-                                <div class="stat-title">Answered</div>
-                                <div class="stat-value text-secondary">{{ run.stats.answered }}</div>
-                            </div>
-                        </div>
-                        <div class="flex justify-end">
+                        <div class="flex justify-end items-center">
                             <button class="btn btn-primary btn-sm"
                                     v-if="isInProgress(run) || notStarted(run)"
                                     @click="continueRun(run)"
@@ -112,8 +114,8 @@ export default {
                                 Analyze
                             </button>
                         </div>
-                    </template>
-                </Card>
+                    </div>
+                </div>
             </div>
         </div>
 
