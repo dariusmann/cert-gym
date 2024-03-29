@@ -2,17 +2,30 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import TabView from 'primevue/tabview';
 import TabPanel from 'primevue/tabpanel';
+import Button from "primevue/button";
 
 export default {
     name: "ReadinessScore",
-    components: {AuthenticatedLayout, TabView, TabPanel}
+    components: {AuthenticatedLayout, TabView, TabPanel, Button},
+    data() {
+        return {
+            active: 0
+        };
+    }
 }
 </script>
 
 <template>
     <AuthenticatedLayout>
         <div class="h-5"></div>
-        <TabView class="shadow-2xl border-round">
+
+        <div class="flex mb-2 gap-2 justify-content-end">
+            <Button @click="active = 0" rounded label="1" class="badge badge-primary" :outlined="active !== 0" />
+            <Button @click="active = 1" rounded label="2" class="badge badge-primary" :outlined="active !== 1" />
+            <Button @click="active = 2" rounded label="3" class="badge badge-primary" :outlined="active !== 2" />
+        </div>
+
+        <TabView :scrollable="true" v-model:activeIndex="active" class="shadow-2xl border-round">
             <TabPanel header="What are Runs?">
                 <div class="prose">
 
