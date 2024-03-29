@@ -12,7 +12,9 @@ export default {
                 chart: {
                     zoom: {
                         enabled: false
-                    }
+                    },
+                    width: '100%',
+                    height: '400',
                 },
                 xaxis: {
                     categories: []
@@ -60,14 +62,13 @@ export default {
                 </div>
             </div>
             <div class="flex justify-center">
-                <apexchart v-if="dataLoaded"
-                           width="800"
-                           height="400"
-                           type="line"
-                           :options="options"
-                           :series="series"></apexchart>
+                <div class="w-full lg:w-1/2">
+                    <apexchart v-if="dataLoaded"
+                               type="line"
+                               :options="options"
+                               :series="series"></apexchart>
+                </div>
             </div>
-
         </template>
     </Card>
 

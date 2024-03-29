@@ -24,7 +24,8 @@ export default {
             options: {
                 chart: {
                     type: 'bar',
-                    height: 350,
+                    width: '100%',
+                    height: '400',
                     stacked: true,
                     toolbar: {
                         show: false
@@ -91,7 +92,9 @@ export default {
                 </div>
             </div>
             <div v-if="dataLoaded" class="flex justify-center">
-                <apexchart type="bar" width="800" height="400" :options="options" :series="series"></apexchart>
+                <div class="w-full lg:w-1/2">
+                    <apexchart type="bar" :options="options" :series="series"></apexchart>
+                </div>
             </div>
         </template>
     </Card>
