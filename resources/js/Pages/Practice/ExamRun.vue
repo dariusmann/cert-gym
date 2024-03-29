@@ -117,8 +117,8 @@ export default {
             <ExamCountdown v-if="examEndTime" :end-time-moment="examEndTime" :countdown-finished="finishExam"/>
         </div>
         <div class="container">
-            <div class="grid grid-cols-4 gap-4">
-                <div class="col-span-3">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4">
+                <div class="col-span-1 md:col-span-2 lg:col-span-3">
                     <QuestionExam :init-question="examRun.run_questions[currentIndex].question"
                                   :key="examRun.run_questions[currentIndex].question.id"
                                   :init-selected-answer="currentSelectedAnswer"
