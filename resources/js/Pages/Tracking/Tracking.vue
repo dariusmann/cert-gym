@@ -16,7 +16,7 @@ export default {
     <AuthenticatedLayout>
         <div class="h-5"></div>
 
-        <div class="grid grid-cols-3 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 md:gap-4 gap-y-4">
             <div class="col-span-2">
                 <Overview/>
             </div>

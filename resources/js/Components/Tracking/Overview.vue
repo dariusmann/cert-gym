@@ -26,19 +26,19 @@ export default {
             </div>
 
             <div class="flex justify-center">
-                <div class="stats">
+                <div class="stats stats-vertical lg:stats-horizontal">
                     <div class="stat">
-                        <div class="stat-title">Total Answered Questions</div>
+                        <div class="stat-title text-center">Total Answered Questions</div>
                         <div class="stat-value text-center">{{ overviewData.total }}</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-title">Total Right Answered Questions</div>
+                        <div class="stat-title text-center">Total Right Answered Questions</div>
                         <div class="stat-value text-center text-green-600">{{ overviewData.correct_answered }}</div>
                     </div>
                     <div class="stat">
-                        <div class="stat-title">Accuracy Rate</div>
+                        <div class="stat-title text-center">Accuracy Rate</div>
                         <div class="stat-value text-center text-primary">{{ overviewData.accuracy_rate }}%</div>
-                        <div class="stat-desc">(of last 100 questions)</div>
+                        <div class="stat-desc text-center">(of last 100 questions)</div>
                     </div>
                 </div>
             </div>
