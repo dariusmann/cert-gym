@@ -24,17 +24,15 @@ class RunByQuestionsBuilder
             'status' => 'not_started'
         ]);
 
-        $order = 1;
-
-        foreach ($questions as $question) {
-            QuestionRunQuestion::create([
+        $questionRunQuestions = $questions->map(function ($question, $index) use ($questionRun) {
+            return [
                 'question_run_id' => $questionRun->getId(),
                 'question_id' => $question->getId(),
-                'order' => $order
-            ]);
+                'order' => $index + 1
+            ];
+        })->toArray();
 
-            $order++;
-        }
+        QuestionRunQuestion::insert($questionRunQuestions);
 
         return $questionRun;
     }

@@ -12,7 +12,8 @@ export default {
         return {
             examQuestionRun: null,
             modalStartExamShow: false,
-            modalContinueExamShow: false
+            modalContinueExamShow: false,
+            loading: false,
         }
     },
     methods: {
@@ -23,9 +24,11 @@ export default {
             this.modalContinueExamShow = true;
         },
         continueExam() {
+            this.loading = true;
             window.location = '/page/run/' + this.runningExamRun.id + '/exam/practice'
         },
         async startNewExam() {
+            this.loading = true;
             const examQuestionRun = await QuestionRunService.createExamRun();
             window.location = '/page/run/' + examQuestionRun.id + '/exam/practice';
         }
@@ -55,9 +58,10 @@ export default {
         <p>You still have an exam running. Continue it now!</p>
         <template #footer>
             <div class="p-d-flex">
-                <Button label="Continue Exam"
-                        @click="continueExam"
-                        class="btn btn-primary ml-2"/>
+                <Button class="btn btn-primary ml-2" @click="continueExam">
+                    <span v-show="loading" class="loading loading-spinner loading-xs"></span>
+                    Continue Exam
+                </Button>
             </div>
         </template>
     </Dialog>
@@ -69,7 +73,10 @@ export default {
         <p>This is a <b>85-question exam</b>, and you <br>have <b>1h 30m</b> to complete it. Are you Ready?</p>
         <template #footer>
             <div class="p-d-flex">
-                <Button label="Yes, I'm ready!" @click="startNewExam" class="btn btn-secondary"/>
+                <Button class="btn btn-secondary" @click="startNewExam">
+                    <span v-show="loading" class="loading loading-spinner loading-xs"></span>
+                    Yes, I'm ready!
+                </Button>
             </div>
         </template>
     </Dialog>
