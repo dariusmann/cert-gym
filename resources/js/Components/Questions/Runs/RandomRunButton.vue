@@ -5,10 +5,15 @@ import Card from 'primevue/card';
 export default {
     name: "RandomRunButton",
     components: {Card},
+    data: function () {
+        return {
+            loading: false,
+        }
+    },
     methods: {
         async submit() {
+            this.loading = true;
             const randomRun = await QuestionRunService.readRandomRun();
-
             window.location = '/page/run/' + randomRun.id + '/random/practice'
         }
     }
@@ -28,6 +33,7 @@ export default {
                 </div>
 
                 <button @click="submit" class="mt-4 btn btn-primary">
+                    <span v-show="loading" class="loading loading-spinner loading-xs"></span>
                     Quick start
                 </button>
             </div>
@@ -36,5 +42,4 @@ export default {
 </template>
 
 <style scoped>
-
 </style>

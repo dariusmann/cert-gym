@@ -26,7 +26,8 @@ export default {
             letters: ['A', 'B', 'C', 'D', 'E', 'F'],
             selectedAnswer: this.initSelectedAnswer,
             correctAnswer: null,
-            committedToAnswer: this.initCommittedToAnswer
+            committedToAnswer: this.initCommittedToAnswer,
+            showLesson: false,
         }
     },
     mounted: function () {
@@ -97,8 +98,13 @@ export default {
                     <div class="h-5"></div>
                     <hr>
                     <div class="h-5"></div>
-                    <div class="text-lg text-bold">Lesson</div>
-                    <div>
+                    <div class="flex items-center">
+                        <div class="text-lg text-bold">Lesson</div>
+                        <button class="btn btn-active btn-link ml-2" @click="showLesson = !showLesson">
+                            {{ showLesson ? 'Hide' : 'Show more' }}
+                        </button>
+                    </div>
+                    <div v-if="showLesson">
                         {{ question.lesson?.text }}
                     </div>
                 </div>

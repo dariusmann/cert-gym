@@ -6,7 +6,7 @@ import { Link } from '@inertiajs/vue3';
 <template>
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
-            <a href="https://cert-gym.com/" target="_blank">
+            <a :href="route('dashboard')" target="_blank">
                 <ApplicationLogo class="h-20 fill-current text-gray-500" />
             </a>
         </div>
