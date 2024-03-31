@@ -100,8 +100,8 @@ export default {
                     <div class="h-5"></div>
                     <div class="flex items-center">
                         <div class="text-lg text-bold">Lesson</div>
-                        <button class="btn btn-primary btn-sm ml-2" @click="showLesson = !showLesson">
-                            {{ showLesson ? 'Close Lesson' : 'Show Lesson' }}
+                        <button class="btn btn-active btn-link ml-2" @click="showLesson = !showLesson">
+                            {{ showLesson ? 'Hide' : 'Show more' }}
                         </button>
                     </div>
                     <div v-if="showLesson">
