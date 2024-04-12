@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Str;
 
 class CreateUserWithSubscriptionCommand extends Command
 {
@@ -39,9 +40,12 @@ class CreateUserWithSubscriptionCommand extends Command
             'password' => bcrypt($password), // It's important to hash the password
         ]);
 
+        $randomStr = Str::random(15); // Generate a random string of 15 characters
+        $stripeId = 'sub_certgym_team_' . $randomStr; // Append it to 'sub_certgym_team'
+
         $subscription = $user->subscriptions()->create([
             'name' => 'default',
-            'stripe_id' => 'sub_certgym_team',
+            'stripe_id' => $stripeId,
             'stripe_status' => 'active',
             'trial_ends_at' => null,
             'ends_at' => null,
@@ -50,7 +54,7 @@ class CreateUserWithSubscriptionCommand extends Command
         $subscription->items()->create([
             'stripe_product' => 'prod_certgym_team',
             'stripe_price' => 'price_certgym_team',
-            'stripe_id' => 'si_certgym_team',
+            'stripe_id' => $stripeId,
             'quantity' => 1,
         ]);
 
