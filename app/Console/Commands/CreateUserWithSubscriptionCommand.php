@@ -12,24 +12,31 @@ class CreateUserWithSubscriptionCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:create-user-with-subscription-command';
+    protected $signature = 'app:create-user-with-subscription
+                            {name : The name of the user}
+                            {email : The email address of the user}
+                            {password : The password for the user}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Creates a new user with a subscription';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
+        $name = $this->argument('name');
+        $email = $this->argument('email');
+        $password = $this->argument('password');
+
         $user = User::create([
-            'name' => 'Sasha Lopez',
-            'email' => 'sasha@lopez.com',
-            'password' => 'F4Hcag8564i5Y9Tn'
+            'name' => $name,
+            'email' => $email,
+            'password' => bcrypt($password), // It's important to hash the password
         ]);
 
         $subscription = $user->subscriptions()->create([
@@ -46,5 +53,7 @@ class CreateUserWithSubscriptionCommand extends Command
             'stripe_id' => 'si_certgym_team',
             'quantity' => 1,
         ]);
+
+        $this->info("User with subscription created successfully.");
     }
 }
